@@ -1,1 +1,121 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;600;700&family=ZCOOL+KuaiLe&display=swap");
+@import "../src/assets/scss/variables.scss";
+
+//global
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 16px;
+  font-family: $main-font;
+}
+
+.main {
+  background-color: $main-body;
+}
+
+.body-container {
+  width: 70%;
+  height: 100dvh;
+  margin: 0 auto;
+}
+
+.btn {
+  border-radius: 55px;
+  padding: 0.3rem 0.7rem;
+  border-style: none;
+  color: $primary-text;
+  font-weight: 700;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
+    rgba(17, 17, 26, 0.05) 0px 8px 32px;
+}
+
+.big-btn {
+  font-size: 1.3rem;
+}
+
+.primary-btn {
+  background-color: $almond;
+}
+
+.secondary-btn {
+  background-color: $robin-egg-blue;
+}
+
+.alert-btn {
+  background-color: $persian-red;
+}
+
+//animations
+
+.underline {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px solid transparent;
+  ::after {
+    content: "";
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: scaleX(0);
+    border-bottom: 2px solid $naples-yellow;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease;
+  }
+
+  :hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+}
+
+.grow {
+  transition: all 0.2s ease-in-out;
+}
+
+.grow:hover {
+  transform: scale(1.1);
+}
+
+.rotate {
+  animation-name: rotate;
+  animation-duration: 15s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(70deg);
+  }
+
+  10% {
+    transform: rotate(0deg);
+  }
+}
+
+.breathe {
+  animation-name: breathe;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes breathe {
+  0% {
+    transform: scale(1);
+    rotate: 0deg;
+  }
+  50% {
+    transform: scale(1.2);
+    rotate: 11deg;
+  }
+  100% {
+    transform: scale(1);
+    rotate: 0deg;
+  }
+}

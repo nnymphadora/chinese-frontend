@@ -1,0 +1,30 @@
+@import "../../../../assets/scss/variables.scss";
+
+footer {
+  display: flex;
+  padding: 1.5rem;
+  flex-direction: row;
+  gap: 3rem;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: $almond;
+  color: $primary-text;
+  font-weight: bold;
+}
+
+#socials {
+  display: flex;
+  gap: 0.3rem;
+  svg {
+    max-width: 1.5rem;
+    fill: $robin-egg-blue;
+  }
+
+  svg:hover {
+    fill: $mimi-pink;
+  }
+}
+
+.red-txt {
+  color: $persian-red;
+}
