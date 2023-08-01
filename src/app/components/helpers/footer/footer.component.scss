@@ -2,29 +2,54 @@
 
 footer {
   display: flex;
-  padding: 1.5rem;
+  padding: 1rem;
   flex-direction: row;
-  gap: 3rem;
-  justify-content: space-between;
-  align-items: flex-start;
+  justify-content: space-around;
+  align-items: center;
   background-color: $almond;
   color: $primary-text;
-  font-weight: bold;
+}
+
+#left,
+#right,
+#middle {
+  width: 20%;
+  margin-bottom: 1rem;
 }
 
 #socials {
   display: flex;
+  margin: 0.3rem;
   gap: 0.3rem;
-  svg {
-    max-width: 1.5rem;
-    fill: $robin-egg-blue;
-  }
-
-  svg:hover {
-    fill: $mimi-pink;
+  a {
+    color: $primary-text;
   }
 }
 
-.red-txt {
-  color: $persian-red;
+.nav-link-foot {
+  color: $primary-text;
+  z-index: 5;
+  :hover {
+    color: $robin-egg-blue;
+  }
+}
+
+.send-btn {
+  border: none;
+  background-color: $almond;
+  color: $robin-egg-blue;
+  :hover {
+    color: $persian-red;
+  }
+}
+
+.newsletter {
+  border: none;
+  padding: 0.3rem;
+  margin: 0.3rem;
+  margin-left: 0;
+  font-size: 0.8rem;
+  border-radius: 5px 5px 0 0;
+  border-bottom: 3px solid $mimi-pink;
+  outline: none;
 }

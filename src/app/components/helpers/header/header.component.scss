@@ -20,16 +20,6 @@ header {
 #middle {
   width: 40%;
   margin-bottom: 0.5rem;
-  ul {
-    list-style-type: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    flex-wrap: wrap;
-    li {
-      display: inline-block;
-    }
-  }
 }
 
 #right {
@@ -40,8 +30,9 @@ header {
   margin-bottom: 0.5rem;
 }
 
-.nav-link {
+.nav-link-head {
   color: $white-text;
+  z-index: 5;
   :hover {
     color: $naples-yellow;
   }

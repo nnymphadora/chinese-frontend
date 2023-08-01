@@ -16,10 +16,10 @@
 
 .body-container {
   width: 70%;
-  height: 100dvh;
   margin: 0 auto;
 }
 
+//buttons
 .btn {
   border-radius: 55px;
   padding: 0.3rem 0.7rem;
@@ -28,6 +28,8 @@
   font-weight: 700;
   box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
     rgba(17, 17, 26, 0.05) 0px 8px 32px;
+
+  z-index: 5;
 }
 
 .big-btn {
@@ -44,6 +46,28 @@
 
 .alert-btn {
   background-color: $persian-red;
+}
+
+//navigation
+
+.nav-horizontal {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  li {
+    display: inline-block;
+  }
+}
+
+//random
+.red-txt {
+  color: $persian-red;
+}
+
+.to-red:hover {
+  color: $persian-red;
 }
 
 //animations
