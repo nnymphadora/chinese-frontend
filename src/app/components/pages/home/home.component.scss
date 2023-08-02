@@ -4,12 +4,11 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 2rem 0 7rem 0;
 }
 
 #left {
   color: $primary-text;
-  padding-top: 2rem;
+  padding: 2rem 0;
   width: 40%;
   display: flex;
   flex-direction: column;

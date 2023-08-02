@@ -1,0 +1,20 @@
+<div class="main">
+  <div class="body-container">
+    <div class="level-info">
+      <h1>{{ level.name }}</h1>
+      <div class="descriptor-container">
+        <p class="level-descriptor">{{ level.difficulty }}</p>
+        <p class="level-descriptor">{{ level.cefrEquiv }}</p>
+      </div>
+    </div>
+
+    <div class="card-container" *ngFor="let ls of lessons">
+      <a routerLink="">
+        <div class="card float background-switch">
+          <h2>{{ ls.name }}</h2>
+          <p>{{ ls.description }}</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
