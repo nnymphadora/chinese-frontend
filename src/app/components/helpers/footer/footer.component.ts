@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faIcons, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
 import {
   faSquareFacebook,

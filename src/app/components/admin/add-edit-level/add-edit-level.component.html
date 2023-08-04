@@ -1,0 +1,33 @@
+<div class="body-container">
+  <h2>Dodaj novi modul</h2>
+  <div class="add-form">
+    <label for="name">Naziv<input type="text" id="name" required /></label>
+    <label for="difficulty"
+      >Težina<select id="difficulty" required>
+        <option *ngFor="let df of difficulties" [value]="df.id">
+          {{ df.name }}
+        </option>
+      </select></label
+    >
+    <label for="cefr"
+      >CEFR ekvivalent<select id="cefr" required>
+        <option *ngFor="let ce of cefrEquivs" [value]="ce.id">
+          {{ ce.name }}
+        </option>
+      </select></label
+    >
+    <label for="description"
+      >Opis
+      <textarea id="description" cols="50" rows="5" required></textarea>
+    </label>
+    <div class="switch-container">
+      <label> Objavi odmah</label>
+      <label class="switch">
+        <input id="active" type="checkbox" checked />
+        <span class="slider round"></span>
+      </label>
+    </div>
+
+    <button class="btn secondary-btn">Sačuvaj</button>
+  </div>
+</div>

@@ -13,4 +13,8 @@ export class LessonsService {
       `http://localhost:3000/lessons/by-level/${id}`
     );
   }
+
+  getLessonById(id: number) {
+    return this.http.get<Lesson>(`http://localhost:3000/lessons/${id}`);
+  }
 }

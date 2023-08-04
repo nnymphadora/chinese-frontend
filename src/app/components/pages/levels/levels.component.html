@@ -1,16 +1,19 @@
-<div class="main">
-  <div class="body-container">
-    <div class="card-container" *ngFor="let l of levels">
-      <a routerLink="/level/{{ l.id }}">
-        <div class="card float background-switch">
-          <h2>{{ l.name }}</h2>
-          <p>{{ l.description }}</p>
-          <div class="descriptor-container">
-            <p class="level-descriptor">{{ l.difficulty }}</p>
-            <p class="level-descriptor">{{ l.cefrEquiv }}</p>
-          </div>
+<div class="body-container">
+  <div class="card-container" *ngFor="let l of levels">
+    <a routerLink="/level/{{ l?.id }}" class="card-link">
+      <div class="card blue float">
+        <h2>{{ l.name }}</h2>
+        <p>{{ l.description }}</p>
+        <div class="descriptor-container">
+          <p class="level-descriptor">{{ l.difficulty }}</p>
+          <p class="level-descriptor">{{ l.cefrEquiv }}</p>
         </div>
-      </a>
-    </div>
+      </div>
+    </a>
+  </div>
+  <div class="add-container">
+    <a routerLink="/admin/add-level" class="grow add-icon"
+      ><fa-icon [icon]="roundPlus" size="2xl"></fa-icon
+    ></a>
   </div>
 </div>

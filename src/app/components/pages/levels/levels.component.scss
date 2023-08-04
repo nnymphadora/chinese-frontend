@@ -1,29 +1,26 @@
 @import "../../../../assets/scss/variables.scss";
 
-.card-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 2rem;
-  a {
-    max-width: 23%;
-    min-width: 230px;
-  }
-}
-
 .card {
   p {
     font-size: 0.8rem;
   }
+  &:hover {
+    .level-descriptor {
+      background-color: $persian-red;
+      border-color: $persian-red;
+      color: white;
+    }
+  }
 }
 
-.background-switch:hover {
-  background-color: $robin-egg-blue;
-  color: white;
-  .level-descriptor {
-    background-color: $persian-red;
-    border-color: $persian-red;
-  }
+.add-icon {
+  color: $persian-red;
+  margin: 3rem;
+}
+
+.body-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }

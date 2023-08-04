@@ -13,6 +13,7 @@
 a {
   text-decoration: none;
   color: $primary-text;
+  display: inline-block;
 }
 
 .main {
@@ -34,14 +35,14 @@ a {
   border-style: none;
   color: $primary-text;
   font-weight: 700;
-  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
-    rgba(17, 17, 26, 0.05) 0px 8px 32px;
-
   z-index: 5;
+  max-width: fit-content;
 }
 
 .big-btn {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
+  padding: 0.3em 0.8em;
+  font-weight: 600;
 }
 
 .primary-btn {
@@ -62,13 +63,20 @@ a {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  background-color: white;
-  box-shadow: 1px 1px 40px rgb(204, 202, 202);
   border-radius: 20px;
   justify-content: center;
   align-items: center;
   padding: 2rem 1rem;
   text-align: justify;
+}
+
+.blue {
+  background-color: $robin-egg-blue;
+  color: $white-text;
+  &:hover {
+    background-color: $white-text;
+    color: black;
+  }
 }
 
 .card-container {
@@ -78,11 +86,13 @@ a {
   justify-content: center;
   align-items: flex-start;
   gap: 2rem;
-  a {
+
+  .card-link {
     max-width: 23%;
     min-width: 230px;
   }
 }
+
 //navigation
 
 .nav-horizontal {
@@ -95,14 +105,21 @@ a {
     display: inline-block;
   }
 }
+.nav-link {
+  z-index: 5;
+}
 
 //random stilizovanje teksta i sl
 .red-txt {
   color: $persian-red;
 }
 
+.bold {
+  font-weight: 600;
+}
+
 .level-descriptor {
-  border: 1px solid $primary-text;
+  border: 1px solid $white-text;
   padding: 0.1rem 1rem;
   border-radius: 55px;
   display: inline-block;

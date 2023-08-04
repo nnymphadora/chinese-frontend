@@ -7,9 +7,10 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { LevelsComponent } from './levels/levels.component';
 import { ViewLessonsForLevelComponent } from './view-lessons-for-level/view-lessons-for-level.component';
+import { ViewWordsForLessonComponent } from './view-words-for-lesson/view-words-for-lesson.component';
 
 @NgModule({
-  declarations: [HomeComponent, AboutComponent, LevelsComponent, ViewLessonsForLevelComponent],
+  declarations: [HomeComponent, AboutComponent, LevelsComponent, ViewLessonsForLevelComponent, ViewWordsForLessonComponent],
   imports: [CommonModule, PagesRoutingModule, FontAwesomeModule],
   exports: [],
 })

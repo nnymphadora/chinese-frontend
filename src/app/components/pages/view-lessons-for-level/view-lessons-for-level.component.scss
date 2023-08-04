@@ -17,3 +17,17 @@ h1 {
   color: $robin-egg-blue;
   font-size: 2.5rem;
 }
+
+.card {
+  .arrow-right {
+    align-self: flex-end;
+    color: $white-text;
+    margin-top: 2rem;
+  }
+
+  &:hover {
+    .arrow-right {
+      color: $robin-egg-blue;
+    }
+  }
+}

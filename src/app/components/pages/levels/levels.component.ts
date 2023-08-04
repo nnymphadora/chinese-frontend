@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Level } from 'src/app/models/Level';
 import { LevelsService } from 'src/app/services/levels.service';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-levels',
@@ -9,6 +10,8 @@ import { LevelsService } from 'src/app/services/levels.service';
 })
 export class LevelsComponent implements OnInit {
   levels: Level[] = [];
+
+  roundPlus = faPlusCircle;
 
   constructor(private levelsService: LevelsService) {}
 
