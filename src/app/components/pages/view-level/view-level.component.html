@@ -1,0 +1,38 @@
+<div class="body-container">
+  <app-quick-edit-info-menu
+    [title]="level?.name"
+    [editLink]="'/admin/edit-level/' + level?.id"
+    [editIcon]="editIcon"
+    [deleteIcon]="deleteIcon"
+    [isActiveItem]="isActiveLevel"
+    [difficulty]="level?.difficulty"
+    [cefrEquiv]="level?.cefrEquiv"
+    [itemType]="level"
+    [itemName]="'modul'"
+    (softDelete)="softDeleteLevel()"
+    (toggleActive)="handleToggle($event)"
+  ></app-quick-edit-info-menu>
+
+  <div class="card-container">
+    <a
+      routerLink="/lesson/{{ ls.id }}"
+      class="card-link"
+      *ngFor="let ls of lessons"
+    >
+      <div class="card blue float">
+        <h2>{{ ls.name }}</h2>
+        <p>{{ ls.description }}</p>
+        <fa-icon
+          class="arrow-right grow"
+          size="lg"
+          [icon]="rightArrow"
+        ></fa-icon>
+      </div>
+    </a>
+  </div>
+  <div class="add-container">
+    <a routerLink="/admin/add-lesson" class="grow add-icon"
+      ><fa-icon [icon]="roundPlus" size="2xl"></fa-icon
+    ></a>
+  </div>
+</div>

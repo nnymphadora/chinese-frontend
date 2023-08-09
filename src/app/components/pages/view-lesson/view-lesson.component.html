@@ -1,0 +1,22 @@
+<div class="body-container">
+  <div class="crumbs">
+    <h2>
+      <a routerLink="/level/{{ level?.id }}">{{ level?.name }} </a>
+      <span> ></span> {{ lesson?.lessonOrderInLevel }}. lekcija
+    </h2>
+  </div>
+  <app-quick-edit-info-menu
+    [title]="lesson?.name"
+    [editLink]="'/admin/edit-lesson/' + lesson?.id"
+    [editIcon]="editIcon"
+    [deleteIcon]="deleteIcon"
+    [isActiveItem]="isActiveLesson"
+    [difficulty]="level?.difficulty"
+    [cefrEquiv]="level?.cefrEquiv"
+    [itemType]="lesson"
+    [itemName]="'lekcija'"
+    (softDelete)="softDeleteLesson()"
+    (toggleActive)="handleToggle($event)"
+  ></app-quick-edit-info-menu>
+  <div class="card-container"></div>
+</div>

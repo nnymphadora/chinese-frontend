@@ -1,0 +1,22 @@
+@import "../../../../assets/scss/variables.scss";
+
+.body-container {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2rem;
+}
+
+.card {
+  .arrow-right {
+    align-self: flex-end;
+    color: $white-text;
+    margin-top: 2rem;
+  }
+
+  &:hover {
+    .arrow-right {
+      color: $robin-egg-blue;
+    }
+  }
+}

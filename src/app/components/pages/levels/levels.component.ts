@@ -13,12 +13,11 @@ export class LevelsComponent implements OnInit {
 
   roundPlus = faPlusCircle;
 
-  constructor(private levelsService: LevelsService) {}
-
   ngOnInit(): void {
     this.levelsService.getAllLevels().subscribe((data) => {
       this.levels = data;
-      console.log(this.levels);
     });
   }
+
+  constructor(private levelsService: LevelsService) {}
 }

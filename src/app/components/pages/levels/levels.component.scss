@@ -5,17 +5,12 @@
     font-size: 0.8rem;
   }
   &:hover {
-    .level-descriptor {
+    .descriptor {
       background-color: $persian-red;
       border-color: $persian-red;
       color: white;
     }
   }
-}
-
-.add-icon {
-  color: $persian-red;
-  margin: 3rem;
 }
 
 .body-container {

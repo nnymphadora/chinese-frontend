@@ -5,4 +5,5 @@ export class Level {
   description: string;
   cefrEquiv: string;
   isActive: number;
+  isRemoved: number;
 }

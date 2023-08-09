@@ -79,6 +79,10 @@ a {
   }
 }
 
+.inactive-card.blue {
+  background-color: $robin-egg-blue-rgba;
+}
+
 .card-container {
   display: flex;
   flex-direction: row;
@@ -86,11 +90,21 @@ a {
   justify-content: center;
   align-items: flex-start;
   gap: 2rem;
+}
 
-  .card-link {
-    max-width: 23%;
-    min-width: 230px;
-  }
+.add-icon {
+  color: $persian-red;
+  margin: 3rem;
+}
+
+.add-container {
+  margin: 0 auto;
+}
+
+.card,
+.card-link {
+  width: 15rem;
+  height: 13rem;
 }
 
 //navigation
@@ -118,7 +132,7 @@ a {
   font-weight: 600;
 }
 
-.level-descriptor {
+.descriptor {
   border: 1px solid $white-text;
   padding: 0.1rem 1rem;
   border-radius: 55px;

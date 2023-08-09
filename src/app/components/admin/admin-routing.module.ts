@@ -4,6 +4,7 @@ import { AddEditLevelComponent } from './add-edit-level/add-edit-level.component
 
 const routes: Routes = [
   { path: 'add-level', component: AddEditLevelComponent },
+  { path: 'edit-level/:id', component: AddEditLevelComponent },
 ];
 
 @NgModule({

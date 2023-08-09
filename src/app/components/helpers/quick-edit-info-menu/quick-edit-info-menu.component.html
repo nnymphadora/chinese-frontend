@@ -1,0 +1,50 @@
+<div class="quick-info">
+  <div class="left">
+    <h1>{{ title }}</h1>
+
+    <fa-icon
+      [routerLink]="editLink"
+      size="lg"
+      class="icon grow"
+      [icon]="editIcon"
+    ></fa-icon>
+    <fa-icon
+      (click)="softDeleteItem()"
+      size="lg"
+      class="icon grow"
+      [icon]="deleteIcon"
+    ></fa-icon>
+    <div class="switch-container">
+      <label></label>
+      <label class="switch">
+        <input
+          id="active"
+          type="checkbox"
+          [checked]="isActiveItem"
+          [(ngModel)]="isActiveItem"
+          (ngModelChange)="toggleActiveItem()"
+        />
+        <span class="slider round"></span>
+      </label>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="descriptor-container">
+      <p
+        *ngIf="itemType === 'level' && itemType.isActive === 0"
+        class="level-descriptor"
+      >
+        Neaktivan
+      </p>
+      <p
+        *ngIf="itemType === 'lesson' && itemType.isActive === 0"
+        class="level-descriptor"
+      >
+        Neaktivna
+      </p>
+      <p class="descriptor">{{ difficulty }}</p>
+      <p class="descriptor">{{ cefrEquiv }}</p>
+    </div>
+  </div>
+</div>

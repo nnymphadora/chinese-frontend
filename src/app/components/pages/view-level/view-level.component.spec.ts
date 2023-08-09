@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewLessonsForLevelComponent } from './view-lessons-for-level.component';
+import { ViewLevelComponent } from './view-level.component';
 
 describe('ViewLessonsForLevelComponent', () => {
-  let component: ViewLessonsForLevelComponent;
-  let fixture: ComponentFixture<ViewLessonsForLevelComponent>;
+  let component: ViewLevelComponent;
+  let fixture: ComponentFixture<ViewLevelComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ViewLessonsForLevelComponent]
+      declarations: [ViewLevelComponent],
     });
-    fixture = TestBed.createComponent(ViewLessonsForLevelComponent);
+    fixture = TestBed.createComponent(ViewLevelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

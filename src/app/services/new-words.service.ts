@@ -5,7 +5,7 @@ import { NewWord } from '../models/NewWord';
 @Injectable({
   providedIn: 'root',
 })
-export class NewWordService {
+export class NewWordsService {
   constructor(private http: HttpClient) {}
 
   getNewWordsByLesson(id: number) {

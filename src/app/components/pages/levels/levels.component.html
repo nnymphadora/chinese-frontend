@@ -1,12 +1,20 @@
 <div class="body-container">
-  <div class="card-container" *ngFor="let l of levels">
-    <a routerLink="/level/{{ l?.id }}" class="card-link">
-      <div class="card blue float">
+  <div class="card-container">
+    <a
+      routerLink="/level/{{ l?.id }}"
+      class="card-link"
+      *ngFor="let l of levels"
+    >
+      <div
+        class="card blue float"
+        [ngClass]="{ 'inactive-card': l.isActive === 0 }"
+      >
         <h2>{{ l.name }}</h2>
         <p>{{ l.description }}</p>
         <div class="descriptor-container">
-          <p class="level-descriptor">{{ l.difficulty }}</p>
-          <p class="level-descriptor">{{ l.cefrEquiv }}</p>
+          <p class="descriptor">{{ l.difficulty }}</p>
+          <p class="descriptor">{{ l.cefrEquiv }}</p>
+          <p *ngIf="l.isActive === 0" class="level-descriptor">Neaktivan</p>
         </div>
       </div>
     </a>

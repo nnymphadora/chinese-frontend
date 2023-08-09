@@ -6,4 +6,5 @@ export class Lesson {
   levelId: number;
   lessonOrderInLevel: number;
   isActive: number;
+  isRemoved: number;
 }
