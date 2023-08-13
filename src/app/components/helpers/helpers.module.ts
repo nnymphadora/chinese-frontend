@@ -16,6 +16,11 @@ import { FormsModule } from '@angular/forms';
     QuickEditInfoMenuComponent,
   ],
   imports: [CommonModule, RouterModule, FontAwesomeModule, FormsModule],
-  exports: [HeaderComponent, FooterComponent, QuickEditInfoMenuComponent],
+  exports: [
+    HeaderComponent,
+    FooterComponent,
+    QuickEditInfoMenuComponent,
+    NewWordCardComponent,
+  ],
 })
 export class HelpersModule {}

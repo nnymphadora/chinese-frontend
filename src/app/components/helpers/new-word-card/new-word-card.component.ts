@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NewWordsService } from 'src/app/services/new-words.service';
 import { NewWord } from '../../../models/NewWord';
 import { Level } from 'src/app/models/Level';
@@ -12,7 +12,7 @@ import { LevelsService } from 'src/app/services/levels.service';
   styleUrls: ['./new-word-card.component.scss'],
 })
 export class NewWordCardComponent implements OnInit {
-  newWord: NewWord;
+  @Input() newWordData: NewWord;
   flipped: boolean = false;
 
   ngOnInit(): void {}

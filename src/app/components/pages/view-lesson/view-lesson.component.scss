@@ -16,3 +16,10 @@
     font-size: 0.9rem;
   }
 }
+
+.card-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}

@@ -1,7 +1,33 @@
+@import "../../../../assets/scss/variables.scss";
+
 .wrapper {
-  width: 150px;
-  height: 150px;
+  width: 230px;
+  height: 230px;
   cursor: pointer;
+}
+
+.flashcard > div {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  border: 1px solid $mimi-pink;
+}
+
+.flashcard {
+  .back,
+  .front {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 1rem;
+  }
 }
 
 .flashcard {
@@ -11,27 +37,45 @@
   transform-style: preserve-3d;
   -webkit-transition: all 600ms;
   transition: all 600ms;
+  .back {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    background-color: $white-text;
+    .chinese-text {
+      font-size: 1.5rem;
+    }
+  }
+  .front {
+    .chinese-text {
+      font-size: 5rem;
+    }
+
+    background-color: $main-body;
+    color: $robin-egg-blue;
+
+    &:hover {
+      border-color: $robin-egg-blue;
+      background-color: $white-text;
+      color: $primary-text;
+    }
+  }
 }
 
-.flashcard div {
-  position: absolute;
-  height: 100%;
-  width: 100%;
+.flipped {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+}
+
+.pinyin-meaning {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.ex-sent p {
+  font-size: 0.8rem;
   text-align: center;
-  -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  backface-visibility: hidden;
-  border-radius: 15%;
-  border: 2px solid grey;
 }
 
-.flashcard .back {
-  -webkit-transform: rotateY(180deg);
-  transform: rotateY(180deg);
-  background-color: rgba(1, 1, 1, 0.1);
-}
-
-.flashcard.flipped {
-  transform: rotateY(180deg);
-  -webkit-transform: rotateY(180deg);
+.chinese-text {
+  font-family: $chinese-font;
 }

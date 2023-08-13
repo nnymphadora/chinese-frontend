@@ -1,8 +1,23 @@
 <div class="wrapper">
   <div class="flashcard" [class.flipped]="flipped" (click)="toggle()">
     <div class="front">
-      <span>ovjde ide karakter</span>
+      <span class="chinese-text">{{ newWordData?.content }}</span>
     </div>
-    <div class="back">Now showing the back size</div>
+    <div class="back">
+      <div>
+        <p class="pinyin-meaning">
+          {{ newWordData?.pinyin }} - {{ newWordData.meaning }}
+        </p>
+      </div>
+
+      <div class="ex-sent">
+        <p class="chinese-text">{{ newWordData?.exSent1 }}</p>
+        <p>{{ newWordData?.exSent1Mne }}</p>
+      </div>
+      <div class="ex-sent">
+        <p class="chinese-text">{{ newWordData?.exSent2 }}</p>
+        <p>{{ newWordData?.exSent2Mne }}</p>
+      </div>
+    </div>
   </div>
 </div>

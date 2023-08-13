@@ -13,8 +13,6 @@ import {
   faTrashCan,
 } from '@fortawesome/free-solid-svg-icons';
 
-import { QuickEditInfoMenuComponent } from '../../helpers/quick-edit-info-menu/quick-edit-info-menu.component';
-
 @Component({
   selector: 'app-view-words-for-lesson',
   templateUrl: './view-lesson.component.html',
@@ -37,6 +35,10 @@ export class ViewLessonComponent implements OnInit {
       this.newWordsService
         .getNewWordsByLesson(lessonId)
         .subscribe((data) => (this.newWords = data));
+
+      this.newWordsService.getNewWordsByLesson(lessonId).subscribe((data) => {
+        this.newWords = data;
+      });
 
       this.lessonsService.getLessonById(lessonId).subscribe((data) => {
         this.lesson = data;

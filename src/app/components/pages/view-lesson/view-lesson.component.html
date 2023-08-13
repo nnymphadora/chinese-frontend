@@ -18,5 +18,10 @@
     (softDelete)="softDeleteLesson()"
     (toggleActive)="handleToggle($event)"
   ></app-quick-edit-info-menu>
-  <div class="card-container"></div>
+  <div class="card-container">
+    <app-new-word-card
+      *ngFor="let word of newWords"
+      [newWordData]="word"
+    ></app-new-word-card>
+  </div>
 </div>
