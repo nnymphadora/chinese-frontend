@@ -46,7 +46,7 @@ export class ViewLessonComponent implements OnInit {
         let levelId = this.lesson.levelId;
 
         this.levelsService
-          .getLevelByID(levelId)
+          .getLevelById(levelId)
           .subscribe((data) => (this.level = data));
       });
     });

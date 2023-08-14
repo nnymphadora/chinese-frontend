@@ -31,8 +31,12 @@
     </a>
   </div>
   <div class="add-container">
-    <a routerLink="/admin/add-lesson" class="grow add-icon"
-      ><fa-icon [icon]="roundPlus" size="2xl"></fa-icon
-    ></a>
+    <a
+      [routerLink]="['/admin/add-lesson']"
+      [queryParams]="{ levelId: level?.id }"
+      class="grow add-icon"
+    >
+      <fa-icon [icon]="roundPlus" size="2xl"></fa-icon>
+    </a>
   </div>
 </div>

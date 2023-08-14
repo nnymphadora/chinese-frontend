@@ -1,0 +1,39 @@
+<div class="body-container">
+  <h2>{{ edit ? "Izmijeni " : "Dodaj novu " }} lekciju</h2>
+  <div class="add-form">
+    <label for="name"
+      >Naziv<input type="text" id="name" required [(ngModel)]="newLesson.name"
+    /></label>
+
+    <label for="order"
+      >Redni broj lekcije u modulu
+      <span class="bold red-txt">{{ currentLevel?.name }}</span>
+      <input
+        type="number"
+        id="order"
+        min="0"
+        max="20"
+        required
+        [(ngModel)]="newLesson.lessonOrderInLevel"
+      />
+    </label>
+    <label for="description"
+      >Opis
+      <textarea
+        id="description"
+        cols="50"
+        rows="5"
+        required
+        [(ngModel)]="newLesson.description"
+      ></textarea>
+    </label>
+
+    <button
+      class="btn secondary-btn"
+      [ngClass]="{ unclickable: !checkForm() }"
+      (click)="saveLesson()"
+    >
+      Sačuvaj
+    </button>
+  </div>
+</div>

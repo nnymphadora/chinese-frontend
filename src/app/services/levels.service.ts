@@ -12,7 +12,7 @@ export class LevelsService {
     return this.http.get<Level[]>('http://localhost:3000/levels');
   }
 
-  getLevelByID(id: number) {
+  getLevelById(id: number) {
     return this.http.get<Level>(`http://localhost:3000/levels/${id}`);
   }
 

@@ -38,11 +38,9 @@ export class ViewLevelComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((paramsData) => {
       let levelId: number = paramsData['id'];
-      this.levelsService.getLevelByID(levelId).subscribe((data) => {
+      this.levelsService.getLevelById(levelId).subscribe((data) => {
         this.level = data;
         this.isActiveLevel = !!data.isActive;
-        console.log('inicijalizacija kompo', this.isActiveLevel);
-        console.log(this.isActiveLevel);
       });
       this.lessonsService.getAllLessonsByLevelId(levelId).subscribe((data) => {
         this.lessons = data.sort(
@@ -50,6 +48,7 @@ export class ViewLevelComponent implements OnInit {
         );
       });
     });
+
     this.levelDifficultyService
       .getAllLevelDifficulty()
       .subscribe((data) => (this.difficulties = data));
@@ -76,7 +75,7 @@ export class ViewLevelComponent implements OnInit {
 
   handleToggle(value: boolean) {
     const val = value ? 1 : 0;
-    console.log('handle fired ', value);
+
     this.toggleActiveLevel(val);
   }
 

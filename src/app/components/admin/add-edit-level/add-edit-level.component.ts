@@ -32,9 +32,8 @@ export class AddEditLevelComponent implements OnInit {
       if (paramsData['id']) {
         this.edit = true;
         const editLevelId = paramsData['id'];
-        this.levelsService.getLevelByID(editLevelId).subscribe((data) => {
+        this.levelsService.getLevelById(editLevelId).subscribe((data) => {
           this.newLevel = data;
-          console.log(this.newLevel);
         });
       }
     });
