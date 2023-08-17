@@ -6,6 +6,7 @@
         [icon]="soundIcon"
         class="grow"
         (click)="playPronunciation()"
+        size="xl"
       ></fa-icon>
     </div>
     <div class="back">
@@ -24,5 +25,19 @@
         <p>{{ newWordData?.exSent2Mne }}</p>
       </div>
     </div>
+  </div>
+
+  <div class="icon-div">
+    <fa-icon
+      class="alert-icon"
+      [icon]="deleteBtn"
+      (click)="deleteNewWord(newWordData?.id)"
+    ></fa-icon>
+    <fa-icon
+      class="alert-icon"
+      [icon]="addBtn"
+      routerLink="/edit-new-word/${newWordData?.id}"
+    >
+    </fa-icon>
   </div>
 </div>

@@ -1,12 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NewWordsService } from 'src/app/services/new-words.service';
 import { NewWord } from '../../../models/NewWord';
-import { Level } from 'src/app/models/Level';
-import { Lesson } from 'src/app/models/Lesson';
-import { LessonsService } from 'src/app/services/lessons.service';
-import { LevelsService } from 'src/app/services/levels.service';
 import { PronunciationService } from 'src/app/services/pronunciation.service';
-import { faVolumeHigh } from '@fortawesome/free-solid-svg-icons';
+import {
+  faVolumeHigh,
+  faTrashCan,
+  faPlusCircle,
+} from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-word-card',
@@ -17,6 +18,8 @@ export class NewWordCardComponent implements OnInit {
   @Input() newWordData: NewWord;
   flipped: boolean = false;
   soundIcon = faVolumeHigh;
+  deleteBtn = faTrashCan;
+  addBtn = faPlusCircle;
 
   ngOnInit(): void {}
 
@@ -25,9 +28,8 @@ export class NewWordCardComponent implements OnInit {
   }
   constructor(
     private newWordsService: NewWordsService,
-    private lessonsService: LessonsService,
-    private levelsService: LevelsService,
-    private pronunciationService: PronunciationService
+    private pronunciationService: PronunciationService,
+    private router: Router
   ) {}
 
   playPronunciation() {
@@ -38,5 +40,15 @@ export class NewWordCardComponent implements OnInit {
         const audio = new Audio(audioUrl);
         audio.play();
       });
+  }
+
+  deleteNewWord(id: number) {
+    if (confirm('Obriši riječ?')) {
+      this.newWordsService.deleteNewWord(id).subscribe((data) => {
+        this.router.navigateByUrl(
+          `/lesson/${this.newWordData.relatedLessonId}`
+        );
+      });
+    }
   }
 }

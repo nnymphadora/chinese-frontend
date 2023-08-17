@@ -7,10 +7,23 @@ import { LevelCefrEquivService } from 'src/app/services/level-cefr-equiv.service
 import { LevelDifficultyService } from 'src/app/services/level-difficulty.service';
 import { FormsModule } from '@angular/forms';
 import { AddEditLessonComponent } from './add-edit-lesson/add-edit-lesson.component';
+import { BulkAddNewWordsComponent } from './bulk-add-new-words/bulk-add-new-words.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
-  declarations: [AddEditLevelComponent, AddEditLessonComponent],
-  imports: [CommonModule, AdminRoutingModule, FormsModule],
+  declarations: [
+    AddEditLevelComponent,
+    AddEditLessonComponent,
+    BulkAddNewWordsComponent,
+  ],
+  imports: [
+    CommonModule,
+    AdminRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FontAwesomeModule,
+  ],
   providers: [LevelCefrEquivService, LevelDifficultyService],
 })
 export class AdminModule {}

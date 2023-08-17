@@ -34,7 +34,7 @@ export class LessonsService {
 
   softDeleteLesson(lesson: any) {
     return this.http.put(
-      `http://localhost:3000/levels/${lesson.id}/delete`,
+      `http://localhost:3000/lessons/${lesson.id}/delete`,
       lesson
     );
   }

@@ -28,6 +28,16 @@
       ></textarea>
     </label>
 
+    <div class="new-words-form">
+      <app-bulk-add-new-words
+        [onSave]="saveNewWords.bind(this)"
+        [lesson]="this.newLesson"
+        #newWordComponent
+      >
+        ></app-bulk-add-new-words
+      >
+    </div>
+
     <button
       class="btn secondary-btn"
       [ngClass]="{ unclickable: !checkForm() }"

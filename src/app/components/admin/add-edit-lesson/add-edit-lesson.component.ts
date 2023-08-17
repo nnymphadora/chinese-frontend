@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Lesson } from 'src/app/models/Lesson';
 import { Level } from 'src/app/models/Level';
 import { LessonsService } from 'src/app/services/lessons.service';
 import { LevelsService } from 'src/app/services/levels.service';
+import { BulkAddNewWordsComponent } from '../bulk-add-new-words/bulk-add-new-words.component';
+import { NewWord } from 'src/app/models/NewWord';
+import { NewWordsService } from 'src/app/services/new-words.service';
 
 @Component({
   selector: 'app-add-edit-lesson',
@@ -11,9 +14,9 @@ import { LevelsService } from 'src/app/services/levels.service';
   styleUrls: ['./add-edit-lesson.component.scss'],
 })
 export class AddEditLessonComponent implements OnInit {
+  @ViewChild('newWordComponent') newWordComponent: BulkAddNewWordsComponent;
   newLesson: Lesson = new Lesson();
   currentLevel: Level; // if editing a lesson
-  currentLevelId: number; //if adding new lesson
   allLevels: Level[];
   edit: boolean = false;
 
@@ -38,9 +41,9 @@ export class AddEditLessonComponent implements OnInit {
         const state = this.activatedRoute.snapshot.queryParams;
 
         if (state && state['levelId']) {
-          this.currentLevelId = state['levelId'];
+          this.newLesson.levelId = state['levelId'];
           this.levelsService
-            .getLevelById(this.currentLevelId)
+            .getLevelById(this.newLesson.levelId)
             .subscribe((data) => {
               this.currentLevel = data;
             });
@@ -54,18 +57,24 @@ export class AddEditLessonComponent implements OnInit {
       let levelId = this.lessonsService
         .insertLesson(this.newLesson)
         .subscribe((data) => {
+          this.newWordComponent.saveNewWords();
           this.router.navigateByUrl(`/level/${this.newLesson.levelId}`);
         });
     } else {
       console.log(this.newLesson);
-      this.lessonsService
-        .updateLesson(this.newLesson)
-        .subscribe((data) =>
-          this.router.navigateByUrl(`/lesson/${this.newLesson.id}`)
-        );
+      this.lessonsService.updateLesson(this.newLesson).subscribe((data) => {
+        this.newWordComponent.saveNewWords();
+        this.router.navigateByUrl(`/lesson/${this.newLesson.id}`);
+      });
     }
-    console.log(this.newLesson);
   }
+
+  saveNewWords(newWords: NewWord[]) {
+    this.newWordsService.insertNewWords(newWords).subscribe((data) => {
+      console.log('New words added successfully:', data);
+    });
+  }
+
   checkForm(): boolean {
     return !!(
       this.newLesson.name &&
@@ -78,6 +87,7 @@ export class AddEditLessonComponent implements OnInit {
     private lessonsService: LessonsService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private levelsService: LevelsService
+    private levelsService: LevelsService,
+    private newWordsService: NewWordsService
   ) {}
 }

@@ -46,8 +46,9 @@
         type="email"
         class="newsletter"
         placeholder="example@email.com"
+        [(ngModel)]="subEmail.email"
     /></label>
-    <button class="send-btn grow">
+    <button class="send-btn grow" (click)="saveEmail()">
       <fa-icon size="lg" [icon]="faPaperPlane"></fa-icon>
     </button>
   </div>

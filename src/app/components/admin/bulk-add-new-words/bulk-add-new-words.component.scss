@@ -1,0 +1,74 @@
+@import "../../../../assets/scss/variables.scss";
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h3 {
+  color: $robin-egg-blue;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+* {
+  font-size: 0.9rem;
+}
+
+input {
+  min-height: 1.6em;
+  margin: 0.2rem 1rem 1rem 0;
+  padding: 0.3rem;
+  border: none;
+  border-bottom: 3px solid $mimi-pink;
+  border-radius: 5px 5px 0 0;
+}
+
+.main-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  input {
+    width: 5rem;
+  }
+}
+.ex-sent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 98%;
+  margin: 0 auto;
+
+  input {
+    width: 10rem;
+  }
+}
+
+.line {
+  position: relative;
+  border: 1px solid $mimi-pink;
+  padding: 1rem;
+  border-radius: 10px;
+  margin: 1rem;
+}
+
+.dlt-btn {
+  position: absolute;
+  right: -3rem;
+  bottom: 7rem;
+}
+
+.line:not(.active-group) {
+  max-height: 3rem;
+  padding-top: 0.3rem;
+
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out;
+}
+
+/* Show active form group */
+.line.active-group {
+  max-height: 1000px;
+  box-shadow: $mimi-pink 0px 0px 10px;
+}

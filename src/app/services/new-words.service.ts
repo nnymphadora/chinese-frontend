@@ -19,4 +19,12 @@ export class NewWordsService {
       `http://localhost:3000/new-words/by-level/${id}`
     );
   }
+
+  insertNewWords(newWords: NewWord[]) {
+    return this.http.post('http://localhost:3000/new-words', newWords);
+  }
+
+  deleteNewWord(id: number) {
+    return this.http.delete(`http://localhost:3000/new-words/${id}`);
+  }
 }

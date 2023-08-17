@@ -5,7 +5,18 @@
   height: 230px;
   cursor: pointer;
 }
+.icon-div {
+  margin-left: 100px;
+  margin-top: 5px;
+  justify-self: center;
+  fa-icon {
+    margin: 3px;
 
+    &:hover {
+      color: $robin-egg-blue;
+    }
+  }
+}
 .flashcard > div {
   position: absolute;
   height: 100%;

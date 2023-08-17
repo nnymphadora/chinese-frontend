@@ -45,12 +45,10 @@ export class AddEditLevelComponent implements OnInit {
         this.router.navigateByUrl('/levels');
       });
     } else {
-      console.log(this.newLevel);
       this.levelsService
         .updateLevel(this.newLevel)
         .subscribe((data) => this.router.navigateByUrl('/levels'));
     }
-    console.log(this.newLevel);
   }
   checkForm(): boolean {
     return !!(

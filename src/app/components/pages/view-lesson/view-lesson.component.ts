@@ -43,6 +43,8 @@ export class ViewLessonComponent implements OnInit {
       this.lessonsService.getLessonById(lessonId).subscribe((data) => {
         this.lesson = data;
         this.isActiveLesson = !!this.lesson.isActive;
+        console.log(this.isActiveLesson);
+
         let levelId = this.lesson.levelId;
 
         this.levelsService
@@ -54,8 +56,8 @@ export class ViewLessonComponent implements OnInit {
 
   softDeleteLesson() {
     if (confirm('Obriši lekciju?')) {
-      this.lessonsService.softDeleteLesson(this.level).subscribe((data) => {});
-      this.router.navigateByUrl('/lessons');
+      this.lessonsService.softDeleteLesson(this.lesson).subscribe((data) => {});
+      this.router.navigateByUrl(`/level/${this.lesson.levelId}`);
     }
   }
 
@@ -68,7 +70,7 @@ export class ViewLessonComponent implements OnInit {
   }
 
   handleToggle(value: boolean) {
-    const val = value ? 0 : 0;
+    const val = value ? 1 : 0;
 
     this.toggleActiveLesson(val);
   }
