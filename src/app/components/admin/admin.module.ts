@@ -10,12 +10,14 @@ import { AddEditLessonComponent } from './add-edit-lesson/add-edit-lesson.compon
 import { BulkAddNewWordsComponent } from './bulk-add-new-words/bulk-add-new-words.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { EditNewWordComponent } from './edit-new-word/edit-new-word.component';
 
 @NgModule({
   declarations: [
     AddEditLevelComponent,
     AddEditLessonComponent,
     BulkAddNewWordsComponent,
+    EditNewWordComponent,
   ],
   imports: [
     CommonModule,

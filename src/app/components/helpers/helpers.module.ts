@@ -7,7 +7,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NewWordCardComponent } from './new-word-card/new-word-card.component';
 import { QuickEditInfoMenuComponent } from './quick-edit-info-menu/quick-edit-info-menu.component';
 import { FormsModule } from '@angular/forms';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -16,13 +15,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     NewWordCardComponent,
     QuickEditInfoMenuComponent,
   ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    FontAwesomeModule,
-    FormsModule,
-    MatSnackBarModule,
-  ],
+  imports: [CommonModule, RouterModule, FontAwesomeModule, FormsModule],
   exports: [
     HeaderComponent,
     FooterComponent,

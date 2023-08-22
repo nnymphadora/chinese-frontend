@@ -1,0 +1,48 @@
+@import "../../../../assets/scss/variables.scss";
+
+.add-form {
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding-top: 2rem;
+}
+
+h2 {
+  color: $robin-egg-blue;
+  font-size: 2rem;
+  align-self: center;
+}
+.body-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.info {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+}
+.short {
+  input {
+    width: 90%;
+  }
+}
+
+.ex-sent {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  input {
+    width: 95%;
+  }
+}
+
+.btn {
+  margin-top: 2rem;
+  align-self: center;
+}
+.unclickable {
+  pointer-events: none;
+  opacity: 0.1;
+}

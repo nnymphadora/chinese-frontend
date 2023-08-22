@@ -1,13 +1,21 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Host,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { NewWordsService } from 'src/app/services/new-words.service';
 import { NewWord } from '../../../models/NewWord';
 import { PronunciationService } from 'src/app/services/pronunciation.service';
 import {
   faVolumeHigh,
   faTrashCan,
-  faPlusCircle,
+  faPenToSquare,
 } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
+import { ViewLessonComponent } from '../../pages/view-lesson/view-lesson.component';
 
 @Component({
   selector: 'app-new-word-card',
@@ -16,10 +24,14 @@ import { Router } from '@angular/router';
 })
 export class NewWordCardComponent implements OnInit {
   @Input() newWordData: NewWord;
+  @Input() editLink: string;
+
+  @Output() cardDeleted = new EventEmitter<void>();
+
   flipped: boolean = false;
   soundIcon = faVolumeHigh;
   deleteBtn = faTrashCan;
-  addBtn = faPlusCircle;
+  editBtn = faPenToSquare;
 
   ngOnInit(): void {}
 
@@ -45,9 +57,7 @@ export class NewWordCardComponent implements OnInit {
   deleteNewWord(id: number) {
     if (confirm('Obriši riječ?')) {
       this.newWordsService.deleteNewWord(id).subscribe((data) => {
-        this.router.navigateByUrl(
-          `/lesson/${this.newWordData.relatedLessonId}`
-        );
+        this.cardDeleted.emit();
       });
     }
   }

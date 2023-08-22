@@ -56,8 +56,9 @@ export class ViewLessonComponent implements OnInit {
 
   softDeleteLesson() {
     if (confirm('Obriši lekciju?')) {
-      this.lessonsService.softDeleteLesson(this.lesson).subscribe((data) => {});
-      this.router.navigateByUrl(`/level/${this.lesson.levelId}`);
+      this.lessonsService.softDeleteLesson(this.lesson).subscribe((data) => {
+        this.router.navigateByUrl(`/level/${this.lesson.levelId}`);
+      });
     }
   }
 
@@ -73,6 +74,9 @@ export class ViewLessonComponent implements OnInit {
     const val = value ? 1 : 0;
 
     this.toggleActiveLesson(val);
+  }
+  onDeleteCard() {
+    this.ngOnInit();
   }
 
   constructor(

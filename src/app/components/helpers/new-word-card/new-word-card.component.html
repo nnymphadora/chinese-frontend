@@ -33,11 +33,7 @@
       [icon]="deleteBtn"
       (click)="deleteNewWord(newWordData?.id)"
     ></fa-icon>
-    <fa-icon
-      class="alert-icon"
-      [icon]="addBtn"
-      routerLink="/edit-new-word/${newWordData?.id}"
-    >
+    <fa-icon class="alert-icon" [icon]="editBtn" [routerLink]="editLink">
     </fa-icon>
   </div>
 </div>

@@ -31,12 +31,5 @@ h2 {
 input,
 select,
 textarea {
-  width: 100%;
-  min-height: 2em;
-  margin: 0.5em 0 1em;
-  padding: 0.3rem;
   display: block;
-  border: none;
-  border-bottom: 3px solid $mimi-pink;
-  border-radius: 5px 5px 0 0;
 }

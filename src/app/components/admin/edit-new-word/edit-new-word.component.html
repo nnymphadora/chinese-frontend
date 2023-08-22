@@ -1,0 +1,64 @@
+<div class="body-container">
+  <h2>Izmijeni riječ</h2>
+  <div class="add-form">
+    <div class="info">
+      <label for="content" class="short"
+        >Riječ<input
+          type="text"
+          id="content"
+          required
+          [(ngModel)]="newWord.content"
+      /></label>
+      <label for="meaning" class="short"
+        >Značenje<input
+          type="text"
+          id="meaning"
+          required
+          [(ngModel)]="newWord.meaning"
+      /></label>
+      <label for="pinyin" class="short"
+        >Riječ<input
+          type="text"
+          id="pinyin"
+          required
+          [(ngModel)]="newWord.pinyin"
+      /></label>
+    </div>
+    <div class="ex-sent">
+      <label for="ex-sent1"
+        >Primjer 1
+        <input type="text" id="ex-sent" [(ngModel)]="newWord.exSent1" />
+      </label>
+      <label for="ex-sent1-meaning"
+        >Prevod 1
+        <input
+          type="text"
+          id="ex-sent1-meaning"
+          [(ngModel)]="newWord.exSent1Mne"
+        />
+      </label>
+    </div>
+    <div class="ex-sent">
+      <label for="ex-sent2"
+        >Primjer 2
+        <input type="text" id="ex-sent2" [(ngModel)]="newWord.exSent2" />
+      </label>
+      <label for="ex-sent2-meaning"
+        >Prevod 2
+        <input
+          type="text"
+          id="ex-Sent2-meaning"
+          [(ngModel)]="newWord.exSent2Mne"
+        />
+      </label>
+    </div>
+
+    <button
+      class="btn secondary-btn"
+      [ngClass]="{ unclickable: !checkForm() }"
+      (click)="saveNewWord()"
+    >
+      Sačuvaj
+    </button>
+  </div>
+</div>

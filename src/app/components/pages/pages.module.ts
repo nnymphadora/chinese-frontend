@@ -11,7 +11,6 @@ import { ViewLessonComponent } from './view-lesson/view-lesson.component';
 
 import { FormsModule } from '@angular/forms';
 import { HelpersModule } from '../helpers/helpers.module';
-import { NewWordCardComponent } from '../helpers/new-word-card/new-word-card.component';
 
 @NgModule({
   declarations: [

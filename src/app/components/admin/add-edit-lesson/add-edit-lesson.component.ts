@@ -70,9 +70,7 @@ export class AddEditLessonComponent implements OnInit {
   }
 
   saveNewWords(newWords: NewWord[]) {
-    this.newWordsService.insertNewWords(newWords).subscribe((data) => {
-      console.log('New words added successfully:', data);
-    });
+    this.newWordsService.insertNewWords(newWords).subscribe((data) => {});
   }
 
   checkForm(): boolean {

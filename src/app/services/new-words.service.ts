@@ -27,4 +27,8 @@ export class NewWordsService {
   deleteNewWord(id: number) {
     return this.http.delete(`http://localhost:3000/new-words/${id}`);
   }
+
+  getNewWordById(id: number) {
+    return this.http.get<NewWord>(`http://localhost:3000/new-words/${id}`);
+  }
 }

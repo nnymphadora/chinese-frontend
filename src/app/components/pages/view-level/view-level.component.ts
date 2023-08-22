@@ -60,8 +60,9 @@ export class ViewLevelComponent implements OnInit {
 
   softDeleteLevel() {
     if (confirm('Obriši modul?')) {
-      this.levelsService.softDeleteLevel(this.level).subscribe((data) => {});
-      this.router.navigateByUrl('/levels');
+      this.levelsService.softDeleteLevel(this.level).subscribe((data) => {
+        this.router.navigateByUrl('/levels');
+      });
     }
   }
 

@@ -1,4 +1,4 @@
-//global
+@import "/src/assets/scss/variables.scss";
 * {
   margin: 0;
   padding: 0;
@@ -243,4 +243,18 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+//inputs look
+
+input,
+select,
+textarea {
+  width: 100%;
+  min-height: 2em;
+  margin: 0.5em 0 1em;
+  padding: 0.3rem;
+  border: none;
+  border-bottom: 3px solid $mimi-pink;
+  border-radius: 5px 5px 0 0;
 }
