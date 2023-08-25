@@ -1,5 +1,11 @@
 @import "../../../../assets/scss/variables.scss";
 
+h1 {
+  color: $robin-egg-blue;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
 .card {
   p {
     font-size: 0.8rem;

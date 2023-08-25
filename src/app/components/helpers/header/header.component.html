@@ -7,11 +7,17 @@
       <a routerLink="/" class="nav-link-head underline"><li>Početna</li></a>
       <a routerLink="/levels" class="nav-link-head underline"><li>Uči</li></a>
       <a class="nav-link-head underline"><li>Vježbaj</li></a>
-      <a routerLink="/about" class="nav-link-head underline"><li>O nama</li></a>
+      <a routerLink="/about" class="nav-link-head underline"
+        ><li>O projektu</li></a
+      >
     </ul>
   </div>
   <div id="right">
-    <button class="btn grow primary-btn">Prijavi&nbsp;se</button>
-    <button class="btn grow secondary-btn">Učlani&nbsp;se</button>
+    <button class="btn grow primary-btn" routerLink="/login">
+      Prijavi&nbsp;se
+    </button>
+    <button class="btn grow secondary-btn" routerLink="/register">
+      Učlani&nbsp;se
+    </button>
   </div>
 </header>

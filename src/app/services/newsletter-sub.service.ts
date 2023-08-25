@@ -1,19 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NewsletterSub } from '../models/NewsletterSub';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NewsletterSubService {
+  apiUrl = environment.API_URL;
   getAllSubscribedEmails() {
-    return this.http.get<NewsletterSub[]>('http://localhost:3000/newsletter');
+    return this.http.get<NewsletterSub[]>(`${this.apiUrl}/newsletter`);
   }
   insertSubscribedEmail(sub: NewsletterSub) {
-    return this.http.post<NewsletterSub>(
-      'http://localhost:3000/newsletter',
-      sub
-    );
+    return this.http.post<NewsletterSub>(`${this.apiUrl}/newsletter`, sub);
   }
   constructor(private http: HttpClient) {}
 }

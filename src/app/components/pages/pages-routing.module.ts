@@ -5,6 +5,8 @@ import { AboutComponent } from './about/about.component';
 import { LevelsComponent } from './levels/levels.component';
 import { ViewLevelComponent } from './view-level/view-level.component';
 import { ViewLessonComponent } from './view-lesson/view-lesson.component';
+import RegisterComponent from './register/register.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   {
@@ -18,6 +20,11 @@ const routes: Routes = [
   { path: 'levels', component: LevelsComponent },
   { path: 'level/:id', component: ViewLevelComponent },
   { path: 'lesson/:id', component: ViewLessonComponent },
+  { path: 'register', component: RegisterComponent },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
 ];
 
 @NgModule({

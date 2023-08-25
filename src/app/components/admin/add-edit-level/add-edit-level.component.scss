@@ -22,14 +22,9 @@ h2 {
     align-self: center;
   }
 
-  .unclickable {
-    pointer-events: none;
-    opacity: 0.3;
+  input,
+  select,
+  textarea {
+    display: block;
   }
-}
-
-input,
-select,
-textarea {
-  display: block;
 }

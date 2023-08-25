@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, formatCurrency } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { PagesRoutingModule } from './pages-routing.module';
 import { HomeComponent } from './home/home.component';
@@ -11,6 +13,8 @@ import { ViewLessonComponent } from './view-lesson/view-lesson.component';
 
 import { FormsModule } from '@angular/forms';
 import { HelpersModule } from '../helpers/helpers.module';
+import RegisterComponent from './register/register.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +23,8 @@ import { HelpersModule } from '../helpers/helpers.module';
     LevelsComponent,
     ViewLevelComponent,
     ViewLessonComponent,
+    RegisterComponent,
+    LoginComponent,
   ],
   imports: [
     CommonModule,
@@ -26,6 +32,7 @@ import { HelpersModule } from '../helpers/helpers.module';
     FontAwesomeModule,
     FormsModule,
     HelpersModule,
+    ReactiveFormsModule,
   ],
   exports: [],
 })

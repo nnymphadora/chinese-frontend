@@ -1,0 +1,97 @@
+<div class="body-container">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <label for="username">
+      Korisničko ime
+      <input type="text" id="username" formControlName="username"
+    /></label>
+    <div
+      class="warn-msg red-text bold"
+      *ngIf="
+        registerForm.get('username').hasError('required') &&
+        registerForm.get('username').touched
+      "
+    >
+      Korisničko ime je obavezno polje.
+    </div>
+    <div
+      class="warn-msg red-text bold"
+      *ngIf="
+        registerForm.get('username').hasError('nonUniqueUsername') &&
+        registerForm.get('username').touched
+      "
+    >
+      Korisničko je zauzeto.
+    </div>
+
+    <label for="email"
+      >Email <input type="email" id="email" formControlName="email"
+    /></label>
+    <div
+      class="warn-msg red-text bold"
+      *ngIf="
+        registerForm.get('email').hasError('required') &&
+        registerForm.get('email').touched
+      "
+    >
+      Email je obavezno polje.
+    </div>
+    <div
+      class="warn-msg red-text bold"
+      *ngIf="
+        registerForm.get('email').hasError('email') &&
+        registerForm.get('email').touched
+      "
+    >
+      Unesi validnu email adresu.
+    </div>
+
+    <label for="password"
+      >Šifra <input type="password" id="password" formControlName="password"
+    /></label>
+    <div
+      class="warn-msg red-text bold"
+      *ngIf="
+        registerForm.get('password').hasError('required') &&
+        registerForm.get('password').touched
+      "
+    >
+      Šifra je obavezno polje
+    </div>
+    <div
+      class="warn-msg red-text bold"
+      *ngIf="
+        registerForm.get('password').hasError('minlength') &&
+        registerForm.get('password').touched
+      "
+    >
+      Šifra mora imati najmanje 6 karaktera.
+    </div>
+
+    <label for="confirmPassword"
+      >Još jednom ukucaj šifru
+      <input
+        type="password"
+        id="confirmPassword"
+        formControlName="confirmPassword"
+    /></label>
+    <div
+      class="warn-msg red-text bold"
+      *ngIf="registerForm.hasError('passwordMismatch')"
+    >
+      Šifre se ne poklapaju.
+    </div>
+
+    <label for="avatar"
+      >Avatar <input type="file" id="avatar" formControlName="avatar"
+    /></label>
+
+    <button
+      class="btn big=btn secondary-btn"
+      type="submit"
+      [ngClass]="{ unclickable: !registerForm.valid }"
+      [disabled]="!registerForm.valid"
+    >
+      Učlani se
+    </button>
+  </form>
+</div>
