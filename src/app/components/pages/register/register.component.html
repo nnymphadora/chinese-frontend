@@ -1,4 +1,4 @@
-<div class="body-container">
+<div class="body-container" *ngIf="registerForm">
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <label for="username">
       Korisničko ime
@@ -80,10 +80,20 @@
     >
       Šifre se ne poklapaju.
     </div>
-
-    <label for="avatar"
-      >Avatar <input type="file" id="avatar" formControlName="avatar"
-    /></label>
+    <div>
+      <label for="avatar"
+        >Avatar
+        <input
+          type="file"
+          id="avatar"
+          accept="image/*"
+          (change)="setUploadedFile($event)"
+      /></label>
+      <img
+        [src]="uploadedAvatarUrl ? uploadedAvatarUrl : defaultAvatarUrl"
+        alt="Avatar preview"
+      />
+    </div>
 
     <button
       class="btn big=btn secondary-btn"

@@ -5,6 +5,5 @@ export class User {
   password: string;
   confirmPassword: string;
   isAdmin: number;
-  isActive: number;
-  avatar_path: string;
+  avatarPath: string;
 }
