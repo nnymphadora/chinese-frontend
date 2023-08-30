@@ -51,7 +51,7 @@
   .back {
     -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
-    background-color: $white-text;
+    background-color: $white;
     .chinese-text {
       font-size: 1.5rem;
     }
@@ -66,7 +66,7 @@
 
     &:hover {
       border-color: $robin-egg-blue;
-      background-color: $white-text;
+      background-color: $white;
       color: $primary-text;
     }
   }

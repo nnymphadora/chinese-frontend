@@ -76,9 +76,9 @@ a {
 
 .blue {
   background-color: $robin-egg-blue;
-  color: $white-text;
+  color: $white;
   &:hover {
-    background-color: $white-text;
+    background-color: $white;
     color: black;
   }
 }
@@ -115,7 +115,7 @@ a {
 .nav-horizontal {
   list-style-type: none;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: flex-end;
   flex-wrap: wrap;
   li {
@@ -124,6 +124,10 @@ a {
 }
 .nav-link {
   z-index: 5;
+}
+
+.avatar {
+  border-radius: 50%;
 }
 
 //random text-styles
@@ -136,7 +140,7 @@ a {
 }
 
 .descriptor {
-  border: 1px solid $white-text;
+  border: 1px solid $white;
   padding: 0.1rem 1rem;
   border-radius: 55px;
   display: inline-block;

@@ -17,5 +17,20 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/login`, user);
   }
 
+  isLoggedIn() {
+    const token = localStorage.getItem('chinese-token');
+    if (token) return true;
+    return false;
+  }
+
+  getTokenData() {
+    const token = localStorage.getItem('chinese-token');
+
+    if (!token) return null;
+    const tokenParts = token.split('.');
+    const userDataPart = JSON.parse(window.atob(tokenParts[1]));
+
+    return userDataPart;
+  }
   constructor(private http: HttpClient) {}
 }

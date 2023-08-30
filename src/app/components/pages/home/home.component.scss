@@ -24,6 +24,12 @@
   }
 }
 
+.btns {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
 #right {
   width: 50%;
   position: relative;

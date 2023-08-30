@@ -21,7 +21,10 @@
     </a>
   </div>
   <div class="add-container">
-    <a routerLink="/admin/add-level" class="grow add-icon alert-icon"
+    <a
+      routerLink="/admin/add-level"
+      *ngIf="isAdmin"
+      class="grow add-icon alert-icon"
       ><fa-icon [icon]="roundPlus" size="2xl"></fa-icon
     ></a>
   </div>

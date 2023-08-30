@@ -5,7 +5,7 @@
       <input type="text" id="username" formControlName="username"
     /></label>
     <div
-      class="warn-msg red-text bold"
+      class="warn-msg red-txt bold"
       *ngIf="
         registerForm.get('username').hasError('required') &&
         registerForm.get('username').touched
@@ -14,7 +14,7 @@
       Korisničko ime je obavezno polje.
     </div>
     <div
-      class="warn-msg red-text bold"
+      class="warn-msg red-txt bold"
       *ngIf="
         registerForm.get('username').hasError('nonUniqueUsername') &&
         registerForm.get('username').touched
@@ -27,7 +27,7 @@
       >Email <input type="email" id="email" formControlName="email"
     /></label>
     <div
-      class="warn-msg red-text bold"
+      class="warn-msg red-txt bold"
       *ngIf="
         registerForm.get('email').hasError('required') &&
         registerForm.get('email').touched
@@ -36,7 +36,7 @@
       Email je obavezno polje.
     </div>
     <div
-      class="warn-msg red-text bold"
+      class="warn-msg red-txt bold"
       *ngIf="
         registerForm.get('email').hasError('email') &&
         registerForm.get('email').touched
@@ -49,7 +49,7 @@
       >Šifra <input type="password" id="password" formControlName="password"
     /></label>
     <div
-      class="warn-msg red-text bold"
+      class="warn-msg red-txt bold"
       *ngIf="
         registerForm.get('password').hasError('required') &&
         registerForm.get('password').touched
@@ -58,7 +58,7 @@
       Šifra je obavezno polje
     </div>
     <div
-      class="warn-msg red-text bold"
+      class="warn-msg red-txt bold"
       *ngIf="
         registerForm.get('password').hasError('minlength') &&
         registerForm.get('password').touched
@@ -75,7 +75,7 @@
         formControlName="confirmPassword"
     /></label>
     <div
-      class="warn-msg red-text bold"
+      class="warn-msg red-txt bold"
       *ngIf="registerForm.hasError('passwordMismatch')"
     >
       Šifre se ne poklapaju.
@@ -83,20 +83,22 @@
     <div>
       <label for="avatar"
         >Avatar
+
         <input
+          class="custom-file-input"
           type="file"
           id="avatar"
           accept="image/*"
-          (change)="setUploadedFile($event)"
+          (change)="setUploadedFile($event)" />
+        <img
+          [src]="uploadedAvatarUrl ? uploadedAvatarUrl : defaultAvatarUrl"
+          alt="Avatar preview"
+          class="avatar avatar-preview"
       /></label>
-      <img
-        [src]="uploadedAvatarUrl ? uploadedAvatarUrl : defaultAvatarUrl"
-        alt="Avatar preview"
-      />
     </div>
 
     <button
-      class="btn big=btn secondary-btn"
+      class="btn secondary-btn"
       type="submit"
       [ngClass]="{ unclickable: !registerForm.valid }"
       [disabled]="!registerForm.valid"

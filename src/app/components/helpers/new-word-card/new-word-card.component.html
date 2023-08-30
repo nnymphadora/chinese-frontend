@@ -27,7 +27,7 @@
     </div>
   </div>
 
-  <div class="icon-div">
+  <div class="icon-div" *ngIf="isAdmin">
     <fa-icon
       class="alert-icon"
       [icon]="deleteBtn"

@@ -30,7 +30,7 @@
       </div>
     </a>
   </div>
-  <div class="add-container">
+  <div class="add-container" *ngIf="isAdmin">
     <a
       [routerLink]="['/admin/add-lesson']"
       [queryParams]="{ levelId: level?.id }"

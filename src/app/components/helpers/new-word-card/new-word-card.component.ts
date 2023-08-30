@@ -16,6 +16,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { ViewLessonComponent } from '../../pages/view-lesson/view-lesson.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-new-word-card',
@@ -23,6 +24,9 @@ import { ViewLessonComponent } from '../../pages/view-lesson/view-lesson.compone
   styleUrls: ['./new-word-card.component.scss'],
 })
 export class NewWordCardComponent implements OnInit {
+  tokenData: any = this.authService.getTokenData();
+  isAdmin: boolean = this.tokenData.isAdmin;
+
   @Input() newWordData: NewWord;
   @Input() editLink: string;
 
@@ -41,7 +45,8 @@ export class NewWordCardComponent implements OnInit {
   constructor(
     private newWordsService: NewWordsService,
     private pronunciationService: PronunciationService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   playPronunciation() {

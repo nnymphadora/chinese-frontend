@@ -6,7 +6,6 @@ import {
   FormControl,
   FormGroup,
   ValidationErrors,
-  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -22,12 +21,14 @@ import { environment } from 'src/environments/environment.development';
   styleUrls: ['./register.component.scss'],
 })
 export default class RegisterComponent {
-  apitUrl = environment.API_URL;
+  apiUrl = environment.API_URL;
   registerForm: FormGroup;
   existingUsernames: string[];
 
-  defaultAvatarUrl: string = `${this.apitUrl}/public/avatars/default-avatar.png`;
+  defaultAvatarPath: string = 'default-avatar.png';
+  defaultAvatarUrl: string = `${this.apiUrl}/${this.defaultAvatarPath}`;
   uploadedAvatarUrl: string;
+
   uploadedAvatar: File;
 
   user: User = new User();
@@ -46,7 +47,7 @@ export default class RegisterComponent {
           email: ['', [Validators.required, Validators.email]],
           password: ['', [Validators.required, Validators.minLength(6)]],
           confirmPassword: ['', Validators.required],
-          avatarPath: [this.defaultAvatarUrl],
+          avatarPath: [this.defaultAvatarPath],
         },
         { validators: this.passwordMatchValidator }
       );
@@ -62,7 +63,6 @@ export default class RegisterComponent {
           .saveAvatarImg(formData)
           .subscribe((fileUploadResponse: any) => {
             this.uploadedAvatarUrl = fileUploadResponse.filename;
-            this.user.avatarPath = this.uploadedAvatarUrl;
             this.saveUser();
           });
       } else {
@@ -73,12 +73,11 @@ export default class RegisterComponent {
 
   saveUser() {
     this.user = this.registerForm.value;
+    if (this.uploadedAvatarUrl) {
+      this.user.avatarPath = this.uploadedAvatarUrl;
+    }
     this.authService.register(this.user).subscribe((data: any) => {
-      console.log('front ok');
-      console.log(this.user);
-
       localStorage.setItem('chinese-token', data.token);
-      this.router.navigate(['/']);
     });
   }
 
@@ -110,6 +109,19 @@ export default class RegisterComponent {
 
     if (fileData) {
       this.uploadedAvatar = fileData;
+      this.previewUploadedAvatar();
+    }
+  }
+
+  previewUploadedAvatar() {
+    const reader = new FileReader();
+
+    reader.onload = (e: any) => {
+      this.uploadedAvatarUrl = e.target.result;
+    };
+
+    if (this.uploadedAvatar) {
+      reader.readAsDataURL(this.uploadedAvatar);
     }
   }
 

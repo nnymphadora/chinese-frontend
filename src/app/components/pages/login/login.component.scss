@@ -1,0 +1,15 @@
+@import "../../../../assets/scss/variables.scss";
+
+.body-container {
+  align-self: center;
+  width: 30%;
+  background-color: $white;
+  border: 2px solid $mimi-pink;
+  padding: 3rem;
+  border-radius: 10px;
+}
+
+.btn {
+  display: block;
+  margin: 0 auto;
+}

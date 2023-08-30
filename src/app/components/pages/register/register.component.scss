@@ -1,0 +1,39 @@
+@import "../../../../assets/scss/variables.scss";
+.body-container {
+  width: 35%;
+}
+
+.avatar-preview {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border: 2px solid $naples-yellow;
+  display: block;
+  margin: 0 auto;
+}
+.btn {
+  display: block;
+  margin: 1rem auto;
+}
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+.custom-file-input::before {
+  content: "Dodaj svoj avatar";
+  display: inline-block;
+  background: $mimi-pink;
+  color: $white;
+  font-weight: 600;
+  border-radius: 5px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 2px solid $mimi-pink;
+}
+.custom-file-input:hover::before {
+  border-color: $robin-egg-blue;
+  background-color: $white;
+  color: $primary-text;
+}

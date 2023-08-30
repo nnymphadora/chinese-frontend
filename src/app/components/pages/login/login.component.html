@@ -1,1 +1,19 @@
-<p>login works!</p>
+<div class="body-container">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <label for="username">
+      Korisničko ime
+      <input type="text" id="username" formControlName="username"
+    /></label>
+    <label for="password"
+      >Šifra <input type="password" id="password" formControlName="password"
+    /></label>
+    <button
+      class="btn secondary-btn"
+      type="submit"
+      [ngClass]="{ unclickable: !loginForm.valid }"
+      [disabled]="!loginForm.valid"
+    >
+      Prijavi se
+    </button>
+  </form>
+</div>

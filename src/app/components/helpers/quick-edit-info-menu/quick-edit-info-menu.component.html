@@ -3,18 +3,20 @@
     <h1>{{ title }}</h1>
 
     <fa-icon
+      *ngIf="isAdmin"
       [routerLink]="editLink"
       size="lg"
       class="icon grow"
       [icon]="editIcon"
     ></fa-icon>
     <fa-icon
+      *ngIf="isAdmin"
       (click)="softDeleteItem()"
       size="lg"
       class="icon grow"
       [icon]="deleteIcon"
     ></fa-icon>
-    <div class="switch-container">
+    <div class="switch-container" *ngIf="isAdmin">
       <label></label>
       <label class="switch">
         <input

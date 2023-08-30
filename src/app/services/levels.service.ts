@@ -15,7 +15,7 @@ export class LevelsService {
   }
 
   getLevelById(id: number) {
-    return this.http.get<Level>(`${this.apiUrl}/${id}`);
+    return this.http.get<Level>(`${this.apiUrl}/levels/${id}`);
   }
 
   insertLevel(level: Level) {

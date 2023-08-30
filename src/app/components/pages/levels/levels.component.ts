@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Level } from 'src/app/models/Level';
 import { LevelsService } from 'src/app/services/levels.service';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-levels',
@@ -9,6 +10,8 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./levels.component.scss'],
 })
 export class LevelsComponent implements OnInit {
+  tokenData: any = this.authService.getTokenData();
+  isAdmin: boolean = this.tokenData.isAdmin;
   levels: Level[] = [];
 
   roundPlus = faPlusCircle;
@@ -19,5 +22,8 @@ export class LevelsComponent implements OnInit {
     });
   }
 
-  constructor(private levelsService: LevelsService) {}
+  constructor(
+    private levelsService: LevelsService,
+    private authService: AuthService
+  ) {}
 }

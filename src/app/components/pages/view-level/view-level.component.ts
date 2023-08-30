@@ -16,6 +16,7 @@ import { LevelDifficulty } from 'src/app/models/LevelDifficulty';
 import { LevelCefrEquiv } from 'src/app/models/LevelCefrEquiv';
 import { LevelDifficultyService } from 'src/app/services/level-difficulty.service';
 import { LevelCefrEquivService } from 'src/app/services/level-cefr-equiv.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-view-level',
@@ -23,6 +24,9 @@ import { LevelCefrEquivService } from 'src/app/services/level-cefr-equiv.service
   styleUrls: ['./view-level.component.scss'],
 })
 export class ViewLevelComponent implements OnInit {
+  tokenData: any = this.authService.getTokenData();
+  isAdmin: boolean = this.tokenData.isAdmin;
+
   rightArrow = faArrowAltCircleRight;
   editIcon: IconDefinition = faPenToSquare;
   deleteIcon: IconDefinition = faTrashCan;
@@ -86,6 +90,7 @@ export class ViewLevelComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private levelDifficultyService: LevelDifficultyService,
     private levelCefrEquivService: LevelCefrEquivService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 }
