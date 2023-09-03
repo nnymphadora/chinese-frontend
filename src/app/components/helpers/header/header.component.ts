@@ -14,17 +14,18 @@ export class HeaderComponent implements OnInit {
   isLoggedIn: boolean = this.authService.isLoggedIn();
   apiUrl = environment.API_URL;
   tokenData: any;
-  user: User;
+  user: User = new User();
   userAvatarPath: string;
 
   ngOnInit(): void {
     if (this.isLoggedIn) {
       this.tokenData = this.authService.getTokenData();
-
-      this.usersService.getUserById(this.tokenData.id).subscribe((data) => {
-        this.user = data;
-        this.userAvatarPath = `${this.apiUrl}/${this.user.avatarPath}`;
-      });
+      this.usersService
+        .getUserByUsername(this.tokenData.username)
+        .subscribe((data) => {
+          this.user = data;
+          this.userAvatarPath = `${this.apiUrl}/${this.user.avatarPath}`;
+        });
     }
   }
 

@@ -25,6 +25,7 @@ export class AuthService {
 
   getTokenData() {
     const token = localStorage.getItem('chinese-token');
+    console.log(token);
 
     if (!token) return null;
     const tokenParts = token.split('.');

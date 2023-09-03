@@ -22,6 +22,10 @@ export class LevelsComponent implements OnInit {
     });
   }
 
+  showElToUser(el: Level): boolean {
+    return el.isActive === 1 || this.isAdmin;
+  }
+
   constructor(
     private levelsService: LevelsService,
     private authService: AuthService

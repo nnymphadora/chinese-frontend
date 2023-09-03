@@ -19,7 +19,7 @@ export class LevelsService {
   }
 
   insertLevel(level: Level) {
-    return this.http.post('${this.apiUrl}/levels', level);
+    return this.http.post(`${this.apiUrl}/levels`, level);
   }
 
   updateLevel(level: Level) {
@@ -33,6 +33,6 @@ export class LevelsService {
   }
 
   softDeleteLevel(level: any) {
-    return this.http.put(`${this.apiUrl}/${level.id}/delete`, level);
+    return this.http.put(`${this.apiUrl}/levels/${level.id}/delete`, level);
   }
 }

@@ -14,21 +14,27 @@
   ></app-quick-edit-info-menu>
 
   <div class="card-container">
-    <a
-      routerLink="/lesson/{{ ls.id }}"
-      class="card-link"
-      *ngFor="let ls of lessons"
-    >
-      <div class="card blue float">
-        <h2>{{ ls.name }}</h2>
-        <p>{{ ls.description }}</p>
-        <fa-icon
-          class="arrow-right grow"
-          size="lg"
-          [icon]="rightArrow"
-        ></fa-icon>
-      </div>
-    </a>
+    <ng-container *ngFor="let ls of lessons">
+      <a
+        routerLink="/lesson/{{ ls.id }}"
+        class="card-link"
+        *ngIf="showElToUser(ls)"
+      >
+        <div
+          class="card blue float"
+          [ngClass]="{ 'inactive-card': ls.isActive === 0 }"
+        >
+          <h2>{{ ls.name }}</h2>
+          <p>{{ ls.description }}</p>
+          <p *ngIf="ls.isActive === 0" class="descriptor">Neaktivna</p>
+          <fa-icon
+            class="arrow-right grow"
+            size="lg"
+            [icon]="rightArrow"
+          ></fa-icon>
+        </div>
+      </a>
+    </ng-container>
   </div>
   <div class="add-container" *ngIf="isAdmin">
     <a

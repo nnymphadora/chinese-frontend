@@ -58,10 +58,7 @@ export class BulkAddNewWordsComponent implements OnInit {
 
   saveNewWords() {
     const newWords = this.newWordForms.value;
-    console.log(newWords);
-
     this.onSave(newWords);
-    console.log('primljeno u bulk ad');
   }
 
   onGroupClick(index: number) {

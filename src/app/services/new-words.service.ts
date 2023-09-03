@@ -18,6 +18,10 @@ export class NewWordsService {
     return this.http.get<NewWord[]>(`${this.apiUrl}/new-words/by-level/${id}`);
   }
 
+  updateNewWord(newWord: NewWord) {
+    return this.http.put(`${this.apiUrl}/new-words/${newWord.id}`, newWord);
+  }
+
   insertNewWords(newWords: NewWord[]) {
     return this.http.post(`${this.apiUrl}/new-words`, newWords);
   }

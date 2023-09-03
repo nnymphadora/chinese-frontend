@@ -7,6 +7,7 @@ import { LevelDifficultyService } from 'src/app/services/level-difficulty.servic
 import { LevelsService } from 'src/app/services/levels.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-edit-level',
@@ -14,12 +15,23 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./add-edit-level.component.scss'],
 })
 export class AddEditLevelComponent implements OnInit {
-  difficulties: LevelDifficulty[];
-  cefrEquivs: LevelCefrEquiv[];
+  difficulties: LevelDifficulty[] = [];
+  cefrEquivs: LevelCefrEquiv[] = [];
   newLevel: Level = new Level();
   edit: boolean = false;
+  addEditLevelForm: FormGroup;
 
   ngOnInit(): void {
+    this.addEditLevelForm = this.formBuilder.group({
+      id: [null],
+      name: [null, Validators.required],
+      difficulty: [null, Validators.required],
+      description: [null, Validators.required],
+      cefrEquiv: [null, Validators.required],
+      isActive: [],
+      isRemoved: [],
+    });
+
     this.levelDifficultyService.getAllLevelDifficulty().subscribe((data) => {
       this.difficulties = data;
     });
@@ -33,36 +45,33 @@ export class AddEditLevelComponent implements OnInit {
         this.edit = true;
         const editLevelId = paramsData['id'];
         this.levelsService.getLevelById(editLevelId).subscribe((data) => {
-          this.newLevel = data;
+          this.addEditLevelForm.setValue(data);
         });
       }
     });
   }
 
   saveLevel() {
-    if (!this.edit) {
-      this.levelsService.insertLevel(this.newLevel).subscribe((data) => {
-        this.router.navigateByUrl('/levels');
-      });
-    } else {
-      this.levelsService
-        .updateLevel(this.newLevel)
-        .subscribe((data) => this.router.navigateByUrl('/levels'));
+    if (this.addEditLevelForm.valid) {
+      this.newLevel = this.addEditLevelForm.value;
+      if (!this.edit) {
+        this.levelsService.insertLevel(this.newLevel).subscribe((data) => {
+          this.router.navigateByUrl('/levels');
+        });
+      } else {
+        this.levelsService
+          .updateLevel(this.newLevel)
+          .subscribe((data) => this.router.navigateByUrl('/levels'));
+      }
     }
   }
-  checkForm(): boolean {
-    return !!(
-      this.newLevel.name &&
-      this.newLevel.difficulty &&
-      this.newLevel.cefrEquiv &&
-      this.newLevel.description
-    );
-  }
+
   constructor(
     private levelDifficultyService: LevelDifficultyService,
     private levelCefrEquivService: LevelCefrEquivService,
     private levelsService: LevelsService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private formBuilder: FormBuilder
   ) {}
 }

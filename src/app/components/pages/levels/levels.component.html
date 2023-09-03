@@ -1,24 +1,26 @@
 <div class="body-container">
   <h1>Dostupni moduli:</h1>
   <div class="card-container">
-    <a
-      routerLink="/level/{{ l?.id }}"
-      class="card-link"
-      *ngFor="let l of levels"
-    >
-      <div
-        class="card blue float"
-        [ngClass]="{ 'inactive-card': l.isActive === 0 }"
+    <ng-container *ngFor="let l of levels">
+      <a
+        routerLink="/level/{{ l?.id }}"
+        class="card-link"
+        *ngIf="showElToUser(l)"
       >
-        <h2>{{ l.name }}</h2>
-        <p>{{ l.description }}</p>
-        <div class="descriptor-container">
-          <p class="descriptor">{{ l.difficulty }}</p>
-          <p class="descriptor">{{ l.cefrEquiv }}</p>
-          <p *ngIf="l.isActive === 0" class="level-descriptor">Neaktivan</p>
+        <div
+          class="card blue float"
+          [ngClass]="{ 'inactive-card': l.isActive === 0 }"
+        >
+          <h2>{{ l.name }}</h2>
+          <p>{{ l.description }}</p>
+          <div class="descriptor-container">
+            <p class="descriptor">{{ l.difficulty }}</p>
+            <p class="descriptor">{{ l.cefrEquiv }}</p>
+            <p *ngIf="l.isActive === 0" class="descriptor">Neaktivan</p>
+          </div>
         </div>
-      </div>
-    </a>
+      </a>
+    </ng-container>
   </div>
   <div class="add-container">
     <a

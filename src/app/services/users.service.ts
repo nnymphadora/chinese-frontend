@@ -13,8 +13,8 @@ export class UsersService {
     return this.http.get<string[]>(`${this.apiUrl}/users`);
   }
 
-  getUserById(id: number) {
-    return this.http.get<User>(`${this.apiUrl}/user/${id}`);
+  getUserByUsername(username: string) {
+    return this.http.get<User>(`${this.apiUrl}/user/${username}`);
   }
 
   saveAvatarImg(avatarData: FormData) {

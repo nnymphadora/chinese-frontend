@@ -23,11 +23,11 @@ export class LessonsService {
   }
 
   updateLesson(lesson: Lesson) {
-    return this.http.put(`${this.apiUrl}/${lesson.id}`, lesson);
+    return this.http.put(`${this.apiUrl}/lessons/${lesson.id}`, lesson);
   }
 
   toggleActiveLesson(id: number, toggleActive: number) {
-    return this.http.put(`${this.apiUrl}/${id}/toggle-active`, {
+    return this.http.put(`${this.apiUrl}/lessons/${id}/toggle-active`, {
       is_active: toggleActive,
     });
   }

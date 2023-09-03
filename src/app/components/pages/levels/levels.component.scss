@@ -6,19 +6,6 @@ h1 {
   font-size: 2rem;
 }
 
-.card {
-  p {
-    font-size: 0.8rem;
-  }
-  &:hover {
-    .descriptor {
-      background-color: $persian-red;
-      border-color: $persian-red;
-      color: white;
-    }
-  }
-}
-
 .body-container {
   display: flex;
   align-items: center;

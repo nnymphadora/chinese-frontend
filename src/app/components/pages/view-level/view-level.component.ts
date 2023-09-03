@@ -84,6 +84,10 @@ export class ViewLevelComponent implements OnInit {
     this.toggleActiveLevel(val);
   }
 
+  showElToUser(el: Lesson): boolean {
+    return el.isActive === 1 || this.isAdmin;
+  }
+
   constructor(
     private levelsService: LevelsService,
     private lessonsService: LessonsService,
