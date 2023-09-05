@@ -34,31 +34,39 @@ export class AddEditLessonComponent implements OnInit {
     this.activatedRoute.params.subscribe((paramsData) => {
       if (paramsData['id']) {
         this.edit = true;
-        const editLessonId = paramsData['id'];
-        this.lessonsService.getLessonById(editLessonId).subscribe((data) => {
-          this.newLesson = data;
-          this.addEditForm.setValue({
-            id: this.newLesson.id,
-            level: this.newLesson.level,
-            levelId: this.newLesson.levelId,
-            name: this.newLesson.name,
-            lessonOrderInLevel: this.newLesson.lessonOrderInLevel,
-            description: this.newLesson.description,
-          });
-        });
+        this.getEditLessonData(paramsData['id']);
       } else {
         const state = this.activatedRoute.snapshot.queryParams;
-
         if (state && state['levelId']) {
           this.addEditForm.controls['levelId'].setValue(state['levelId']);
-          this.levelsService
-            .getLevelById(this.newLesson.levelId)
-            .subscribe((data) => {
-              this.currentLevel = data;
-              this.newLesson.levelId = this.currentLevel.id;
-            });
+          this.getLevelData(this.newLesson.levelId);
         }
       }
+    });
+  }
+
+  getEditLessonData(lessonId: number) {
+    this.lessonsService.getLessonById(lessonId).subscribe((data) => {
+      this.newLesson = data;
+      this.setFormData(this.newLesson);
+    });
+  }
+
+  setFormData(formData: any) {
+    this.addEditForm.setValue({
+      id: formData.id,
+      level: formData.level,
+      levelId: formData.levelId,
+      name: formData.name,
+      lessonOrderInLevel: formData.lessonOrderInLevel,
+      description: formData.description,
+    });
+  }
+
+  getLevelData(levelId: number) {
+    this.levelsService.getLevelById(levelId).subscribe((data) => {
+      this.currentLevel = data;
+      this.newLesson.levelId = this.currentLevel.id;
     });
   }
 
@@ -85,25 +93,6 @@ export class AddEditLessonComponent implements OnInit {
       });
     }
   }
-
-  // saveLesson() {
-  //   if (!this.edit) {
-  //     if(this.addEditForm.valid) {
-
-  //     }
-  //     let levelId = this.lessonsService
-  //       .insertLesson(this.newLesson)
-  //       .subscribe((data) => {
-  //         this.newWordComponent.saveNewWords();
-  //         this.router.navigateByUrl(`/level/${this.newLesson.levelId}`);
-  //       });
-  //   } else {
-  //     this.lessonsService.updateLesson(this.newLesson).subscribe((data) => {
-  //       this.newWordComponent.saveNewWords();
-  //       this.router.navigateByUrl(`/lesson/${this.newLesson.id}`);
-  //     });
-  //   }
-  // }
 
   saveNewWords(newWords: NewWord[]) {
     this.newWordsService.insertNewWords(newWords).subscribe((data) => {});

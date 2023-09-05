@@ -16,6 +16,8 @@ import { HelpersModule } from '../helpers/helpers.module';
 import RegisterComponent from './register/register.component';
 import { LoginComponent } from './login/login.component';
 
+import { MatDialogModule } from '@angular/material/dialog';
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -33,6 +35,7 @@ import { LoginComponent } from './login/login.component';
     FormsModule,
     HelpersModule,
     ReactiveFormsModule,
+    MatDialogModule,
   ],
   exports: [],
 })

@@ -1,7 +1,12 @@
 <div class="body-container">
+  <h2 mat-dialog-title>Izmijeni riječ</h2>
+  <fa-icon
+    [icon]="closeIcon"
+    class="alert-icon"
+    (click)="closeDialog()"
+  ></fa-icon>
   <form [formGroup]="editNewWordForm">
-    <h2>Izmijeni riječ</h2>
-    <div class="add-form">
+    <div class="add-form" mat-dialog-content>
       <div class="info">
         <label for="content" class="short"
           >Riječ<input type="text" id="content" formControlName="content"
@@ -41,14 +46,15 @@
           />
         </label>
       </div>
-
-      <button
-        class="btn secondary-btn"
-        [ngClass]="{ unclickable: !editNewWordForm.valid }"
-        (click)="saveNewWord()"
-      >
-        Sačuvaj
-      </button>
+      <div mat-dialog-actions>
+        <button
+          class="btn secondary-btn"
+          [ngClass]="{ unclickable: !editNewWordForm.valid }"
+          (click)="saveNewWord()"
+        >
+          Sačuvaj
+        </button>
+      </div>
     </div>
   </form>
 </div>

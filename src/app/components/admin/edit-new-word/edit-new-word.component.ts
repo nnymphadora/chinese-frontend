@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { NewWord } from 'src/app/models/NewWord';
 import { NewWordsService } from 'src/app/services/new-words.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-edit-new-word',
@@ -10,8 +12,8 @@ import { NewWordsService } from 'src/app/services/new-words.service';
   styleUrls: ['./edit-new-word.component.scss'],
 })
 export class EditNewWordComponent implements OnInit {
-  newWord: NewWord;
   editNewWordForm: FormGroup;
+  closeIcon = faXmark;
 
   ngOnInit(): void {
     this.editNewWordForm = this.formBuilder.group({
@@ -26,31 +28,26 @@ export class EditNewWordComponent implements OnInit {
       exSent2Mne: [null],
     });
 
-    this.activatedRoute.params.subscribe((paramsData) => {
-      if (paramsData && paramsData['id']) {
-        this.newwordsService
-          .getNewWordById(paramsData['id'])
-          .subscribe((data) => {
-            this.newWord = data;
-            this.editNewWordForm.setValue(this.newWord);
-          });
-      }
-    });
+    this.editNewWordForm.setValue(this.data);
   }
 
   saveNewWord() {
     if (this.editNewWordForm.valid) {
-      this.newWord = this.editNewWordForm.value;
-      this.newwordsService.updateNewWord(this.newWord).subscribe((data) => {
-        this.router.navigateByUrl(`/lesson/${this.newWord.relatedLessonId}`);
+      const newWord = this.editNewWordForm.value;
+      this.newwordsService.updateNewWord(newWord).subscribe((data) => {
+        this.dialogRef.close(true);
       });
     }
   }
 
+  closeDialog() {
+    this.dialogRef.close(false);
+  }
+
   constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
     private newwordsService: NewWordsService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private dialogRef: MatDialogRef<EditNewWordComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: NewWord
   ) {}
 }

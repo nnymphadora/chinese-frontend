@@ -1,11 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  FormArray,
-  Validators,
-  FormControl,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Lesson } from 'src/app/models/Lesson';
 
 import { faTrashCan, faPlusCircle } from '@fortawesome/free-solid-svg-icons';

@@ -21,7 +21,8 @@
   <div class="card-container">
     <app-new-word-card
       *ngFor="let word of newWords"
-      (cardDeleted)="onDeleteCard()"
+      (deleteWord)="onDeleteWord(word.id)"
+      (editWord)="onEditWord(word)"
       [newWordData]="word"
       [editLink]="'/admin/edit-new-word/' + word?.id"
     ></app-new-word-card>

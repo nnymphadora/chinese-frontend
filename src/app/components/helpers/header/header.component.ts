@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
 import { UsersService } from 'src/app/services/users.service';
@@ -20,13 +19,15 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     if (this.isLoggedIn) {
       this.tokenData = this.authService.getTokenData();
-      this.usersService
-        .getUserByUsername(this.tokenData.username)
-        .subscribe((data) => {
-          this.user = data;
-          this.userAvatarPath = `${this.apiUrl}/${this.user.avatarPath}`;
-        });
+      this.getUserData(this.tokenData.username);
     }
+  }
+
+  getUserData(username: string) {
+    this.usersService.getUserByUsername(username).subscribe((data) => {
+      this.user = data;
+      this.userAvatarPath = `${this.apiUrl}/${this.user.avatarPath}`;
+    });
   }
 
   logout() {
@@ -36,7 +37,6 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private usersService: UsersService,
-    private router: Router
+    private usersService: UsersService
   ) {}
 }

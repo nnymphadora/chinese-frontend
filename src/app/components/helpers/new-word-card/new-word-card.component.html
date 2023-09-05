@@ -31,9 +31,9 @@
     <fa-icon
       class="alert-icon"
       [icon]="deleteBtn"
-      (click)="deleteNewWord(newWordData?.id)"
+      (click)="deleteClick()"
     ></fa-icon>
-    <fa-icon class="alert-icon" [icon]="editBtn" [routerLink]="editLink">
+    <fa-icon class="alert-icon" [icon]="editBtn" (click)="editClick()">
     </fa-icon>
   </div>
 </div>

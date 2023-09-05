@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
 import { environment } from 'src/environments/environment.development';
@@ -26,8 +25,12 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     if (this.loginForm.valid) {
       this.user = this.loginForm.value;
+      this.login(this.user);
     }
-    this.authService.login(this.user).subscribe((data: any) => {
+  }
+
+  login(user: any) {
+    this.authService.login(user).subscribe((data: any) => {
       if (data.success) {
         localStorage.setItem('chinese-token', data.token);
         window.location.href = '/';
@@ -39,7 +42,6 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService,
-    private router: Router
+    private authService: AuthService
   ) {}
 }

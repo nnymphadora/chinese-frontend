@@ -12,6 +12,8 @@ import {
   faPenToSquare,
   faTrashCan,
 } from '@fortawesome/free-solid-svg-icons';
+import { MatDialog } from '@angular/material/dialog';
+import { EditNewWordComponent } from '../../admin/edit-new-word/edit-new-word.component';
 
 @Component({
   selector: 'app-view-words-for-lesson',
@@ -21,6 +23,7 @@ import {
 export class ViewLessonComponent implements OnInit {
   newWords: NewWord[];
   lesson: Lesson;
+  lessonId: number;
   level: Level;
 
   isActiveLesson: boolean;
@@ -30,28 +33,35 @@ export class ViewLessonComponent implements OnInit {
   deleteIcon: IconDefinition = faTrashCan;
 
   ngOnInit(): void {
+    this.getData();
+  }
+
+  getData() {
     this.activatedRoute.params.subscribe((paramsData) => {
-      let lessonId = paramsData['id'];
-      this.newWordsService
-        .getNewWordsByLesson(lessonId)
-        .subscribe((data) => (this.newWords = data));
-
-      this.newWordsService.getNewWordsByLesson(lessonId).subscribe((data) => {
-        this.newWords = data;
-      });
-
-      this.lessonsService.getLessonById(lessonId).subscribe((data) => {
-        this.lesson = data;
-        this.isActiveLesson = !!this.lesson.isActive;
-        console.log(this.isActiveLesson);
-
-        let levelId = this.lesson.levelId;
-
-        this.levelsService
-          .getLevelById(levelId)
-          .subscribe((data) => (this.level = data));
-      });
+      this.lessonId = paramsData['id'];
+      this.getNewWordsData(this.lessonId);
+      this.getLessonData(this.lessonId);
     });
+  }
+
+  getNewWordsData(lessonId: number) {
+    this.newWordsService
+      .getNewWordsByLesson(lessonId)
+      .subscribe((data) => (this.newWords = data));
+  }
+  getLessonData(lessonId: number) {
+    this.lessonsService.getLessonById(lessonId).subscribe((data) => {
+      this.lesson = data;
+      this.isActiveLesson = !!this.lesson.isActive;
+      let levelId = this.lesson.levelId;
+      this.getLevelData(levelId);
+    });
+  }
+
+  getLevelData(levelId: number) {
+    this.levelsService
+      .getLevelById(levelId)
+      .subscribe((data) => (this.level = data));
   }
 
   softDeleteLesson() {
@@ -75,8 +85,22 @@ export class ViewLessonComponent implements OnInit {
 
     this.toggleActiveLesson(val);
   }
-  onDeleteCard() {
-    this.ngOnInit();
+  onDeleteWord(id: number) {
+    this.newWordsService.deleteNewWord(id).subscribe((data) => {
+      this.ngOnInit();
+    });
+  }
+
+  onEditWord(word: NewWord) {
+    const dialogRef = this.dialog.open(EditNewWordComponent, {
+      width: '40%',
+      data: word,
+    });
+    dialogRef.afterClosed().subscribe((result: NewWord) => {
+      if (result) {
+        this.getNewWordsData(this.lessonId);
+      }
+    });
   }
 
   constructor(
@@ -84,6 +108,7 @@ export class ViewLessonComponent implements OnInit {
     private lessonsService: LessonsService,
     private activatedRoute: ActivatedRoute,
     private levelsService: LevelsService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 }

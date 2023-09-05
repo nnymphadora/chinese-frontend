@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { EditNewWordComponent } from './edit-new-word/edit-new-word.component';
 
+import { MatDialogModule } from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AddEditLevelComponent,
@@ -25,6 +26,7 @@ import { EditNewWordComponent } from './edit-new-word/edit-new-word.component';
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
+    MatDialogModule,
   ],
   providers: [LevelCefrEquivService, LevelDifficultyService],
 })

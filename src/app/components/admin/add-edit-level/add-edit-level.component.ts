@@ -32,23 +32,34 @@ export class AddEditLevelComponent implements OnInit {
       isRemoved: [],
     });
 
-    this.levelDifficultyService.getAllLevelDifficulty().subscribe((data) => {
-      this.difficulties = data;
-    });
-
-    this.levelCefrEquivService
-      .getAllLevelCefrEquiv()
-      .subscribe((data) => (this.cefrEquivs = data));
+    this.getLevelDifficulutiesData();
+    this.getLevelCefrEquivsData;
 
     this.activatedRoute.params.subscribe((paramsData) => {
       if (paramsData['id']) {
         this.edit = true;
         const editLevelId = paramsData['id'];
-        this.levelsService.getLevelById(editLevelId).subscribe((data) => {
-          this.addEditLevelForm.setValue(data);
-        });
+        this.getLevelData(editLevelId);
       }
     });
+  }
+
+  getLevelData(levelId: number) {
+    this.levelsService.getLevelById(levelId).subscribe((data) => {
+      this.addEditLevelForm.setValue(data);
+    });
+  }
+
+  getLevelDifficulutiesData() {
+    this.levelDifficultyService.getAllLevelDifficulty().subscribe((data) => {
+      this.difficulties = data;
+    });
+  }
+
+  getLevelCefrEquivsData() {
+    this.levelCefrEquivService
+      .getAllLevelCefrEquiv()
+      .subscribe((data) => (this.cefrEquivs = data));
   }
 
   saveLevel() {

@@ -1,8 +1,7 @@
-import { outputAst } from '@angular/compiler';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/auth.service';
+
 @Component({
   selector: 'app-quick-edit-info-menu',
   templateUrl: './quick-edit-info-menu.component.html',

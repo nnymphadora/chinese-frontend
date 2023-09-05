@@ -1,12 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Host,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
-import { NewWordsService } from 'src/app/services/new-words.service';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NewWord } from '../../../models/NewWord';
 import { PronunciationService } from 'src/app/services/pronunciation.service';
 import {
@@ -14,8 +6,6 @@ import {
   faTrashCan,
   faPenToSquare,
 } from '@fortawesome/free-solid-svg-icons';
-import { Router } from '@angular/router';
-import { ViewLessonComponent } from '../../pages/view-lesson/view-lesson.component';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -31,6 +21,8 @@ export class NewWordCardComponent implements OnInit {
   @Input() editLink: string;
 
   @Output() cardDeleted = new EventEmitter<void>();
+  @Output() editWord = new EventEmitter<void>();
+  @Output() deleteWord = new EventEmitter<void>();
 
   flipped: boolean = false;
   soundIcon = faVolumeHigh;
@@ -42,28 +34,29 @@ export class NewWordCardComponent implements OnInit {
   toggle() {
     this.flipped = !this.flipped;
   }
-  constructor(
-    private newWordsService: NewWordsService,
-    private pronunciationService: PronunciationService,
-    private router: Router,
-    private authService: AuthService
-  ) {}
 
   playPronunciation() {
     this.pronunciationService
       .getPronunciation(this.newWordData.content)
       .subscribe((data) => {
-        const audioUrl = data.items[0].pathmp3; // Adjust the path to match Forvo's API response structure
+        const audioUrl = data.items[0].pathmp3;
         const audio = new Audio(audioUrl);
         audio.play();
       });
   }
 
-  deleteNewWord(id: number) {
+  editClick(): void {
+    this.editWord.emit();
+  }
+
+  deleteClick(): void {
     if (confirm('Obriši riječ?')) {
-      this.newWordsService.deleteNewWord(id).subscribe((data) => {
-        this.cardDeleted.emit();
-      });
+      this.deleteWord.emit();
     }
   }
+
+  constructor(
+    private pronunciationService: PronunciationService,
+    private authService: AuthService
+  ) {}
 }

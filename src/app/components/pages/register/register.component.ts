@@ -8,7 +8,7 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+
 import { Observable, of } from 'rxjs';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
@@ -78,7 +78,7 @@ export default class RegisterComponent {
     }
     this.authService.register(this.user).subscribe((data: any) => {
       localStorage.setItem('chinese-token', data.token);
-             window.location.href = '/';
+      window.location.href = '/';
     });
   }
 
@@ -129,7 +129,6 @@ export default class RegisterComponent {
   constructor(
     private formBuilder: FormBuilder,
     private usersService: UsersService,
-    private authService: AuthService,
-    private router: Router
+    private authService: AuthService
   ) {}
 }
