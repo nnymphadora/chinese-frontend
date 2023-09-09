@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { LessonsService } from 'src/app/services/lessons.service';
 import { Lesson } from 'src/app/models/Lesson';
 import { NewWordsService } from 'src/app/services/new-words.service';
@@ -12,8 +12,14 @@ import {
   faPenToSquare,
   faTrashCan,
 } from '@fortawesome/free-solid-svg-icons';
-import { MatDialog } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { EditNewWordComponent } from '../../admin/edit-new-word/edit-new-word.component';
+import { AddEditLessonComponent } from '../../admin/add-edit-lesson/add-edit-lesson.component';
+import { DialogResult } from 'src/app/enums/dialog-result';
 
 @Component({
   selector: 'app-view-words-for-lesson',
@@ -87,7 +93,21 @@ export class ViewLessonComponent implements OnInit {
   }
   onDeleteWord(id: number) {
     this.newWordsService.deleteNewWord(id).subscribe((data) => {
-      this.ngOnInit();
+      this.getNewWordsData(this.lesson.id);
+    });
+  }
+
+  onEditLesson() {
+    const dialogRef = this.dialog.open(AddEditLessonComponent, {
+      width: '50%',
+      data: { lesson: this.lesson, newWords: this.newWords },
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result === DialogResult.Edited) {
+        this.getLessonData(this.lesson.id);
+        this.getNewWordsData(this.lesson.id);
+      }
     });
   }
 

@@ -1,4 +1,5 @@
 @import "../../../../assets/scss/variables.scss";
+@import "../../../../assets/scss/admin-dialog-common.scss";
 
 .add-form {
   width: 70%;
@@ -6,16 +7,6 @@
   display: flex;
   flex-direction: column;
   padding-top: 2rem;
-}
-
-h2 {
-  color: $robin-egg-blue;
-  font-size: 2rem;
-  align-self: center;
-}
-.body-container {
-  display: flex;
-  flex-direction: column;
 }
 
 .info {
@@ -38,10 +29,6 @@ h2 {
   }
 }
 
-.btn {
-  margin-top: 2rem;
-  align-self: center;
-}
 .unclickable {
   pointer-events: none;
   opacity: 0.1;

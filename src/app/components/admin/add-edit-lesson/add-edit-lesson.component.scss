@@ -1,4 +1,6 @@
 @import "../../../../assets/scss/variables.scss";
+@import "../../../../assets/scss/admin-dialog-common.scss";
 
-//styling the same as add-edit-level component
-@import "../add-edit-level/add-edit-level.component.scss";
+.deleted {
+  display: none;
+}

@@ -17,6 +17,11 @@ import { LevelCefrEquiv } from 'src/app/models/LevelCefrEquiv';
 import { LevelDifficultyService } from 'src/app/services/level-difficulty.service';
 import { LevelCefrEquivService } from 'src/app/services/level-cefr-equiv.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AddEditLevelComponent } from '../../admin/add-edit-level/add-edit-level.component';
+
+import { DialogResult } from 'src/app/enums/dialog-result';
+import { AddEditLessonComponent } from '../../admin/add-edit-lesson/add-edit-lesson.component';
 
 @Component({
   selector: 'app-view-level',
@@ -40,26 +45,44 @@ export class ViewLevelComponent implements OnInit {
   cefrEquivs: LevelCefrEquiv[];
 
   ngOnInit(): void {
+    this.getData();
+  }
+
+  getData() {
     this.activatedRoute.params.subscribe((paramsData) => {
       let levelId: number = paramsData['id'];
-      this.levelsService.getLevelById(levelId).subscribe((data) => {
-        this.level = data;
-        this.isActiveLevel = !!data.isActive;
-      });
-      this.lessonsService.getAllLessonsByLevelId(levelId).subscribe((data) => {
-        this.lessons = data.sort(
-          (a, b) => a.lessonOrderInLevel - b.lessonOrderInLevel
-        );
-      });
+      this.getLevelData(levelId);
+      this.getLessonsData(levelId);
     });
 
-    this.levelDifficultyService
-      .getAllLevelDifficulty()
-      .subscribe((data) => (this.difficulties = data));
+    this.getLevelDifficultiesData();
+    this.getLevelCefrEquivsData();
+  }
 
+  getLevelData(levelId: number) {
+    this.levelsService.getLevelById(levelId).subscribe((data) => {
+      this.level = data;
+      this.isActiveLevel = !!data.isActive;
+    });
+  }
+
+  getLessonsData(levelId: number) {
+    this.lessonsService.getAllLessonsByLevelId(levelId).subscribe((data) => {
+      this.lessons = data.sort(
+        (a, b) => a.lessonOrderInLevel - b.lessonOrderInLevel
+      );
+    });
+  }
+  getLevelCefrEquivsData() {
     this.levelCefrEquivService
       .getAllLevelCefrEquiv()
       .subscribe((data) => (this.cefrEquivs = data));
+  }
+
+  getLevelDifficultiesData() {
+    this.levelDifficultyService
+      .getAllLevelDifficulty()
+      .subscribe((data) => (this.difficulties = data));
   }
 
   softDeleteLevel() {
@@ -74,7 +97,7 @@ export class ViewLevelComponent implements OnInit {
     this.levelsService
       .toggleActiveLevel(this.level.id, toggleActive)
       .subscribe((data) => {
-        this.ngOnInit();
+        this.getLevelData(this.level.id);
       });
   }
 
@@ -82,6 +105,32 @@ export class ViewLevelComponent implements OnInit {
     const val = value ? 1 : 0;
 
     this.toggleActiveLevel(val);
+  }
+
+  onEditLevel() {
+    const dialogRef = this.dialog.open(AddEditLevelComponent, {
+      width: '40%',
+      data: this.level,
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result === DialogResult.Edited) {
+        this.getLevelData(this.level.id);
+      }
+    });
+  }
+
+  onAddLesson() {
+    const lesson = new Lesson();
+    lesson.levelId = this.level.id;
+    const dialogRef = this.dialog.open(AddEditLessonComponent, {
+      width: '40%',
+      data: this.level.id,
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result === DialogResult.Added) {
+        this.getLessonsData(this.level.id);
+      }
+    });
   }
 
   showElToUser(el: Lesson): boolean {
@@ -95,6 +144,7 @@ export class ViewLevelComponent implements OnInit {
     private levelDifficultyService: LevelDifficultyService,
     private levelCefrEquivService: LevelCefrEquivService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private dialog: MatDialog
   ) {}
 }

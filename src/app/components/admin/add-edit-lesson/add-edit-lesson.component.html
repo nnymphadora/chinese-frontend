@@ -1,4 +1,10 @@
-<div class="body-container" *ngIf="addEditForm">
+<div class="dialog-container" *ngIf="addEditForm">
+  <fa-icon
+    [icon]="closeBtn"
+    class="alert-icon close-icon"
+    (click)="closeDialog()"
+    size="lg"
+  ></fa-icon>
   <form [formGroup]="addEditForm">
     <h2>{{ edit ? "Izmijeni " : "Dodaj novu " }} lekciju</h2>
     <div class="add-form">
@@ -30,15 +36,27 @@
     </div>
   </form>
 
-  <div class="new-words-form">
-    <app-bulk-add-new-words
-      [onSave]="saveNewWords.bind(this)"
-      [lesson]="this.newLesson"
-      #newWordComponent
+  <h3>Dodaj nove riječi u lekciju {{ this.currentLesson?.name }}</h3>
+  <div
+    class="new-words-form"
+    *ngFor="let newWordForm of allNewWordFormsArray?.controls; let i = index"
+  >
+    <app-add-new-word
+      [form]="newWordForm"
+      [isGroupActive]="isGroupActive(i)"
+      [lesson]="this.currentLesson"
+      (click)="onGroupClick(i)"
+      (delete)="onDelete(i)"
     >
-      ></app-bulk-add-new-words
+      ></app-add-new-word
     >
   </div>
+  <fa-icon
+    class="grow alert-icon add-btn"
+    size="xl"
+    [icon]="addBtn"
+    (click)="addNewWordGroup()"
+  ></fa-icon>
 
   <button
     class="btn secondary-btn"

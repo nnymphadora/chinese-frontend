@@ -1,0 +1,43 @@
+h2 {
+  color: $robin-egg-blue;
+  font-size: 2rem;
+  align-self: center;
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: $robin-egg-blue;
+}
+
+.dialog-container {
+  max-height: 90dvh;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  background-color: $white;
+}
+
+.close-icon {
+  align-self: flex-end;
+}
+
+.add-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  gap: 1rem;
+  align-self: center;
+}
+
+.btn,
+.add-btn {
+  align-self: center;
+  margin-top: 1.5rem;
+}
+
+input,
+select,
+textarea {
+  display: block;
+}

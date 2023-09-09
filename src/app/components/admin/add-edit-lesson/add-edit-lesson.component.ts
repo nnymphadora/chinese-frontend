@@ -1,13 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Lesson } from 'src/app/models/Lesson';
 import { Level } from 'src/app/models/Level';
 import { LessonsService } from 'src/app/services/lessons.service';
 import { LevelsService } from 'src/app/services/levels.service';
-import { BulkAddNewWordsComponent } from '../bulk-add-new-words/bulk-add-new-words.component';
 import { NewWord } from 'src/app/models/NewWord';
 import { NewWordsService } from 'src/app/services/new-words.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { DialogResult } from 'src/app/enums/dialog-result';
+import { faPlusCircle, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faWordpress } from '@fortawesome/free-brands-svg-icons';
+import { LoginComponent } from '../../pages/login/login.component';
 
 @Component({
   selector: 'app-add-edit-lesson',
@@ -15,95 +18,167 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./add-edit-lesson.component.scss'],
 })
 export class AddEditLessonComponent implements OnInit {
-  @ViewChild('newWordComponent') newWordComponent: BulkAddNewWordsComponent;
-  newLesson: Lesson = new Lesson();
-  currentLevel: Level; // if editing a lesson
-  edit: boolean = false;
+  addBtn = faPlusCircle;
+  closeBtn = faXmark;
+
+  currentLevel: Level;
+  currentLesson: Lesson;
+  newWords: NewWord[];
   addEditForm: FormGroup;
+  newWordsForm: FormGroup;
+
+  edit: boolean = false;
+  activeGroupIndex: number = 0;
 
   ngOnInit(): void {
+    //the lesson form
     this.addEditForm = this.formBuilder.group({
-      level: [null],
       id: [null],
       levelId: [null],
       name: ['', Validators.required],
+      level: [null],
       lessonOrderInLevel: [null, Validators.required],
       description: ['', Validators.required],
+      isActive: [null],
+      isRemoved: [null],
     });
 
-    this.activatedRoute.params.subscribe((paramsData) => {
-      if (paramsData['id']) {
-        this.edit = true;
-        this.getEditLessonData(paramsData['id']);
-      } else {
-        const state = this.activatedRoute.snapshot.queryParams;
-        if (state && state['levelId']) {
-          this.addEditForm.controls['levelId'].setValue(state['levelId']);
-          this.getLevelData(this.newLesson.levelId);
-        }
-      }
+    //the new words form array
+    this.newWordsForm = this.formBuilder.group({
+      allNewWordForms: this.formBuilder.array([]),
     });
+
+    this.checkIfEdit(this.dialogData);
   }
 
-  getEditLessonData(lessonId: number) {
-    this.lessonsService.getLessonById(lessonId).subscribe((data) => {
-      this.newLesson = data;
-      this.setFormData(this.newLesson);
-    });
+  get allNewWordFormsArray() {
+    return this.newWordsForm.get('allNewWordForms') as FormArray;
   }
 
-  setFormData(formData: any) {
-    this.addEditForm.setValue({
-      id: formData.id,
-      level: formData.level,
-      levelId: formData.levelId,
-      name: formData.name,
-      lessonOrderInLevel: formData.lessonOrderInLevel,
-      description: formData.description,
+  checkIfEdit(dialogData: any) {
+    if (dialogData.lesson) {
+      this.edit = true;
+      this.handleEdit(dialogData);
+      this.getLevelData(dialogData.lesson.levelId);
+    } else {
+      this.getLevelData(dialogData);
+    }
+  }
+
+  handleEdit(editData: any) {
+    this.currentLesson = editData.lesson;
+    this.newWords = editData.newWords;
+    this.addEditForm.setValue(this.currentLesson);
+    this.newWords.forEach((newWord) => {
+      const existingNewWordGroup = this.formBuilder.group({
+        id: newWord.id,
+        content: [newWord.content, Validators.required],
+        meaning: [newWord.meaning, Validators.required],
+        pinyin: [newWord.pinyin, Validators.required],
+        relatedLessonId: [this.currentLesson.id],
+        exSent1: [newWord.exSent1],
+        exSent1Mne: [newWord.exSent1Mne],
+        exSent2: [newWord.exSent2],
+        exSent2Mne: [newWord.exSent2Mne],
+      });
+      this.allNewWordFormsArray.push(existingNewWordGroup);
     });
   }
 
   getLevelData(levelId: number) {
     this.levelsService.getLevelById(levelId).subscribe((data) => {
       this.currentLevel = data;
-      this.newLesson.levelId = this.currentLevel.id;
     });
   }
 
-  onSubmit() {
-    if (this.addEditForm.valid) {
-      console.log(this.newLesson);
-      this.saveLesson();
-      this.router.navigateByUrl(`/level/${this.newLesson.levelId}`);
-    }
-  }
-
   saveLesson() {
-    this.newLesson = this.addEditForm.value;
+    if (this.addEditForm.valid) {
+      this.currentLesson = this.addEditForm.value;
+      if (this.edit) {
+        this.lessonsService
+          .updateLesson(this.currentLesson)
+          .subscribe((data) => {
+            this.saveNewWords(
+              this.allNewWordFormsArray.getRawValue(),
+              this.edit
+            );
+            this.dialogRef.close(DialogResult.Edited);
+          });
+      } else {
+        this.currentLesson.levelId = this.currentLevel.id;
+        this.lessonsService
+          .insertLesson(this.currentLesson)
+          .subscribe((data: any) => {
+            this.currentLesson.id = data.result.insertId;
+            this.allNewWordFormsArray.controls.forEach((word: any) => {
+              word.controls.relatedLessonId.setValue(this.currentLesson.id);
+            });
 
-    if (this.edit) {
-      this.lessonsService.updateLesson(this.newLesson).subscribe((data) => {
-        this.newWordComponent.saveNewWords();
-        this.router.navigateByUrl(`/lesson/${this.newLesson.id}`);
-      });
+            this.saveNewWords(
+              this.allNewWordFormsArray.getRawValue(),
+              this.edit
+            );
+            this.dialogRef.close(DialogResult.Added);
+          });
+      }
+    }
+  }
+
+  saveNewWords(newWords: NewWord[], isEdit: boolean) {
+    console.log(newWords);
+
+    if (isEdit) {
+      return this.newWordsService
+        .updateNewWordsForEditedLesson(newWords, this.currentLesson.id)
+        .subscribe((data) => {
+          console.log(data);
+        });
     } else {
-      this.lessonsService.insertLesson(this.newLesson).subscribe((data) => {
-        this.newWordComponent.saveNewWords();
-        this.router.navigateByUrl(`/level/${this.newLesson.levelId}`);
+      return this.newWordsService.insertNewWords(newWords).subscribe((data) => {
+        console.log(data);
       });
     }
   }
 
-  saveNewWords(newWords: NewWord[]) {
-    this.newWordsService.insertNewWords(newWords).subscribe((data) => {});
+  addNewWordGroup(): void {
+    console.log(this.currentLesson.id);
+
+    const newWordGroup = this.formBuilder.group({
+      content: ['', Validators.required],
+      meaning: ['', Validators.required],
+      pinyin: ['', Validators.required],
+      relatedLessonId: [this.currentLesson?.id ?? null],
+      exSent1: [''],
+      exSent1Mne: [''],
+      exSent2: [''],
+      exSent2Mne: [''],
+    });
+    this.allNewWordFormsArray.push(newWordGroup);
+    this.activeGroupIndex = this.allNewWordFormsArray.length - 1;
+  }
+
+  onGroupClick(index: number) {
+    this.activeGroupIndex = index;
+  }
+
+  isGroupActive(index: number): boolean {
+    return this.activeGroupIndex === index;
+  }
+
+  onDelete(index: number) {
+    this.allNewWordFormsArray.removeAt(index);
+  }
+
+  closeDialog() {
+    this.dialogRef.close(DialogResult.Cancelled);
   }
 
   constructor(
     private lessonsService: LessonsService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
     private levelsService: LevelsService,
     private newWordsService: NewWordsService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private dialogRef: MatDialogRef<AddEditLessonComponent>,
+    @Inject(MAT_DIALOG_DATA) public dialogData: any
   ) {}
 }

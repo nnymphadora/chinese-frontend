@@ -17,6 +17,7 @@ import RegisterComponent from './register/register.component';
 import { LoginComponent } from './login/login.component';
 
 import { MatDialogModule } from '@angular/material/dialog';
+import { ViewExercisesComponent } from './view-exercises/view-exercises.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     ViewLessonComponent,
     RegisterComponent,
     LoginComponent,
+    ViewExercisesComponent,
   ],
   imports: [
     CommonModule,

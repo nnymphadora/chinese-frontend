@@ -20,11 +20,12 @@ export class QuickEditInfoMenuComponent {
   @Input() cefrEquiv: string;
   @Input() itemType: any;
 
-  @Output() softDelete = new EventEmitter<void>();
-  @Output() toggleActive = new EventEmitter<boolean>();
-
   @Input() editIcon: IconDefinition;
   @Input() deleteIcon: IconDefinition;
+
+  @Output() softDelete = new EventEmitter<void>();
+  @Output() toggleActive = new EventEmitter<boolean>();
+  @Output() editItem = new EventEmitter<void>();
 
   softDeleteItem() {
     this.softDelete.emit();
@@ -32,6 +33,10 @@ export class QuickEditInfoMenuComponent {
 
   toggleActiveItem() {
     this.toggleActive.emit(this.isActiveItem);
+  }
+
+  editItemClicked() {
+    this.editItem.emit();
   }
 
   constructor(private authService: AuthService) {}

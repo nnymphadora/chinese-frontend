@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddEditNewWordComponent } from './bulk-add-new-words.component';
+import { AddNewWordComponent } from './add-new-word.component';
 
 describe('AddEditNewWordComponent', () => {
-  let component: AddEditNewWordComponent;
-  let fixture: ComponentFixture<AddEditNewWordComponent>;
+  let component: AddNewWordComponent;
+  let fixture: ComponentFixture<AddNewWordComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AddEditNewWordComponent],
+      declarations: [AddNewWordComponent],
     });
-    fixture = TestBed.createComponent(AddEditNewWordComponent);
+    fixture = TestBed.createComponent(AddNewWordComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

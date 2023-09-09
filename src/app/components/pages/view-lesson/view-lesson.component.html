@@ -7,16 +7,16 @@
   </div>
   <app-quick-edit-info-menu
     [title]="lesson?.name"
-    [editLink]="'/admin/edit-lesson/' + lesson?.id"
     [editIcon]="editIcon"
     [deleteIcon]="deleteIcon"
     [isActiveItem]="isActiveLesson"
-    [difficulty]="level?.difficulty"
-    [cefrEquiv]="level?.cefrEquiv"
+    [difficulty]="level?.difficulty.name"
+    [cefrEquiv]="level?.cefrEquiv.name"
     [itemType]="lesson"
     [itemName]="'lekcija'"
     (softDelete)="softDeleteLesson()"
     (toggleActive)="handleToggle($event)"
+    (editItem)="onEditLesson()"
   ></app-quick-edit-info-menu>
   <div class="card-container">
     <app-new-word-card

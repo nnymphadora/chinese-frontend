@@ -14,8 +14,8 @@
           <h2>{{ l.name }}</h2>
           <p>{{ l.description }}</p>
           <div class="descriptor-container">
-            <p class="descriptor">{{ l.difficulty }}</p>
-            <p class="descriptor">{{ l.cefrEquiv }}</p>
+            <p class="descriptor">{{ l.difficulty.name }}</p>
+            <p class="descriptor">{{ l.cefrEquiv.name }}</p>
             <p *ngIf="l.isActive === 0" class="descriptor">Neaktivan</p>
           </div>
         </div>
@@ -23,10 +23,7 @@
     </ng-container>
   </div>
   <div class="add-container">
-    <a
-      routerLink="/admin/add-level"
-      *ngIf="isAdmin"
-      class="grow add-icon alert-icon"
+    <a (click)="onAddLevel()" *ngIf="isAdmin" class="grow add-icon alert-icon"
       ><fa-icon [icon]="roundPlus" size="2xl"></fa-icon
     ></a>
   </div>

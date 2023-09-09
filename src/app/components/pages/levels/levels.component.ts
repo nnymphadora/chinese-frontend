@@ -3,6 +3,9 @@ import { Level } from 'src/app/models/Level';
 import { LevelsService } from 'src/app/services/levels.service';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AddEditLevelComponent } from '../../admin/add-edit-level/add-edit-level.component';
+import { DialogResult } from 'src/app/enums/dialog-result';
 
 @Component({
   selector: 'app-levels',
@@ -26,12 +29,24 @@ export class LevelsComponent implements OnInit {
     });
   }
 
+  onAddLevel() {
+    const dialogRef = this.dialog.open(AddEditLevelComponent, {
+      width: '40%',
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result === DialogResult.Added) {
+        this.getLevelsData();
+      }
+    });
+  }
+
   showElToUser(el: Level): boolean {
     return el.isActive === 1 || this.isAdmin;
   }
 
   constructor(
     private levelsService: LevelsService,
-    private authService: AuthService
+    private authService: AuthService,
+    private dialog: MatDialog
   ) {}
 }

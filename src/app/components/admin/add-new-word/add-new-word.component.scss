@@ -6,14 +6,9 @@ form {
   align-items: center;
 }
 
-h3 {
-  color: $robin-egg-blue;
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-}
-
 * {
   font-size: 0.9rem;
+  font-weight: 400;
 }
 
 input {
@@ -34,10 +29,11 @@ input {
     width: 5rem;
   }
 }
+
 .ex-sent {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  width: 98%;
+  width: 100%;
   margin: 0 auto;
 
   input {
@@ -67,7 +63,6 @@ input {
   transition: max-height 0.5s ease-in-out;
 }
 
-/* Show active form group */
 .line.active-group {
   max-height: 1000px;
   box-shadow: $mimi-pink 0px 0px 10px;

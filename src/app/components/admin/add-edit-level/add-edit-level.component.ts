@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Level } from 'src/app/models/Level';
 import { LevelCefrEquiv } from 'src/app/models/LevelCefrEquiv';
 import { LevelDifficulty } from 'src/app/models/LevelDifficulty';
 import { LevelCefrEquivService } from 'src/app/services/level-cefr-equiv.service';
 import { LevelDifficultyService } from 'src/app/services/level-difficulty.service';
 import { LevelsService } from 'src/app/services/levels.service';
-import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { DialogResult } from '../../../enums/dialog-result';
+
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-add-edit-level',
@@ -15,15 +17,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./add-edit-level.component.scss'],
 })
 export class AddEditLevelComponent implements OnInit {
+  closeIcon = faXmark;
+
+  addEditLevelForm: FormGroup;
+
   difficulties: LevelDifficulty[] = [];
   cefrEquivs: LevelCefrEquiv[] = [];
-  newLevel: Level = new Level();
   edit: boolean = false;
-  addEditLevelForm: FormGroup;
 
   ngOnInit(): void {
     this.addEditLevelForm = this.formBuilder.group({
-      id: [null],
+      id: null,
       name: [null, Validators.required],
       difficulty: [null, Validators.required],
       description: [null, Validators.required],
@@ -33,21 +37,16 @@ export class AddEditLevelComponent implements OnInit {
     });
 
     this.getLevelDifficulutiesData();
-    this.getLevelCefrEquivsData;
+    this.getLevelCefrEquivsData();
 
-    this.activatedRoute.params.subscribe((paramsData) => {
-      if (paramsData['id']) {
-        this.edit = true;
-        const editLevelId = paramsData['id'];
-        this.getLevelData(editLevelId);
-      }
-    });
+    if (this.data) {
+      this.edit = true;
+      this.addEditLevelForm.setValue(this.data);
+    }
   }
 
   getLevelData(levelId: number) {
-    this.levelsService.getLevelById(levelId).subscribe((data) => {
-      this.addEditLevelForm.setValue(data);
-    });
+    this.levelsService.getLevelById(levelId).subscribe((data) => {});
   }
 
   getLevelDifficulutiesData() {
@@ -64,25 +63,29 @@ export class AddEditLevelComponent implements OnInit {
 
   saveLevel() {
     if (this.addEditLevelForm.valid) {
-      this.newLevel = this.addEditLevelForm.value;
+      const level = this.addEditLevelForm.value;
       if (!this.edit) {
-        this.levelsService.insertLevel(this.newLevel).subscribe((data) => {
-          this.router.navigateByUrl('/levels');
+        this.levelsService.insertLevel(level).subscribe((data) => {
+          this.dialogRef.close(DialogResult.Added);
         });
       } else {
         this.levelsService
-          .updateLevel(this.newLevel)
-          .subscribe((data) => this.router.navigateByUrl('/levels'));
+          .updateLevel(level)
+          .subscribe((data) => this.dialogRef.close(DialogResult.Edited));
       }
     }
+  }
+
+  closeDialog() {
+    this.dialogRef.close(DialogResult.Cancelled);
   }
 
   constructor(
     private levelDifficultyService: LevelDifficultyService,
     private levelCefrEquivService: LevelCefrEquivService,
     private levelsService: LevelsService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private dialogRef: MatDialogRef<AddEditLevelComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Level
   ) {}
 }

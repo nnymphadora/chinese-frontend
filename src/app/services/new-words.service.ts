@@ -26,6 +26,13 @@ export class NewWordsService {
     return this.http.post(`${this.apiUrl}/new-words`, newWords);
   }
 
+  updateNewWordsForEditedLesson(newWords: NewWord[], lessonId: number) {
+    return this.http.post(`${this.apiUrl}/new-words/edit`, {
+      newWords,
+      lessonId,
+    });
+  }
+
   deleteNewWord(id: number) {
     return this.http.delete(`${this.apiUrl}/new-words/${id}`);
   }

@@ -1,4 +1,10 @@
-<div class="body-container">
+<div class="dialog-container">
+  <fa-icon
+    [icon]="closeIcon"
+    class="alert-icon close-icon"
+    (click)="closeDialog()"
+    size="lg"
+  ></fa-icon>
   <form [formGroup]="addEditLevelForm">
     <h2>{{ edit ? "Izmijeni " : "Dodaj novi " }} modul</h2>
     <div class="add-form">

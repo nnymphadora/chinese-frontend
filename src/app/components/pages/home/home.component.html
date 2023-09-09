@@ -11,7 +11,11 @@
     </p>
     <p>Učlani se i zagrij stolicu! Ne brini, sve aktivnosti su besplatne!</p>
     <div class="btns">
-      <button routerLink="/levels" class="btn primary-btn big-btn grow">
+      <button
+        *ngIf="isLoggedIn"
+        routerLink="/levels"
+        class="btn primary-btn big-btn grow"
+      >
         Učionica
       </button>
       <button

@@ -1,0 +1,45 @@
+<form [formGroup]="form">
+  <div class="line" [ngClass]="{ 'active-group': isActiveGroup() }">
+    <div class="main-info">
+      <label for="content">
+        Riječ:
+        <input type="text" formControlName="content" required />
+      </label>
+      <label for="meaning"
+        >Značenje:
+        <input type="text" formControlName="meaning" required />
+      </label>
+      <label for="pinyin"
+        >Pinyin:
+        <input type="text" formControlName="pinyin" required />
+      </label>
+    </div>
+
+    <div class="ex-sent">
+      <label for="ex-sent1"
+        >Primjer 1
+        <input type="text" formControlName="exSent1" />
+      </label>
+      <label for="ex-sent1-meaning"
+        >Prevod 1
+        <input type="text" formControlName="exSent1Mne" />
+      </label>
+    </div>
+    <div class="ex-sent">
+      <label for="ex-sent2"
+        >Primjer 2
+        <input type="text" formControlName="exSent2" />
+      </label>
+      <label for="ex-sent2-meaning"
+        >Prevod 2
+        <input type="text" formControlName="exSent2Mne" />
+      </label>
+    </div>
+    <fa-icon
+      class="grow dlt-btn alert-icon"
+      size="xl"
+      [icon]="deleteBtn"
+      (click)="deleteNewWordGroup()"
+    ></fa-icon>
+  </div>
+</form>

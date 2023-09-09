@@ -1,9 +1,12 @@
+import { LevelCefrEquiv } from './LevelCefrEquiv';
+import { LevelDifficulty } from './LevelDifficulty';
+
 export class Level {
   id: number;
   name: string;
-  difficulty: string;
+  difficulty: LevelDifficulty;
   description: string;
-  cefrEquiv: string;
+  cefrEquiv: LevelCefrEquiv;
   isActive: number;
   isRemoved: number;
 }
