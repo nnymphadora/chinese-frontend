@@ -289,3 +289,18 @@ textarea {
 label {
   font-weight: 600;
 }
+
+@media (min-width: 1200px) {
+  .body-container {
+    max-width: 1140px;
+  }
+}
+
+@media (max-width: 768px) {
+  .body-container {
+    width: 90%;
+  }
+  .main {
+    padding: 1rem;
+  }
+}

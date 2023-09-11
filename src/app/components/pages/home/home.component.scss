@@ -6,7 +6,7 @@
   justify-content: space-between;
 }
 
-#left {
+.left {
   color: $primary-text;
   padding: 2rem 0;
   width: 40%;
@@ -30,13 +30,16 @@
   align-items: flex-start;
 }
 
-#right {
+.right {
   width: 50%;
-  position: relative;
+  min-width: 200px;
+
+  .visual-container {
+    position: relative;
+  }
   .visual {
     max-width: 100%;
     z-index: 3;
-    position: absolute;
   }
 
   .blob {
@@ -49,7 +52,6 @@
   .yellow {
     top: 13rem;
     right: 20rem;
-    rotate: -10deg;
   }
 
   .turquise {
@@ -59,5 +61,27 @@
   .red {
     top: -5rem;
     right: -3rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .body-container {
+    flex-direction: column-reverse;
+  }
+  .left,
+  .right {
+    width: 100%;
+  }
+  .right {
+    .yellow {
+      top: -5rem;
+      right: -2rem;
+    }
+    .turquise {
+      top: 14rem;
+    }
+    .red {
+      top: 17rem;
+    }
   }
 }
