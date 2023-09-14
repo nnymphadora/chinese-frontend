@@ -16,6 +16,8 @@ a {
 }
 
 .main {
+  width: 100%;
+  overflow: hidden;
   background-color: $main-body;
   color: $primary-text;
   min-height: 80dvh;
@@ -290,17 +292,31 @@ label {
   font-weight: 600;
 }
 
+//media queires
+
 @media (min-width: 1200px) {
   .body-container {
     max-width: 1140px;
   }
 }
+@media (min-width: 768px) and (max-width: 1023px) {
+  .body-container {
+    width: 80%;
+  }
 
-@media (max-width: 768px) {
+  .main {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 767px) {
   .body-container {
     width: 90%;
   }
   .main {
     padding: 1rem;
+  }
+  .custom-dialog-width {
+    width: 90%;
   }
 }

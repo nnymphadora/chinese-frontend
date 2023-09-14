@@ -37,3 +37,9 @@
   background-color: $white;
   color: $primary-text;
 }
+
+@media (max-width: 767px) {
+  .body-container {
+    width: 90%;
+  }
+}

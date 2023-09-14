@@ -99,7 +99,7 @@ export class ViewLessonComponent implements OnInit {
 
   onEditLesson() {
     const dialogRef = this.dialog.open(AddEditLessonComponent, {
-      width: '50%',
+      panelClass: 'custom-dialog-width',
       data: { lesson: this.lesson, newWords: this.newWords },
     });
 
@@ -113,7 +113,7 @@ export class ViewLessonComponent implements OnInit {
 
   onEditWord(word: NewWord) {
     const dialogRef = this.dialog.open(EditNewWordComponent, {
-      width: '40%',
+      panelClass: 'custom-dialog-width',
       data: word,
     });
     dialogRef.afterClosed().subscribe((result: NewWord) => {

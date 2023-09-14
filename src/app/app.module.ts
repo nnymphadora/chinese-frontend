@@ -6,6 +6,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HelpersModule } from './components/helpers/helpers.module';
 import { PagesModule } from './components/pages/pages.module';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,6 +16,7 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
     HttpClientModule,
     HelpersModule,
     PagesModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     {

@@ -26,14 +26,12 @@
       </div>
     </div>
   </div>
-
-  <div class="icon-div" *ngIf="isAdmin">
-    <fa-icon
-      class="alert-icon"
-      [icon]="deleteBtn"
-      (click)="deleteClick()"
-    ></fa-icon>
-    <fa-icon class="alert-icon" [icon]="editBtn" (click)="editClick()">
-    </fa-icon>
-  </div>
+</div>
+<div class="icon-div" *ngIf="isAdmin">
+  <fa-icon
+    class="alert-icon"
+    [icon]="deleteBtn"
+    (click)="deleteClick()"
+  ></fa-icon>
+  <fa-icon class="alert-icon" [icon]="editBtn" (click)="editClick()"> </fa-icon>
 </div>

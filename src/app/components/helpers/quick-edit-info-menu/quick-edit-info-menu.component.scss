@@ -91,6 +91,10 @@ h1 {
   margin: 0 2rem 0 0;
 }
 
+h1.smaller {
+  font-size: 1.5rem;
+}
+
 .icon {
   color: $mimi-pink;
 }
@@ -102,4 +106,10 @@ h1 {
   background-color: $persian-red;
   border-color: $persian-red;
   color: white;
+}
+
+@media (max-width: 767px) {
+  .quick-info {
+    flex-direction: column;
+  }
 }

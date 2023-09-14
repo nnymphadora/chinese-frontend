@@ -1,13 +1,13 @@
 <header>
-  <div id="left">
+  <div class="left">
     <img
       routerLink="/"
       src="../../../../assets/img/logo.png"
       alt="The project logo."
     />
   </div>
-  <div id="middle">
-    <ul class="nav-horizontal">
+  <div class="middle">
+    <ul class="nav-horizontal not-on-small-screen">
       <a routerLink="/" class="nav-link-head underline"><li>Početna</li></a>
       <a routerLink="/levels" *ngIf="isLoggedIn" class="nav-link-head underline"
         ><li>Uči</li></a
@@ -17,17 +17,31 @@
         ><li>O projektu</li></a
       >
     </ul>
+    <div
+      (click)="toggleMenu()"
+      #menuTrigger
+      class="menu-trigger"
+      [matMenuTriggerFor]="menuComponent?.menu"
+    >
+      <fa-icon [icon]="openMenuBtn" size="2xl" class="menu-icon"></fa-icon>
+    </div>
+
+    <app-small-screen-nav-menu
+      [isLoggedIn]="isLoggedIn"
+      (logOut)="logout()"
+    ></app-small-screen-nav-menu>
   </div>
-  <div id="right">
+
+  <div class="right">
     <button
-      class="btn grow primary-btn"
+      class="not-on-small-screen btn grow primary-btn"
       routerLink="/login"
       *ngIf="!isLoggedIn"
     >
       Prijavi&nbsp;se
     </button>
     <button
-      class="btn grow secondary-btn"
+      class="not-on-small-screen btn grow secondary-btn"
       *ngIf="!isLoggedIn"
       routerLink="/register"
     >
@@ -42,7 +56,7 @@
     />
     <span class="username" *ngIf="isLoggedIn">{{ user?.username }}</span>
     <button
-      class="btn grow secondary-btn"
+      class="btn grow secondary-btn not-on-small-screen"
       *ngIf="isLoggedIn"
       (click)="logout()"
     >

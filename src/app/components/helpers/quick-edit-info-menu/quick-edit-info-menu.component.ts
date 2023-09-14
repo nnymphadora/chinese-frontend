@@ -39,5 +39,8 @@ export class QuickEditInfoMenuComponent {
     this.editItem.emit();
   }
 
+  isLesson() {
+    return this.itemType === 'lesson';
+  }
   constructor(private authService: AuthService) {}
 }

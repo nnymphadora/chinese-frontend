@@ -141,8 +141,6 @@ export class AddEditLessonComponent implements OnInit {
   }
 
   addNewWordGroup(): void {
-    console.log(this.currentLesson.id);
-
     const newWordGroup = this.formBuilder.group({
       content: ['', Validators.required],
       meaning: ['', Validators.required],

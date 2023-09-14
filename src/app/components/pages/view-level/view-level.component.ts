@@ -109,7 +109,7 @@ export class ViewLevelComponent implements OnInit {
 
   onEditLevel() {
     const dialogRef = this.dialog.open(AddEditLevelComponent, {
-      width: '40%',
+      panelClass: 'custom-dialog-width',
       data: this.level,
     });
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -123,7 +123,7 @@ export class ViewLevelComponent implements OnInit {
     const lesson = new Lesson();
     lesson.levelId = this.level.id;
     const dialogRef = this.dialog.open(AddEditLessonComponent, {
-      width: '40%',
+      panelClass: 'custom-dialog-width',
       data: this.level.id,
     });
     dialogRef.afterClosed().subscribe((result: any) => {

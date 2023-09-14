@@ -12,7 +12,7 @@
     [isActiveItem]="isActiveLesson"
     [difficulty]="level?.difficulty.name"
     [cefrEquiv]="level?.cefrEquiv.name"
-    [itemType]="lesson"
+    [itemType]="'lesson'"
     [itemName]="'lekcija'"
     (softDelete)="softDeleteLesson()"
     (toggleActive)="handleToggle($event)"

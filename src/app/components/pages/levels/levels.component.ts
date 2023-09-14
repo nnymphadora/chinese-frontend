@@ -31,7 +31,7 @@ export class LevelsComponent implements OnInit {
 
   onAddLevel() {
     const dialogRef = this.dialog.open(AddEditLevelComponent, {
-      width: '40%',
+      panelClass: 'custom-dialog-width',
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result === DialogResult.Added) {

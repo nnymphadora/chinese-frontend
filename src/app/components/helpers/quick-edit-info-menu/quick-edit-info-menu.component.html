@@ -1,6 +1,6 @@
 <div class="quick-info">
   <div class="left">
-    <h1>{{ title }}</h1>
+    <h1 [ngClass]="{ smaller: isLesson() }">{{ title }}</h1>
 
     <fa-icon
       *ngIf="isAdmin"
@@ -34,18 +34,6 @@
 
   <div class="right">
     <div class="descriptor-container">
-      <p
-        *ngIf="itemType === 'level' && itemType.isActive === 0"
-        class="level-descriptor"
-      >
-        Neaktivan
-      </p>
-      <p
-        *ngIf="itemType === 'lesson' && itemType.isActive === 0"
-        class="level-descriptor"
-      >
-        Neaktivna
-      </p>
       <p class="descriptor">{{ difficulty }}</p>
       <p class="descriptor">{{ cefrEquiv }}</p>
     </div>
