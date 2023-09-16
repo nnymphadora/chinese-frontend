@@ -319,4 +319,32 @@ label {
   .custom-dialog-width {
     width: 90%;
   }
+  .custom-confirm-dialog-width {
+    width: 70%;
+  }
+}
+
+//snackbar
+
+.snackbar-pink {
+  .mdc-snackbar__surface {
+    background-color: $mimi-pink !important;
+  }
+}
+
+.snackbar-blue {
+  .mdc-snackbar__surface {
+    background-color: $robin-egg-blue !important;
+  }
+}
+
+.snackbar {
+  .mdc-snackbar__label {
+    font-size: 1.1rem !important;
+    font-family: $main-font !important;
+    font-weight: 600 !important;
+  }
+}
+.snackbar.no-action {
+  text-align: center;
 }

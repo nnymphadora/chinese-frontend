@@ -9,8 +9,6 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DialogResult } from 'src/app/enums/dialog-result';
 import { faPlusCircle, faXmark } from '@fortawesome/free-solid-svg-icons';
-import { faWordpress } from '@fortawesome/free-brands-svg-icons';
-import { LoginComponent } from '../../pages/login/login.component';
 
 @Component({
   selector: 'app-add-edit-lesson',
@@ -125,18 +123,14 @@ export class AddEditLessonComponent implements OnInit {
   }
 
   saveNewWords(newWords: NewWord[], isEdit: boolean) {
-    console.log(newWords);
-
     if (isEdit) {
       return this.newWordsService
         .updateNewWordsForEditedLesson(newWords, this.currentLesson.id)
-        .subscribe((data) => {
-          console.log(data);
-        });
+        .subscribe((data) => {});
     } else {
-      return this.newWordsService.insertNewWords(newWords).subscribe((data) => {
-        console.log(data);
-      });
+      return this.newWordsService
+        .insertNewWords(newWords)
+        .subscribe((data) => {});
     }
   }
 

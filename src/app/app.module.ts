@@ -7,6 +7,7 @@ import { HelpersModule } from './components/helpers/helpers.module';
 import { PagesModule } from './components/pages/pages.module';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HelpersModule,
     PagesModule,
     BrowserAnimationsModule,
+    MatSnackBarModule,
   ],
   providers: [
     {

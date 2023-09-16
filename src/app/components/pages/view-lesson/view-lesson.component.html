@@ -14,7 +14,7 @@
     [cefrEquiv]="level?.cefrEquiv.name"
     [itemType]="'lesson'"
     [itemName]="'lekcija'"
-    (softDelete)="softDeleteLesson()"
+    (softDelete)="onSoftDeleteLesson()"
     (toggleActive)="handleToggle($event)"
     (editItem)="onEditLesson()"
   ></app-quick-edit-info-menu>

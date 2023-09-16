@@ -12,15 +12,13 @@ import {
   faPenToSquare,
   faTrashCan,
 } from '@fortawesome/free-solid-svg-icons';
-import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { EditNewWordComponent } from '../../admin/edit-new-word/edit-new-word.component';
 import { AddEditLessonComponent } from '../../admin/add-edit-lesson/add-edit-lesson.component';
 import { DialogResult } from 'src/app/enums/dialog-result';
-
+import { ConfirmDialogComponent } from '../../helpers/confirm-dialog/confirm-dialog.component';
+import { MatSnackbarService } from 'src/app/services/mat-snackbar.service';
+import { SnackbarMessage } from 'src/app/enums/snackbar-message';
 @Component({
   selector: 'app-view-words-for-lesson',
   templateUrl: './view-lesson.component.html',
@@ -37,6 +35,7 @@ export class ViewLessonComponent implements OnInit {
   rightArrow = faArrowAltCircleRight;
   editIcon: IconDefinition = faPenToSquare;
   deleteIcon: IconDefinition = faTrashCan;
+  snackbarClasses: string[] = ['snackbar', 'snackbar-blue', 'no-action'];
 
   ngOnInit(): void {
     this.getData();
@@ -70,12 +69,35 @@ export class ViewLessonComponent implements OnInit {
       .subscribe((data) => (this.level = data));
   }
 
-  softDeleteLesson() {
-    if (confirm('Obriši lekciju?')) {
-      this.lessonsService.softDeleteLesson(this.lesson).subscribe((data) => {
-        this.router.navigateByUrl(`/level/${this.lesson.levelId}`);
-      });
-    }
+  onSoftDeleteLesson() {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      panelClass: 'custom-confirm-dialog-width',
+      data: {
+        message: 'Obriši lekciju?',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.lessonsService
+          .softDeleteLesson(this.lesson)
+          .subscribe((data: any) => {
+            const message = data.success
+              ? SnackbarMessage.Success
+              : SnackbarMessage.Error;
+            const snackbarClasses = ['snackbar', 'snackbar-pink', 'no-action'];
+            this.snackBarService.openSnackBar(
+              message,
+              undefined,
+              snackbarClasses,
+              3000
+            );
+            if (data.success) {
+              this.router.navigateByUrl(`/level/${this.lesson.levelId}`);
+            }
+          });
+      }
+    });
   }
 
   toggleActiveLesson(toggleActive: number) {
@@ -91,9 +113,34 @@ export class ViewLessonComponent implements OnInit {
 
     this.toggleActiveLesson(val);
   }
+
   onDeleteWord(id: number) {
-    this.newWordsService.deleteNewWord(id).subscribe((data) => {
-      this.getNewWordsData(this.lesson.id);
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      panelClass: 'custom-confirm-dialog-width',
+      data: {
+        message: 'Obriši riječ?',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.newWordsService.deleteNewWord(id).subscribe((data: any) => {
+          console.log(data.success);
+
+          const message = data.success
+            ? SnackbarMessage.Success
+            : SnackbarMessage.Error;
+
+          this.snackBarService.openSnackBar(
+            message,
+            undefined,
+            this.snackbarClasses,
+            3000
+          );
+          if (data.success) {
+            this.getNewWordsData(this.lesson.id);
+          }
+        });
+      }
     });
   }
 
@@ -104,9 +151,22 @@ export class ViewLessonComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      if (result === DialogResult.Edited) {
-        this.getLessonData(this.lesson.id);
-        this.getNewWordsData(this.lesson.id);
+      if (result && result !== DialogResult.Cancelled) {
+        const message =
+          result === DialogResult.Edited
+            ? SnackbarMessage.Success
+            : SnackbarMessage.Error;
+        this.snackBarService.openSnackBar(
+          message,
+          undefined,
+          this.snackbarClasses,
+          3000
+        );
+
+        if (result === DialogResult.Edited) {
+          this.getLessonData(this.lesson.id);
+          this.getNewWordsData(this.lesson.id);
+        }
       }
     });
   }
@@ -116,9 +176,21 @@ export class ViewLessonComponent implements OnInit {
       panelClass: 'custom-dialog-width',
       data: word,
     });
-    dialogRef.afterClosed().subscribe((result: NewWord) => {
-      if (result) {
-        this.getNewWordsData(this.lessonId);
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result && result !== DialogResult.Cancelled) {
+        const message = result
+          ? SnackbarMessage.Success
+          : SnackbarMessage.Error;
+        this.snackBarService.openSnackBar(
+          message,
+          undefined,
+          this.snackbarClasses,
+          3000
+        );
+
+        if (result) {
+          this.getNewWordsData(this.lessonId);
+        }
       }
     });
   }
@@ -129,6 +201,7 @@ export class ViewLessonComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private levelsService: LevelsService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBarService: MatSnackbarService
   ) {}
 }

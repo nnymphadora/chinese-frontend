@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterContentChecked,
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
 import { UsersService } from 'src/app/services/users.service';
@@ -12,7 +19,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit, AfterViewInit {
+export class HeaderComponent implements OnInit, AfterContentChecked {
   isLoggedIn: boolean = this.authService.isLoggedIn();
   apiUrl = environment.API_URL;
   tokenData: any;
@@ -29,6 +36,10 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       this.tokenData = this.authService.getTokenData();
       this.getUserData(this.tokenData.username);
     }
+  }
+
+  ngAfterContentChecked(): void {
+    this.cdref.detectChanges();
   }
 
   getUserData(username: string) {
@@ -51,7 +62,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   constructor(
     private authService: AuthService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private cdref: ChangeDetectorRef
   ) {}
 
   ngAfterViewInit(): void {}

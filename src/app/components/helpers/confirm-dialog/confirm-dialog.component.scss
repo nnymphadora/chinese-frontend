@@ -1,0 +1,26 @@
+@import "../../../../assets/scss/variables.scss";
+
+.dialog-container {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  background-color: $white;
+  width: 100%;
+  height: fit-content;
+  align-items: center;
+}
+
+.btn {
+  margin: 1rem;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.custom-confirm-dialog-width {
+  width: 40vw;
+}

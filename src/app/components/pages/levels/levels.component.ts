@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditLevelComponent } from '../../admin/add-edit-level/add-edit-level.component';
 import { DialogResult } from 'src/app/enums/dialog-result';
+import { SnackbarMessage } from 'src/app/enums/snackbar-message';
+import { MatSnackbarService } from 'src/app/services/mat-snackbar.service';
 
 @Component({
   selector: 'app-levels',
@@ -18,6 +20,7 @@ export class LevelsComponent implements OnInit {
   levels: Level[] = [];
 
   roundPlus = faPlusCircle;
+  snackbarClasses: string[] = ['snackbar', 'snackbar-blue', 'no-action'];
 
   ngOnInit(): void {
     this.getLevelsData();
@@ -34,8 +37,20 @@ export class LevelsComponent implements OnInit {
       panelClass: 'custom-dialog-width',
     });
     dialogRef.afterClosed().subscribe((result: any) => {
-      if (result === DialogResult.Added) {
-        this.getLevelsData();
+      if (result && result !== DialogResult.Cancelled) {
+        const message =
+          result === DialogResult.Added
+            ? SnackbarMessage.Success
+            : SnackbarMessage.Error;
+        this.snackBarService.openSnackBar(
+          message,
+          undefined,
+          this.snackbarClasses,
+          3000
+        );
+        if (result === DialogResult.Added) {
+          this.getLevelsData();
+        }
       }
     });
   }
@@ -47,6 +62,7 @@ export class LevelsComponent implements OnInit {
   constructor(
     private levelsService: LevelsService,
     private authService: AuthService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBarService: MatSnackbarService
   ) {}
 }

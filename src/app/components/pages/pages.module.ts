@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, formatCurrency } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { ReactiveFormsModule } from '@angular/forms';

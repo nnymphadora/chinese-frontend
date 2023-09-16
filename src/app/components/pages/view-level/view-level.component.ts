@@ -21,7 +21,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddEditLevelComponent } from '../../admin/add-edit-level/add-edit-level.component';
 
 import { DialogResult } from 'src/app/enums/dialog-result';
+import { SnackbarMessage } from 'src/app/enums/snackbar-message';
 import { AddEditLessonComponent } from '../../admin/add-edit-lesson/add-edit-lesson.component';
+import { ConfirmDialogComponent } from '../../helpers/confirm-dialog/confirm-dialog.component';
+import { MatSnackbarService } from 'src/app/services/mat-snackbar.service';
 
 @Component({
   selector: 'app-view-level',
@@ -36,6 +39,7 @@ export class ViewLevelComponent implements OnInit {
   editIcon: IconDefinition = faPenToSquare;
   deleteIcon: IconDefinition = faTrashCan;
   roundPlus = faPlusCircle;
+  snackbarClasses: string[] = ['snackbar', 'snackbar-blue', 'no-action'];
 
   isActiveLevel: boolean;
 
@@ -85,12 +89,35 @@ export class ViewLevelComponent implements OnInit {
       .subscribe((data) => (this.difficulties = data));
   }
 
-  softDeleteLevel() {
-    if (confirm('Obriši modul?')) {
-      this.levelsService.softDeleteLevel(this.level).subscribe((data) => {
-        this.router.navigateByUrl('/levels');
-      });
-    }
+  onSoftDeleteLevel() {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      panelClass: 'custom-confirm-dialog-width',
+      data: {
+        message: 'Obriši modul?',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.levelsService
+          .softDeleteLevel(this.level)
+          .subscribe((data: any) => {
+            const message = data.success
+              ? SnackbarMessage.Success
+              : SnackbarMessage.Error;
+
+            this.snackBarService.openSnackBar(
+              message,
+              undefined,
+              this.snackbarClasses,
+              3000
+            );
+            if (data.success) {
+              this.router.navigateByUrl(`/levels`);
+            }
+          });
+      }
+    });
   }
 
   toggleActiveLevel(toggleActive: number) {
@@ -113,8 +140,20 @@ export class ViewLevelComponent implements OnInit {
       data: this.level,
     });
     dialogRef.afterClosed().subscribe((result: any) => {
-      if (result === DialogResult.Edited) {
-        this.getLevelData(this.level.id);
+      if (result && result !== DialogResult.Cancelled) {
+        const message =
+          result === DialogResult.Edited
+            ? SnackbarMessage.Success
+            : SnackbarMessage.Error;
+        this.snackBarService.openSnackBar(
+          message,
+          undefined,
+          this.snackbarClasses,
+          3000
+        );
+        if (result === DialogResult.Edited) {
+          this.getLevelData(this.level.id);
+        }
       }
     });
   }
@@ -127,8 +166,24 @@ export class ViewLevelComponent implements OnInit {
       data: this.level.id,
     });
     dialogRef.afterClosed().subscribe((result: any) => {
-      if (result === DialogResult.Added) {
-        this.getLessonsData(this.level.id);
+      console.log(result);
+
+      if (result && result !== DialogResult.Cancelled) {
+        console.log(result);
+
+        let message: string =
+          result === DialogResult.Added
+            ? SnackbarMessage.Success
+            : SnackbarMessage.Error;
+        this.snackBarService.openSnackBar(
+          message,
+          undefined,
+          this.snackbarClasses,
+          3000
+        );
+        if (result === DialogResult.Added) {
+          this.getLessonsData(this.level.id);
+        }
       }
     });
   }
@@ -145,6 +200,7 @@ export class ViewLevelComponent implements OnInit {
     private levelCefrEquivService: LevelCefrEquivService,
     private router: Router,
     private authService: AuthService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBarService: MatSnackbarService
   ) {}
 }

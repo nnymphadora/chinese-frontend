@@ -50,9 +50,7 @@ export class NewWordCardComponent implements OnInit {
   }
 
   deleteClick(): void {
-    if (confirm('Obriši riječ?')) {
-      this.deleteWord.emit();
-    }
+    this.deleteWord.emit();
   }
 
   constructor(

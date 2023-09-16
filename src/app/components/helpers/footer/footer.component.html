@@ -40,16 +40,18 @@
     <p>
       Želiš da ostaneš u toku sa našim aktivnostima? Prijavi se na newsletter!
     </p>
-    <label for="newsletter"
-      ><input
-        id="newsletter"
-        type="email"
-        class="newsletter"
-        placeholder="example@email.com"
-        [(ngModel)]="subEmail.email"
-    /></label>
-    <button class="send-btn grow" (click)="saveEmail()">
-      <fa-icon size="lg" [icon]="faPaperPlane"></fa-icon>
-    </button>
+    <form [formGroup]="emailForm">
+      <label for="newsletter"
+        ><input
+          id="newsletter"
+          type="email"
+          class="newsletter"
+          placeholder="example@email.com"
+          formControlName="email"
+      /></label>
+      <button type="submit" class="send-btn grow" (click)="saveEmail()">
+        <fa-icon size="lg" [icon]="faPaperPlane"></fa-icon>
+      </button>
+    </form>
   </div>
 </footer>
