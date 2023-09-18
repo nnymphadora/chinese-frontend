@@ -11,6 +11,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { SmallScreenNavMenuComponent } from './small-screen-nav-menu/small-screen-nav-menu.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { QuizOptionsDialogComponent } from './quiz-options-dialog/quiz-options-dialog.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     QuickEditInfoMenuComponent,
     SmallScreenNavMenuComponent,
     ConfirmDialogComponent,
+    QuizOptionsDialogComponent,
   ],
   imports: [
     CommonModule,

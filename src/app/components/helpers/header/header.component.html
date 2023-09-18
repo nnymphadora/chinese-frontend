@@ -12,7 +12,12 @@
       <a routerLink="/levels" *ngIf="isLoggedIn" class="nav-link-head underline"
         ><li>Uči</li></a
       >
-      <a class="nav-link-head underline" *ngIf="isLoggedIn"><li>Vježbaj</li></a>
+      <a
+        routerLink="/exercises"
+        class="nav-link-head underline"
+        *ngIf="isLoggedIn"
+        ><li>Vježbaj</li></a
+      >
       <a routerLink="/about" class="nav-link-head underline"
         ><li>O projektu</li></a
       >

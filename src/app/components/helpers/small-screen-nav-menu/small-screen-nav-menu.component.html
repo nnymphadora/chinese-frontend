@@ -1,7 +1,9 @@
 <mat-menu xPosition="before" yPosition="below">
   <button routerLink="/" mat-menu-item>Početna</button>
   <button routerLink="/levels" mat-menu-item *ngIf="isLoggedIn">Uči</button>
-  <button mat-menu-item *ngIf="isLoggedIn">Vježbaj</button>
+  <button routerLink="/exercises" mat-menu-item *ngIf="isLoggedIn">
+    Vježbaj
+  </button>
   <button routerLink="/about" mat-menu-item>O projektu</button>
   <button routerLink="/login" mat-menu-item *ngIf="!isLoggedIn">
     Prijavi&nbsp;se

@@ -7,6 +7,8 @@ import { ViewLevelComponent } from './view-level/view-level.component';
 import { ViewLessonComponent } from './view-lesson/view-lesson.component';
 import RegisterComponent from './register/register.component';
 import { LoginComponent } from './login/login.component';
+import { ViewExercisesComponent } from './view-exercises/view-exercises.component';
+import { CharacterQuizComponent } from './character-quiz/character-quiz.component';
 
 const routes: Routes = [
   {
@@ -25,6 +27,8 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
   },
+  { path: 'exercises', component: ViewExercisesComponent },
+  { path: 'character-quiz', component: CharacterQuizComponent },
 ];
 
 @NgModule({

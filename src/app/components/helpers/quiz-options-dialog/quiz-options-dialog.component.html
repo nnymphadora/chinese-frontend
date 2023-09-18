@@ -1,0 +1,39 @@
+<div class="dialog-container">
+  <h2>Odaberi modul i lekciju</h2>
+  <form [formGroup]="levelLessonForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="level">Modul: </label>
+      <select
+        id="level"
+        class="form-control"
+        formControlName="level"
+        (change)="onLevelChange()"
+      >
+        <option *ngFor="let level of allLevels" [value]="level.id">
+          {{ level?.name }}
+        </option>
+      </select>
+      <div
+        *ngIf="levelLessonForm.get('level').hasError('required')"
+        class="text-danger"
+      >
+        Modul je neophodno polje!
+      </div>
+    </div>
+    <div class="form-group" *ngIf="lessonsAvailable">
+      <label for="lesson">Odaberi lekciju</label>
+      <select id="lesson" class="form-control" formControlName="lesson">
+        <option *ngFor="let lesson of allLessonsForLevel" [value]="lesson.id">
+          {{ lesson?.name }}
+        </option>
+      </select>
+      <div
+        *ngIf="levelLessonForm.get('lesson').hasError('required')"
+        class="text-danger"
+      >
+        Lekcija je neophodno polje!
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Započni kviz!</button>
+  </form>
+</div>
