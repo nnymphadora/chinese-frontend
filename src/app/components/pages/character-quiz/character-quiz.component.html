@@ -1,1 +1,12 @@
-<p>character-quiz works!</p>
+<div class="body-container">
+  <div *ngIf="noOfWords">
+    <div
+      class="card-container"
+      *ngFor="let _ of [].constructor(noOfWords); let i = index"
+    >
+      <div [id]="'quiz-target-div-' + i">
+        <p>hiiii {{ i }}</p>
+      </div>
+    </div>
+  </div>
+</div>

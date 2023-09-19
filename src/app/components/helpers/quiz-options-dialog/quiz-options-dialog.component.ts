@@ -23,6 +23,7 @@ export class QuizOptionsDialogComponent implements OnInit {
     this.levelLessonForm = this.formBuilder.group({
       level: ['', Validators.required],
       lesson: ['', Validators.required],
+      noOfWords: [5, Validators.required],
     });
   }
 
@@ -34,9 +35,12 @@ export class QuizOptionsDialogComponent implements OnInit {
   onSubmit() {
     if (this.levelLessonForm.valid) {
       const selectedLessonId = this.levelLessonForm.get('lesson').value;
-      this.dialogRef.close(selectedLessonId);
+      const noOfWords = this.levelLessonForm.get('noOfWords').value;
+      this.dialogRef.close({
+        selectedLessonId: selectedLessonId,
+        noOfWords: noOfWords,
+      });
     } else {
-      //handle error
     }
   }
 
