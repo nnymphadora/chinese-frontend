@@ -79,6 +79,8 @@ export class CharacterQuizComponent implements OnInit {
         let message: string;
         if (totalMistakes === 0) {
           message = 'Odlično, bez greške!';
+        } else if (totalMistakes === 1) {
+          message = `Bravo! Samo ${totalMistakes} greška na karakteru ${character}!`;
         } else if (totalMistakes < 5) {
           message = `Bravo! Samo ${totalMistakes} greške na karakteru ${character}!`;
         } else {
@@ -125,8 +127,6 @@ export class CharacterQuizComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
-
       if (result) {
         window.location.reload();
       } else {

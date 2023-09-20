@@ -15,13 +15,13 @@
       </select>
       <div
         *ngIf="levelLessonForm.get('level').hasError('required')"
-        class="text-danger"
+        class="warn-msg red-txt"
       >
         Modul je neophodno polje!
       </div>
     </div>
-    <div class="form-group" *ngIf="lessonsAvailable">
-      <label for="lesson">Odaberi lekciju</label>
+    <div class="form-group">
+      <label for="lesson">Lekcija:</label>
       <select id="lesson" class="form-control" formControlName="lesson">
         <option *ngFor="let lesson of allLessonsForLevel" [value]="lesson.id">
           {{ lesson?.name }}
@@ -29,11 +29,11 @@
       </select>
       <div
         *ngIf="levelLessonForm.get('lesson').hasError('required')"
-        class="text-danger"
+        class="warn-msg red-txt"
       >
         Lekcija je neophodno polje!
       </div>
-      <label for="no-of-words"></label>
+      <label for="no-of-words">Koliko riječi?</label>
       <input
         id="no-of-words"
         type="number"
@@ -43,6 +43,12 @@
       />
     </div>
 
-    <button type="submit" class="btn btn-primary">Započni kviz!</button>
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [ngClass]="{ unclickable: !levelLessonForm.valid }"
+    >
+      Započni kviz!
+    </button>
   </form>
 </div>

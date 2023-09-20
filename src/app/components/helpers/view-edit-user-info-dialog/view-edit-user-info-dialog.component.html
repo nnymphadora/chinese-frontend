@@ -1,0 +1,16 @@
+<div class="dialog-container">
+  <img [src]="userAvatarPath" alt="User avatar" />
+  <div class="line">
+    <p>{{ this.user?.username }}</p>
+  </div>
+  <div class="line">
+    <p>{{ this.user?.email }}</p>
+    f
+    <fa-icon
+      size="lg"
+      class="icon grow"
+      [icon]="editIcon"
+      (click)="editItemClicked(this.user?.email)"
+    ></fa-icon>
+  </div>
+</div>

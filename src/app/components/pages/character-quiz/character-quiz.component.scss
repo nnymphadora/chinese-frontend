@@ -17,12 +17,26 @@
 }
 
 .card {
-  height: 17rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 19rem;
+  padding-bottom: 0.8rem;
   background-color: $white;
   p {
     font-size: 0.9rem;
     color: $primary-text;
     width: 80%;
     text-align: center;
+  }
+}
+
+.message {
+  display: block;
+  height: 1.5rem;
+  width: 100%;
+  p {
+    margin: 0 auto;
   }
 }

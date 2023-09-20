@@ -13,6 +13,11 @@ import { environment } from 'src/environments/environment.development';
 import { SmallScreenNavMenuComponent } from '../small-screen-nav-menu/small-screen-nav-menu.component';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { MatDialog } from '@angular/material/dialog';
+import { ViewEditUserInfoDialogComponent } from '../view-edit-user-info-dialog/view-edit-user-info-dialog.component';
+import { DialogResult } from 'src/app/enums/dialog-result';
+import { SnackbarMessage } from 'src/app/enums/snackbar-message';
+import { MatSnackbarService } from 'src/app/services/mat-snackbar.service';
 
 @Component({
   selector: 'app-header',
@@ -26,6 +31,7 @@ export class HeaderComponent implements OnInit, AfterContentChecked {
   user: User = new User();
   userAvatarPath: string;
   openMenuBtn = faBars;
+  snackbarClasses: string[] = ['snackbar', 'snackbar-blue', 'no-action'];
 
   @ViewChild(SmallScreenNavMenuComponent)
   menuComponent: SmallScreenNavMenuComponent;
@@ -54,16 +60,36 @@ export class HeaderComponent implements OnInit, AfterContentChecked {
     window.location.href = '/';
   }
 
-  toggleMenu() {
-    console.log('click');
+  openUserInfo() {
+    const dialogRef = this.dialog.open(ViewEditUserInfoDialogComponent, {
+      panelClass: 'custom-dialog-width',
+      data: this.user,
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result && result !== DialogResult.Cancelled) {
+        const message = result
+          ? SnackbarMessage.Success
+          : SnackbarMessage.Error;
+        this.snackbarService.openSnackBar(
+          message,
+          undefined,
+          this.snackbarClasses,
+          3000
+        );
 
-    // this.menuTrigger.openMenu();
+        if (result) {
+          this.getUserData(this.tokenData.username);
+        }
+      }
+    });
   }
 
   constructor(
     private authService: AuthService,
     private usersService: UsersService,
-    private cdref: ChangeDetectorRef
+    private cdref: ChangeDetectorRef,
+    private dialog: MatDialog,
+    private snackbarService: MatSnackbarService
   ) {}
 
   ngAfterViewInit(): void {}

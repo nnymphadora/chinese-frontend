@@ -12,6 +12,7 @@ import { SmallScreenNavMenuComponent } from './small-screen-nav-menu/small-scree
 import { ReactiveFormsModule } from '@angular/forms';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { QuizOptionsDialogComponent } from './quiz-options-dialog/quiz-options-dialog.component';
+import { ViewEditUserInfoDialogComponent } from './view-edit-user-info-dialog/view-edit-user-info-dialog.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { QuizOptionsDialogComponent } from './quiz-options-dialog/quiz-options-d
     SmallScreenNavMenuComponent,
     ConfirmDialogComponent,
     QuizOptionsDialogComponent,
+    ViewEditUserInfoDialogComponent,
   ],
   imports: [
     CommonModule,

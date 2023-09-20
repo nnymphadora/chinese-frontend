@@ -23,7 +23,6 @@
       >
     </ul>
     <div
-      (click)="toggleMenu()"
       #menuTrigger
       class="menu-trigger"
       [matMenuTriggerFor]="menuComponent?.menu"
@@ -59,7 +58,9 @@
       [src]="userAvatarPath"
       alt="User avatar"
     />
-    <span class="username" *ngIf="isLoggedIn">{{ user?.username }}</span>
+    <span class="username" *ngIf="isLoggedIn" (click)="openUserInfo()">{{
+      user?.username
+    }}</span>
     <button
       class="btn grow secondary-btn not-on-small-screen"
       *ngIf="isLoggedIn"
