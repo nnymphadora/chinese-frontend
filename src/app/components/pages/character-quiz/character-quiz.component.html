@@ -1,12 +1,20 @@
 <div class="body-container">
-  <div *ngIf="noOfWords">
+  <div *ngIf="noOfWords" class="card-container">
     <div
-      class="card-container"
+      class="card"
       *ngFor="let _ of [].constructor(noOfWords); let i = index"
     >
-      <div [id]="'quiz-target-div-' + i">
-        <p>hiiii {{ i }}</p>
+      <div class="additional-info">
+        <p>{{randomNewWords?.[i].meaning}}</p>
+        <fa-icon
+          [icon]="soundIcon"
+          class="grow"
+          (click)="playPronunciation(randomNewWords?.[i])"
+          size="lg"
+        ></fa-icon>
       </div>
+      <div [id]="'quiz-target-div-' + i"></div>
+      <p [id]="'message-' + i"></p>
     </div>
   </div>
 </div>

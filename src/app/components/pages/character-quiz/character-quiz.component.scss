@@ -1,0 +1,28 @@
+@import "../../../../assets/scss/variables.scss";
+.additional-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 2rem;
+  p {
+    display: inline-block;
+    font-size: 1.2rem;
+    color: $primary-text;
+    font-weight: 600;
+  }
+  fa-icon {
+    color: $robin-egg-blue;
+  }
+}
+
+.card {
+  height: 17rem;
+  background-color: $white;
+  p {
+    font-size: 0.9rem;
+    color: $primary-text;
+    width: 80%;
+    text-align: center;
+  }
+}

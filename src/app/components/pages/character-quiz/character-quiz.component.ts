@@ -6,6 +6,12 @@ import { NewWord } from 'src/app/models/NewWord';
 
 import { NewWordsService } from 'src/app/services/new-words.service';
 import { QuizOptionsDialogComponent } from '../../helpers/quiz-options-dialog/quiz-options-dialog.component';
+import { PronunciationService } from 'src/app/services/pronunciation.service';
+import { faVolumeHigh } from '@fortawesome/free-solid-svg-icons';
+
+import { ConfirmDialogComponent } from '../../helpers/confirm-dialog/confirm-dialog.component';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-character-quiz',
@@ -18,12 +24,18 @@ export class CharacterQuizComponent implements OnInit {
   randomNewWords: NewWord[];
   completedCharacters: number;
 
+  message: string;
+
+  soundIcon = faVolumeHigh;
+
   ngOnInit(): void {
     this.handleUserChoice();
   }
 
   handleUserChoice() {
-    const dialogRef = this.dialog.open(QuizOptionsDialogComponent);
+    const dialogRef = this.dialog.open(QuizOptionsDialogComponent, {
+      panelClass: 'custom-quiz-dialog-width',
+    });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.chosenLessonId = result.selectedLessonId;
@@ -31,7 +43,7 @@ export class CharacterQuizComponent implements OnInit {
         this.newWordsService
           .getNewWordsByLesson(this.chosenLessonId)
           .subscribe((data) => {
-            this.randomNewWords = this.getRandomWords(data, 5);
+            this.randomNewWords = this.getRandomWords(data, this.noOfWords);
             console.log(this.randomNewWords);
             this.startQuiz();
           });
@@ -46,8 +58,6 @@ export class CharacterQuizComponent implements OnInit {
   }
 
   startQuiz() {
-    console.log('Start quiz', this.randomNewWords);
-
     this.completedCharacters = 0;
     this.randomNewWords.forEach((word: any, index: number) => {
       this.initializeHanziWriterQuiz(word.content, index);
@@ -55,8 +65,6 @@ export class CharacterQuizComponent implements OnInit {
   }
 
   initializeHanziWriterQuiz(character: string, index: number) {
-    console.log('instanciram hanzi writer quiz', index);
-
     const targetDivId = 'quiz-target-div-' + index;
 
     const quizOptions = {
@@ -67,9 +75,16 @@ export class CharacterQuizComponent implements OnInit {
       padding: 5,
       onComplete: (summaryData: any) => {
         const totalMistakes = summaryData.totalMistakes;
-        console.log(
-          `Total mistakes for character ${character}: ${totalMistakes}`
-        );
+        const messageDivId = 'message-' + index;
+        let message: string;
+        if (totalMistakes === 0) {
+          message = 'Odlično, bez greške!';
+        } else if (totalMistakes < 5) {
+          message = `Bravo! Samo ${totalMistakes} greške na karakteru ${character}!`;
+        } else {
+          message = `Ukupno ${totalMistakes} grešaka na karakteru ${character}.`;
+        }
+        document.getElementById(messageDivId).innerText = message;
         this.handleQuizCompleted();
       },
     };
@@ -85,12 +100,45 @@ export class CharacterQuizComponent implements OnInit {
     this.completedCharacters++;
 
     if (this.completedCharacters === this.randomNewWords.length) {
-      console.log('Game is finished!');
+      this.handleGameOver();
     }
+  }
+
+  playPronunciation(newWord: NewWord) {
+    this.pronunciationService
+      .getPronunciation(newWord.content)
+      .subscribe((data) => {
+        const audioUrl = data.items[0].pathmp3;
+        const audio = new Audio(audioUrl);
+        audio.play();
+      });
+  }
+
+  handleGameOver() {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      panelClass: 'custom-confirm-dialog-width',
+
+      data: {
+        message:
+          'Svi zadaci su riješeni! Da li želiš da nastaviš vježbanje karaktera?',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+
+      if (result) {
+        window.location.reload();
+      } else {
+        this.router.navigateByUrl('/exercises');
+      }
+    });
   }
 
   constructor(
     private newWordsService: NewWordsService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private pronunciationService: PronunciationService,
+    private router: Router
   ) {}
 }
