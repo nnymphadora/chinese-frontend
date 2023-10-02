@@ -1,16 +1,27 @@
 <div class="dialog-container">
-  <img [src]="userAvatarPath" alt="User avatar" />
-  <div class="line">
-    <p>{{ this.user?.username }}</p>
+  <fa-icon
+    size="lg"
+    class="icon grow close-icon"
+    [icon]="cancelIcon"
+    (click)="closeDialog()"
+  ></fa-icon>
+  <div class="user-info">
+    <div class="line">
+      <img [src]="userAvatarPath" alt="User avatar" />
+    </div>
+    <div class="line">
+      <p>{{ this.user?.username }}</p>
+    </div>
+    <div class="line">
+      <p>{{ this.user?.email }}</p>
+    </div>
   </div>
   <div class="line">
-    <p>{{ this.user?.email }}</p>
-    f
     <fa-icon
       size="lg"
-      class="icon grow"
+      class="icon grow close-icon"
       [icon]="editIcon"
-      (click)="editItemClicked(this.user?.email)"
+      (click)="onEdit()"
     ></fa-icon>
   </div>
 </div>

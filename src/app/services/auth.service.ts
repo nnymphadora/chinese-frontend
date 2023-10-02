@@ -32,5 +32,10 @@ export class AuthService {
 
     return userDataPart;
   }
+
+  updateUserInfo(user: User) {
+    return this.http.put(`${this.apiUrl}/user/update/${user.id}`, user);
+  }
+
   constructor(private http: HttpClient) {}
 }

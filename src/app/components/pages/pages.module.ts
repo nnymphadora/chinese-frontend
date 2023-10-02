@@ -19,6 +19,7 @@ import { LoginComponent } from './login/login.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ViewExercisesComponent } from './view-exercises/view-exercises.component';
 import { CharacterQuizComponent } from './character-quiz/character-quiz.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { CharacterQuizComponent } from './character-quiz/character-quiz.componen
     LoginComponent,
     ViewExercisesComponent,
     CharacterQuizComponent,
+    EditUserComponent,
   ],
   imports: [
     CommonModule,

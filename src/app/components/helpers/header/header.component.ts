@@ -18,6 +18,7 @@ import { ViewEditUserInfoDialogComponent } from '../view-edit-user-info-dialog/v
 import { DialogResult } from 'src/app/enums/dialog-result';
 import { SnackbarMessage } from 'src/app/enums/snackbar-message';
 import { MatSnackbarService } from 'src/app/services/mat-snackbar.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -66,20 +67,8 @@ export class HeaderComponent implements OnInit, AfterContentChecked {
       data: this.user,
     });
     dialogRef.afterClosed().subscribe((result: any) => {
-      if (result && result !== DialogResult.Cancelled) {
-        const message = result
-          ? SnackbarMessage.Success
-          : SnackbarMessage.Error;
-        this.snackbarService.openSnackBar(
-          message,
-          undefined,
-          this.snackbarClasses,
-          3000
-        );
-
-        if (result) {
-          this.getUserData(this.tokenData.username);
-        }
+      if (result) {
+        this.router.navigateByUrl(`/${this.user.username}/edit`);
       }
     });
   }
@@ -89,7 +78,7 @@ export class HeaderComponent implements OnInit, AfterContentChecked {
     private usersService: UsersService,
     private cdref: ChangeDetectorRef,
     private dialog: MatDialog,
-    private snackbarService: MatSnackbarService
+    private router: Router
   ) {}
 
   ngAfterViewInit(): void {}

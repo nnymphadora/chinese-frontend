@@ -1,0 +1,74 @@
+<div class="body-container" *ngIf="editForm">
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+    <label for="username">
+      Korisničko ime
+      <input type="text" id="username" formControlName="username"
+    /></label>
+    <div
+      class="warn-msg red-txt bold"
+      *ngIf="
+        editForm.get('username').hasError('required') &&
+        editForm.get('username').touched
+      "
+    >
+      Korisničko ime je obavezno polje.
+    </div>
+    <div
+      class="warn-msg red-txt bold"
+      *ngIf="
+        editForm.get('username').hasError('nonUniqueUsername') &&
+        editForm.get('username').touched
+      "
+    >
+      Korisničko je zauzeto.
+    </div>
+
+    <label for="email"
+      >Email <input type="email" id="email" formControlName="email"
+    /></label>
+    <div
+      class="warn-msg red-txt bold"
+      *ngIf="
+        editForm.get('email').hasError('required') &&
+        editForm.get('email').touched
+      "
+    >
+      Email je obavezno polje.
+    </div>
+    <div
+      class="warn-msg red-txt bold"
+      *ngIf="
+        editForm.get('email').hasError('email') && editForm.get('email').touched
+      "
+    >
+      Unesi validnu email adresu.
+    </div>
+    <div>
+      <label for="avatar"
+        >Avatar
+
+        <input
+          class="custom-file-input"
+          type="file"
+          id="avatar"
+          accept="image/*"
+          (change)="setUploadedFile($event)" />
+        <img
+          [src]="uploadedAvatarUrl ? uploadedAvatarUrl : userAvatarPath"
+          alt="Avatar preview"
+          class="avatar avatar-preview"
+      /></label>
+    </div>
+    <div class="btn-div">
+      <button
+        class="btn secondary-btn"
+        type="submit"
+        [ngClass]="{ unclickable: !editForm.valid }"
+        [disabled]="!editForm.valid"
+      >
+        Sačuvaj
+      </button>
+      <button class="btn" type="button" (click)="onCancel()">Odustani</button>
+    </div>
+  </form>
+</div>

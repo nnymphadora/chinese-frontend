@@ -78,6 +78,7 @@ export default class RegisterComponent {
     }
     this.authService.register(this.user).subscribe((data: any) => {
       localStorage.setItem('chinese-token', data.token);
+
       window.location.href = '/';
     });
   }

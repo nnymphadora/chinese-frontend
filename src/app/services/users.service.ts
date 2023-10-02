@@ -17,6 +17,10 @@ export class UsersService {
     return this.http.get<User>(`${this.apiUrl}/user/${username}`);
   }
 
+  getUserById(id: number) {
+    return this.http.get<User>(`${this.apiUrl}/user/${id}`);
+  }
+
   saveAvatarImg(avatarData: FormData) {
     return this.http.post(`${this.apiUrl}/upload`, avatarData);
   }

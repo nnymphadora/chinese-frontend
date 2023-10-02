@@ -1,0 +1,15 @@
+@import "../../../components/pages/register/register.component.scss";
+
+.custom-file-input::before {
+  content: "Dodaj novi avatar";
+}
+
+.btn-div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  .btn {
+    margin: 1rem;
+  }
+}

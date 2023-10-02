@@ -4,11 +4,21 @@ img {
 
 .dialog-container {
   width: 25rem;
-  height: 25rem;
+  height: 19rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+
   gap: 1rem;
   padding: 1rem;
+}
+
+.close-icon {
+  align-self: flex-end;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
