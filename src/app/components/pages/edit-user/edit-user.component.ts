@@ -1,11 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatSnackbarService } from 'src/app/services/mat-snackbar.service';
 import { UsersService } from 'src/app/services/users.service';
 import { environment } from 'src/environments/environment.development';
+import {
+  faPenToSquare,
+  faCheck,
+  faXmark,
+} from '@fortawesome/free-solid-svg-icons';
+import { SnackbarMessage } from 'src/app/enums/snackbar-message';
 
 @Component({
   selector: 'app-edit-user',
@@ -18,16 +30,25 @@ export class EditUserComponent implements OnInit {
   user: User = new User();
   apiUrl = environment.API_URL;
   userAvatarPath: string;
-  existingUsernames: string[];
-  editForm: FormGroup;
   uploadedAvatarUrl: string;
   uploadedAvatar: File;
+  existingUsernames: string[];
+  editForm: FormGroup;
+  passwordChangeForm: FormGroup;
+
+  editIcon = faPenToSquare;
+  saveIcon = faCheck;
+  cancelIcon = faXmark;
+
+  snackbarClasses: string[] = ['snackbar', 'snackbar-pink'];
+  editingPassword: boolean = false;
 
   ngOnInit(): void {
     if (this.isLoggedIn) {
       this.tokenData = this.authService.getTokenData();
       this.getUserData(this.tokenData.username);
     }
+    this.createPasswordChangeForm();
   }
 
   getUserData(username: string) {
@@ -78,13 +99,17 @@ export class EditUserComponent implements OnInit {
     return (
       formValue.username !== this.user.username ||
       formValue.email !== this.user.email ||
-      formValue.avatarPath !== this.user.avatarPath
+      !!this.uploadedAvatarUrl
     );
   }
 
   onSubmit() {
     if (this.hasFormChanged()) {
+      console.log('promijenilo seeee');
+
       if (this.editForm.valid) {
+        console.log('validan je form');
+
         if (this.editForm.value.username !== this.user.username) {
           if (
             !this.isUsernameUnique(
@@ -93,38 +118,41 @@ export class EditUserComponent implements OnInit {
             )
           ) {
             this.snackBarService.openSnackBar(
-              'Korisničko ime je zauzeto.',
+              SnackbarMessage.UsernameTaken,
               'OK',
-              ['snackbar', 'snackbar-pink']
+              this.snackbarClasses
             );
             return;
           }
-          if (this.uploadedAvatar) {
-            let formData: FormData = new FormData();
-            formData.append('img', this.uploadedAvatar);
-            this.usersService
-              .saveAvatarImg(formData)
-              .subscribe((fileUploadResponse: any) => {
-                this.uploadedAvatarUrl = fileUploadResponse.filename;
-                this.saveUser();
-              });
-          } else {
-            this.saveUser();
-          }
+        }
+
+        if (this.uploadedAvatar) {
+          let formData: FormData = new FormData();
+          formData.append('img', this.uploadedAvatar);
+          this.usersService
+            .saveAvatarImg(formData)
+            .subscribe((fileUploadResponse: any) => {
+              this.uploadedAvatarUrl = fileUploadResponse.filename;
+              this.saveUser();
+            });
+        } else {
+          this.saveUser();
         }
       } else {
-        this.snackBarService.openSnackBar('Pogrešan unos', 'OK', [
-          'snackbar',
-          'snackbar-pink',
-        ]);
+        this.snackBarService.openSnackBar(
+          SnackbarMessage.WrongInput,
+          'OK',
+          this.snackbarClasses
+        );
       }
     }
+    this.router.navigateByUrl('/');
   }
 
   saveUser() {
     this.user.username = this.editForm.value.username;
     this.user.email = this.editForm.value.email;
-    console.log('auth service: ', this.user);
+
     if (this.uploadedAvatarUrl) {
       this.user.avatarPath = this.uploadedAvatarUrl;
     }
@@ -134,9 +162,9 @@ export class EditUserComponent implements OnInit {
         window.location.href = '/';
       } else {
         this.snackBarService.openSnackBar(
-          'Došlo je do greške!',
+          SnackbarMessage.Error,
           undefined,
-          ['snackbar', 'snackbar-pink', 'no-action'],
+          [...this.snackbarClasses, 'no-action'],
           3000
         );
       }
@@ -146,6 +174,75 @@ export class EditUserComponent implements OnInit {
   onCancel() {
     this.router.navigateByUrl('/');
   }
+
+  showPasswordChangeForm() {
+    this.editingPassword = true;
+  }
+
+  createPasswordChangeForm() {
+    this.passwordChangeForm = this.formBuilder.group(
+      {
+        currentPassword: ['', Validators.required],
+        newPassword: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', Validators.required],
+      },
+      { validators: this.passwordMatchValidator }
+    );
+  }
+
+  passwordMatchValidator(control: FormControl): ValidationErrors | null {
+    const password = control.get('newPassword');
+    const confirmPassword = control.get('confirmPassword');
+
+    if (password.value !== confirmPassword.value) {
+      return { passwordMismatch: true };
+    }
+
+    return null;
+  }
+
+  onSubmitPassword() {
+    if (this.passwordChangeForm.valid) {
+      const user = this.user;
+      user.password = this.passwordChangeForm.get('currentPassword').value;
+      this.authService.confirmPassword(user).subscribe((data: any) => {
+        if (data.success) {
+          this.updateUserPassword();
+        } else {
+          this.snackBarService.openSnackBar(
+            SnackbarMessage.WrongPassword,
+            'OK',
+            this.snackbarClasses
+          );
+        }
+      });
+    }
+  }
+
+  onCancelPassword() {
+    this.editingPassword = false;
+  }
+
+  updateUserPassword() {
+    this.user.password = this.passwordChangeForm.get('newPassword').value;
+    this.user.confirmPassword =
+      this.passwordChangeForm.get('confirmPassword').value;
+    this.authService.updateUserPassword(this.user).subscribe((data: any) => {
+      const message = data.success
+        ? SnackbarMessage.Success
+        : SnackbarMessage.Error;
+      this.snackBarService.openSnackBar(
+        message,
+        undefined,
+        [...this.snackbarClasses, 'no-action'],
+        3000
+      );
+      if (data.success) {
+        this.editingPassword = false;
+      }
+    });
+  }
+
   constructor(
     private usersService: UsersService,
     private authService: AuthService,

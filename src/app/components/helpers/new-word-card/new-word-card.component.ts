@@ -17,6 +17,9 @@ export class NewWordCardComponent implements OnInit {
   tokenData: any = this.authService.getTokenData();
   isAdmin: boolean = this.tokenData.isAdmin;
 
+  fontSizeCn: number;
+  fontSizeMn: number;
+
   @Input() newWordData: NewWord;
   @Input() editLink: string;
 
@@ -29,7 +32,9 @@ export class NewWordCardComponent implements OnInit {
   deleteBtn = faTrashCan;
   editBtn = faPenToSquare;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.adjustFontSizes();
+  }
 
   toggle() {
     this.flipped = !this.flipped;
@@ -51,6 +56,16 @@ export class NewWordCardComponent implements OnInit {
 
   deleteClick(): void {
     this.deleteWord.emit();
+  }
+
+  adjustFontSizes() {
+    if (this.newWordData.content.length <= 2) {
+      this.fontSizeCn = 5;
+      this.fontSizeMn = 1.5;
+    } else if (this.newWordData.content.length > 2) {
+      this.fontSizeCn = 3.5;
+      this.fontSizeMn = 1.2;
+    }
   }
 
   constructor(

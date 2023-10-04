@@ -65,13 +65,13 @@ export class AddEditLevelComponent implements OnInit {
     if (this.addEditLevelForm.valid) {
       const level = this.addEditLevelForm.value;
       if (!this.edit) {
-        this.levelsService.insertLevel(level).subscribe((data) => {
-          this.dialogRef.close(DialogResult.Added);
+        this.levelsService.insertLevel(level).subscribe((data: any) => {
+          if (data.success) this.dialogRef.close(DialogResult.Added);
         });
       } else {
-        this.levelsService
-          .updateLevel(level)
-          .subscribe((data) => this.dialogRef.close(DialogResult.Edited));
+        this.levelsService.updateLevel(level).subscribe((data: any) => {
+          if (data.success) this.dialogRef.close(DialogResult.Edited);
+        });
       }
     }
   }

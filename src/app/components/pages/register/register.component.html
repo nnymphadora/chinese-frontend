@@ -46,7 +46,7 @@
     </div>
 
     <label for="password"
-      >Šifra <input type="password" id="password" formControlName="password"
+      >Lozinka <input type="password" id="password" formControlName="password"
     /></label>
     <div
       class="warn-msg red-txt bold"
@@ -55,7 +55,7 @@
         registerForm.get('password').touched
       "
     >
-      Šifra je obavezno polje
+      Lozinka je obavezno polje
     </div>
     <div
       class="warn-msg red-txt bold"
@@ -64,11 +64,11 @@
         registerForm.get('password').touched
       "
     >
-      Šifra mora imati najmanje 6 karaktera.
+      Lozinka mora imati najmanje 6 karaktera.
     </div>
 
     <label for="confirmPassword"
-      >Još jednom ukucaj šifru
+      >Još jednom ukucaj lozinku
       <input
         type="password"
         id="confirmPassword"
@@ -78,7 +78,7 @@
       class="warn-msg red-txt bold"
       *ngIf="registerForm.hasError('passwordMismatch')"
     >
-      Šifre se ne poklapaju.
+      Lozinke se ne poklapaju.
     </div>
     <div>
       <label for="avatar"

@@ -22,6 +22,7 @@ header {
 .username {
   font-size: 0.9rem;
   color: $white;
+  cursor: pointer;
 }
 
 .menu-icon {
@@ -87,7 +88,6 @@ header {
     max-height: 1.5rem;
     max-width: 1.5rem;
   }
-
   .username {
     font-size: 0.8rem;
   }

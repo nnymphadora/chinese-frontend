@@ -31,6 +31,7 @@ a {
 
 //buttons
 .btn {
+  cursor: pointer;
   border-radius: 55px;
   padding: 0.3rem 0.7rem;
   border-style: none;
@@ -42,6 +43,14 @@ a {
     pointer-events: none;
     opacity: 0.3;
   }
+}
+
+.icon-btn {
+  border: none;
+}
+
+.icon-btn:focus {
+  outline: none;
 }
 
 .big-btn {

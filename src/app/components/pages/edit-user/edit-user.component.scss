@@ -1,4 +1,5 @@
 @import "../../../components/pages/register/register.component.scss";
+@import "../../../../assets/scss/variables.scss";
 
 .custom-file-input::before {
   content: "Dodaj novi avatar";
@@ -12,4 +13,42 @@
   .btn {
     margin: 1rem;
   }
+}
+
+.password-change {
+  .label {
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    &:hover {
+      color: $robin-egg-blue;
+    }
+  }
+  .icon {
+    color: $robin-egg-blue;
+    margin-left: 0.5rem;
+  }
+}
+
+.password-change-form {
+  background-color: $robin-egg-blue-rgba;
+  padding: 2rem;
+  margin: 1rem;
+  border: 2px solid $robin-egg-blue;
+  border-radius: 10px;
+
+  label {
+    font-size: 0.8rem;
+    color: $white;
+  }
+  input {
+    border-color: $robin-egg-blue;
+  }
+}
+
+.icon-btn {
+  background-color: rgba($robin-egg-blue, $alpha: 0);
+  color: $white;
+  margin: 1rem 1rem 0 1rem;
+  cursor: pointer;
 }

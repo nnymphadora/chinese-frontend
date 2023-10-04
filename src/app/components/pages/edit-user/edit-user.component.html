@@ -1,4 +1,90 @@
 <div class="body-container" *ngIf="editForm">
+  <div class="password-change">
+    <div
+      class="label"
+      (click)="showPasswordChangeForm()"
+      *ngIf="!editingPassword"
+    >
+      Izmijeni lozinku
+      <fa-icon class="icon" [icon]="editIcon"></fa-icon>
+    </div>
+
+    <div
+      class="password-change-form"
+      *ngIf="editingPassword && passwordChangeForm?.getRawValue()"
+    >
+      <form [formGroup]="passwordChangeForm">
+        <label for="currentPassword"
+          >Stara lozinka
+          <input
+            type="password"
+            id="currentPassword"
+            formControlName="currentPassword"
+        /></label>
+        <div
+          class="warn-msg red-txt bold"
+          *ngIf="
+            passwordChangeForm.get('currentPassword').hasError('required') &&
+            passwordChangeForm.get('currentPassword').touched
+          "
+        >
+          Stara lozinka je obavezno polje
+        </div>
+        <label for="newPassword"
+          >Nova lozinka
+          <input type="password" id="newPassword" formControlName="newPassword"
+        /></label>
+        <div
+          class="warn-msg red-txt bold"
+          *ngIf="
+            passwordChangeForm.get('newPassword').hasError('required') &&
+            passwordChangeForm.get('newPassword').touched
+          "
+        >
+          Nova lozinka je obavezno polje
+        </div>
+        <div
+          class="warn-msg red-txt bold"
+          *ngIf="
+            passwordChangeForm.get('newPassword').hasError('minlength') &&
+            passwordChangeForm.get('newPassword').touched
+          "
+        >
+          Lozinka mora imati najmanje 6 karaktera.
+        </div>
+
+        <label for="confirmPassword"
+          >Još jednom ukucaj lozinku
+          <input
+            type="password"
+            id="confirmPassword"
+            formControlName="confirmPassword"
+        /></label>
+        <div
+          class="warn-msg red-txt bold"
+          *ngIf="passwordChangeForm.hasError('passwordMismatch')"
+        >
+          Loznike se ne poklapaju.
+        </div>
+        <div class="btn-div">
+          <button
+            class="icon-btn grow"
+            type="submit"
+            (click)="onSubmitPassword()"
+          >
+            <fa-icon size="xl" [icon]="saveIcon"></fa-icon>
+          </button>
+          <button
+            class="icon-btn grow"
+            type="button"
+            (click)="onCancelPassword()"
+          >
+            <fa-icon size="xl" [icon]="cancelIcon"> </fa-icon>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
   <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
     <label for="username">
       Korisničko ime
@@ -59,16 +145,19 @@
           class="avatar avatar-preview"
       /></label>
     </div>
+
     <div class="btn-div">
       <button
-        class="btn secondary-btn"
+        class="btn secondary-btn grow"
         type="submit"
         [ngClass]="{ unclickable: !editForm.valid }"
         [disabled]="!editForm.valid"
       >
         Sačuvaj
       </button>
-      <button class="btn" type="button" (click)="onCancel()">Odustani</button>
+      <button class="btn grow" type="button" (click)="onCancel()">
+        Odustani
+      </button>
     </div>
   </form>
 </div>

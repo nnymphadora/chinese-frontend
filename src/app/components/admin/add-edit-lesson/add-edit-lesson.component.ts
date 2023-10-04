@@ -95,28 +95,31 @@ export class AddEditLessonComponent implements OnInit {
       if (this.edit) {
         this.lessonsService
           .updateLesson(this.currentLesson)
-          .subscribe((data) => {
-            this.saveNewWords(
-              this.allNewWordFormsArray.getRawValue(),
-              this.edit
-            );
-            this.dialogRef.close(DialogResult.Edited);
+          .subscribe((data: any) => {
+            if (data.success) {
+              this.saveNewWords(
+                this.allNewWordFormsArray.getRawValue(),
+                this.edit
+              );
+              this.dialogRef.close(DialogResult.Edited);
+            }
           });
       } else {
         this.currentLesson.levelId = this.currentLevel.id;
         this.lessonsService
           .insertLesson(this.currentLesson)
           .subscribe((data: any) => {
-            this.currentLesson.id = data.result.insertId;
-            this.allNewWordFormsArray.controls.forEach((word: any) => {
-              word.controls.relatedLessonId.setValue(this.currentLesson.id);
-            });
+            if (data.success) {
+              this.currentLesson.id = data.result.insertId;
+              this.allNewWordFormsArray.controls.forEach((word: any) => {
+                word.controls.relatedLessonId.setValue(this.currentLesson.id);
+              });
 
-            this.saveNewWords(
-              this.allNewWordFormsArray.getRawValue(),
-              this.edit
-            );
-            this.dialogRef.close(DialogResult.Added);
+              this.saveNewWords(
+                this.allNewWordFormsArray.getRawValue(),
+                this.edit
+              );
+            }
           });
       }
     }
@@ -126,11 +129,15 @@ export class AddEditLessonComponent implements OnInit {
     if (isEdit) {
       return this.newWordsService
         .updateNewWordsForEditedLesson(newWords, this.currentLesson.id)
-        .subscribe((data) => {});
+        .subscribe((data: any) => {
+          if (data.success) this.dialogRef.close(DialogResult.Edited);
+        });
     } else {
       return this.newWordsService
         .insertNewWords(newWords)
-        .subscribe((data) => {});
+        .subscribe((data: any) => {
+          if (data.success) this.dialogRef.close(DialogResult.Added);
+        });
     }
   }
 

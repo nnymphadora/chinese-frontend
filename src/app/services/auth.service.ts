@@ -37,5 +37,13 @@ export class AuthService {
     return this.http.put(`${this.apiUrl}/user/update/${user.id}`, user);
   }
 
+  updateUserPassword(user: User) {
+    return this.http.put(`${this.apiUrl}/user/update-pass/${user.id}`, user);
+  }
+
+  confirmPassword(user: User) {
+    return this.http.post(`${this.apiUrl}/user/confirm-pass`, user);
+  }
+
   constructor(private http: HttpClient) {}
 }

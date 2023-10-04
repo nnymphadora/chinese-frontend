@@ -1,7 +1,9 @@
 <div class="wrapper">
   <div class="flashcard" [class.flipped]="flipped" (click)="toggle()">
     <div class="front">
-      <span class="chinese-text">{{ newWordData?.content }}</span>
+      <span class="chinese-text" [style.font-size.rem]="fontSizeCn">{{
+        newWordData?.content
+      }}</span>
       <fa-icon
         [icon]="soundIcon"
         class="grow"
@@ -11,7 +13,7 @@
     </div>
     <div class="back">
       <div>
-        <p class="pinyin-meaning">
+        <p class="pinyin-meaning" [style.font-size.rem]="fontSizeMn">
           {{ newWordData?.pinyin }} - {{ newWordData.meaning }}
         </p>
       </div>
