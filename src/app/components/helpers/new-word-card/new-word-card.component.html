@@ -4,12 +4,18 @@
       <span class="chinese-text" [style.font-size.rem]="fontSizeCn">{{
         newWordData?.content
       }}</span>
-      <fa-icon
-        [icon]="soundIcon"
-        class="grow"
-        (click)="playPronunciation()"
-        size="lg"
-      ></fa-icon>
+      <div class="icon-div">
+        <fa-icon
+          [icon]="soundIcon"
+          (click)="playPronunciation()"
+          size="lg"
+        ></fa-icon>
+        <fa-icon
+          [icon]="brushIcon"
+          (click)="showWritingDialog()"
+          size="lg"
+        ></fa-icon>
+      </div>
     </div>
     <div class="back">
       <div>
@@ -29,7 +35,7 @@
     </div>
   </div>
 </div>
-<div class="icon-div" *ngIf="isAdmin">
+<div class="icon-div admin-icons" *ngIf="isAdmin">
   <fa-icon
     class="alert-icon"
     [icon]="deleteBtn"

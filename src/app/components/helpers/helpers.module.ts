@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { QuizOptionsDialogComponent } from './quiz-options-dialog/quiz-options-dialog.component';
 import { ViewEditUserInfoDialogComponent } from './view-edit-user-info-dialog/view-edit-user-info-dialog.component';
+import { CharacterWritingDialogComponent } from './character-writing-dialog/character-writing-dialog.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ViewEditUserInfoDialogComponent } from './view-edit-user-info-dialog/vi
     ConfirmDialogComponent,
     QuizOptionsDialogComponent,
     ViewEditUserInfoDialogComponent,
+    CharacterWritingDialogComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,16 @@
+<div class="dialog-container">
+  <fa-icon
+    [icon]="cancelIcon"
+    class="alert-icon close-icon"
+    (click)="closeDialog()"
+    size="lg"
+  ></fa-icon>
+  <div *ngIf="noOfChars" class="cards-container">
+    <div
+      class="character-card"
+      *ngFor="let char of [].constructor(noOfChars); let i = index"
+    >
+      <div [id]="'character-target-div-' + i"></div>
+    </div>
+  </div>
+</div>

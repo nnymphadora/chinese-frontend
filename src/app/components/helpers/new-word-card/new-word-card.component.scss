@@ -6,15 +6,19 @@
   cursor: pointer;
 }
 .icon-div {
-  margin-left: 100px;
-  margin-top: 5px;
   justify-self: center;
+
   fa-icon {
     margin: 3px;
 
     &:hover {
       color: $robin-egg-blue;
     }
+  }
+
+  &.admin-icons {
+    margin-left: 100px;
+    margin-top: 5px;
   }
 }
 .flashcard > div {
@@ -86,8 +90,4 @@
 .ex-sent p {
   font-size: 0.8rem;
   text-align: center;
-}
-
-.chinese-text {
-  font-family: $chinese-font;
 }

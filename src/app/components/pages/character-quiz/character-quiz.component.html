@@ -1,19 +1,18 @@
 <div class="body-container">
-  <div *ngIf="noOfWords" class="card-container">
-    <div
-      class="card"
-      *ngFor="let _ of [].constructor(noOfWords); let i = index"
-    >
+  <div *ngIf="charactersInWords" class="card-container">
+    <div class="card" *ngFor="let char of charactersInWords; let i = index">
       <div class="additional-info">
-        <p>{{randomNewWords?.[i].meaning}}</p>
-        <fa-icon
-          [icon]="soundIcon"
-          class="grow"
-          (click)="playPronunciation(randomNewWords?.[i])"
-          size="lg"
-        ></fa-icon>
+        <p>{{charactersInWords?.[i].wordMeaning}}</p>
+        -
+        <p class="chinese-text">{{charactersInWords?.[i].containedInWord}}</p>
       </div>
       <div [id]="'quiz-target-div-' + i"></div>
+      <fa-icon
+        [icon]="soundIcon"
+        class="grow"
+        (click)="playPronunciation(charactersInWords?.[i])"
+        size="sm"
+      ></fa-icon>
       <div class="message">
         <p [id]="'message-' + i"></p>
       </div>

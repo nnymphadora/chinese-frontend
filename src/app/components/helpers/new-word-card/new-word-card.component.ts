@@ -5,8 +5,11 @@ import {
   faVolumeHigh,
   faTrashCan,
   faPenToSquare,
+  faPaintBrush,
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { CharacterWritingDialogComponent } from '../character-writing-dialog/character-writing-dialog.component';
 
 @Component({
   selector: 'app-new-word-card',
@@ -29,6 +32,7 @@ export class NewWordCardComponent implements OnInit {
 
   flipped: boolean = false;
   soundIcon = faVolumeHigh;
+  brushIcon = faPaintBrush;
   deleteBtn = faTrashCan;
   editBtn = faPenToSquare;
 
@@ -48,6 +52,15 @@ export class NewWordCardComponent implements OnInit {
         const audio = new Audio(audioUrl);
         audio.play();
       });
+  }
+
+  showWritingDialog() {
+    console.log('puklooo');
+
+    const dialogRef = this.dialog.open(CharacterWritingDialogComponent, {
+      panelClass: 'custom-dialog-width',
+      data: this.newWordData,
+    });
   }
 
   editClick(): void {
@@ -70,6 +83,7 @@ export class NewWordCardComponent implements OnInit {
 
   constructor(
     private pronunciationService: PronunciationService,
-    private authService: AuthService
+    private authService: AuthService,
+    private dialog: MatDialog
   ) {}
 }

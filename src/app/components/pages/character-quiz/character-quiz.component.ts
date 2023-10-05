@@ -11,7 +11,7 @@ import { faVolumeHigh } from '@fortawesome/free-solid-svg-icons';
 
 import { ConfirmDialogComponent } from '../../helpers/confirm-dialog/confirm-dialog.component';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
+import { Character } from 'src/app/models/Character';
 
 @Component({
   selector: 'app-character-quiz',
@@ -21,8 +21,11 @@ import { Location } from '@angular/common';
 export class CharacterQuizComponent implements OnInit {
   chosenLessonId: number;
   noOfWords: number;
+  noOfChars: number;
   randomNewWords: NewWord[];
+  charactersInWords: Character[];
   completedCharacters: number;
+  createdCharacters: number;
 
   message: string;
 
@@ -44,8 +47,11 @@ export class CharacterQuizComponent implements OnInit {
           .getNewWordsByLesson(this.chosenLessonId)
           .subscribe((data) => {
             this.randomNewWords = this.getRandomWords(data, this.noOfWords);
-            console.log(this.randomNewWords);
-            this.startQuiz();
+            this.charactersInWords = this.getCharArray(this.randomNewWords);
+            this.noOfChars = this.getNumberOfChars(this.randomNewWords);
+            setTimeout(() => {
+              this.startQuiz(this.charactersInWords);
+            }, 0);
           });
       }
     });
@@ -54,13 +60,47 @@ export class CharacterQuizComponent implements OnInit {
   getRandomWords(words: NewWord[], count: number) {
     const shuffled = words.slice().sort(() => 0.5 - Math.random());
     let sliceAtIndex = count <= words.length ? count : words.length;
+
     return shuffled.slice(0, sliceAtIndex);
   }
 
-  startQuiz() {
+  getNumberOfChars(array: NewWord[]): number {
+    let count = 0;
+    array.forEach((word: NewWord) => {
+      count += word.content.length;
+    });
+    return count;
+  }
+
+  getCharArray(array: NewWord[]): Character[] {
+    let characterArray: Character[] = [];
+    array.forEach((word: NewWord, wordIndex: number) => {
+      if (!this.wordIsMultiChar(word.content)) {
+        characterArray.push(
+          new Character(word.content, word.content, word.meaning, 0)
+        );
+      } else {
+        for (let charIndex = 0; charIndex < word.content.length; charIndex++) {
+          characterArray.push(
+            new Character(
+              word.content.charAt(charIndex),
+              word.content,
+              word.meaning,
+              charIndex
+            )
+          );
+        }
+      }
+    });
+    return characterArray;
+  }
+
+  startQuiz(array: Character[]) {
     this.completedCharacters = 0;
-    this.randomNewWords.forEach((word: any, index: number) => {
+    this.createdCharacters = 0;
+    array.forEach((word: any, index: number) => {
       this.initializeHanziWriterQuiz(word.content, index);
+      this.createdCharacters++;
     });
   }
 
@@ -91,8 +131,6 @@ export class CharacterQuizComponent implements OnInit {
       },
     };
 
-    console.log(document.getElementById(targetDivId));
-
     const writer = HanziWriter.create(targetDivId, character, quizOptions);
 
     writer.quiz();
@@ -101,14 +139,14 @@ export class CharacterQuizComponent implements OnInit {
   handleQuizCompleted() {
     this.completedCharacters++;
 
-    if (this.completedCharacters === this.randomNewWords.length) {
+    if (this.completedCharacters === this.createdCharacters) {
       this.handleGameOver();
     }
   }
 
-  playPronunciation(newWord: NewWord) {
+  playPronunciation(character: Character) {
     this.pronunciationService
-      .getPronunciation(newWord.content)
+      .getPronunciation(character.content)
       .subscribe((data) => {
         const audioUrl = data.items[0].pathmp3;
         const audio = new Audio(audioUrl);
@@ -133,6 +171,10 @@ export class CharacterQuizComponent implements OnInit {
         this.router.navigateByUrl('/exercises');
       }
     });
+  }
+
+  wordIsMultiChar(word: string) {
+    return word.length > 1;
   }
 
   constructor(
