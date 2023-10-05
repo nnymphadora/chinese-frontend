@@ -9,7 +9,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
-import { CharacterWritingDialogComponent } from '../character-writing-dialog/character-writing-dialog.component';
+import { CharacterStrokesPreviewComponent } from '../character-strokes-preview-dialog/character-strokes-preview-dialog.component';
 
 @Component({
   selector: 'app-new-word-card',
@@ -57,7 +57,7 @@ export class NewWordCardComponent implements OnInit {
   showWritingDialog() {
     console.log('puklooo');
 
-    const dialogRef = this.dialog.open(CharacterWritingDialogComponent, {
+    const dialogRef = this.dialog.open(CharacterStrokesPreviewComponent, {
       panelClass: 'custom-dialog-width',
       data: this.newWordData,
     });

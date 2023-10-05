@@ -14,7 +14,7 @@ import { SmallScreenNavMenuComponent } from '../small-screen-nav-menu/small-scre
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatDialog } from '@angular/material/dialog';
-import { ViewEditUserInfoDialogComponent } from '../view-edit-user-info-dialog/view-edit-user-info-dialog.component';
+import { ViewUserInfoDialogComponent } from '../view-user-info-dialog/view-user-info-dialog.component';
 import { DialogResult } from 'src/app/enums/dialog-result';
 import { SnackbarMessage } from 'src/app/enums/snackbar-message';
 import { MatSnackbarService } from 'src/app/services/mat-snackbar.service';
@@ -62,7 +62,7 @@ export class HeaderComponent implements OnInit, AfterContentChecked {
   }
 
   openUserInfo() {
-    const dialogRef = this.dialog.open(ViewEditUserInfoDialogComponent, {
+    const dialogRef = this.dialog.open(ViewUserInfoDialogComponent, {
       panelClass: 'custom-dialog-width',
       data: this.user,
     });

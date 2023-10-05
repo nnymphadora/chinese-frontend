@@ -6,11 +6,11 @@ import HanziWriter from 'hanzi-writer';
 import { Character } from 'src/app/models/Character';
 
 @Component({
-  selector: 'app-character-writing-dialog',
-  templateUrl: './character-writing-dialog.component.html',
-  styleUrls: ['./character-writing-dialog.component.scss'],
+  selector: 'app-character-strokes-preview-dialog',
+  templateUrl: './character-strokes-preview-dialog.component.html',
+  styleUrls: ['./character-strokes-preview-dialog.component.scss'],
 })
-export class CharacterWritingDialogComponent implements OnInit {
+export class CharacterStrokesPreviewComponent implements OnInit {
   newWord: NewWord;
   cancelIcon = faXmark;
   noOfChars: number;
@@ -43,7 +43,7 @@ export class CharacterWritingDialogComponent implements OnInit {
   }
 
   constructor(
-    private dialogRef: MatDialogRef<CharacterWritingDialogComponent>,
+    private dialogRef: MatDialogRef<CharacterStrokesPreviewComponent>,
     @Inject(MAT_DIALOG_DATA) public dialogData: any
   ) {}
 }

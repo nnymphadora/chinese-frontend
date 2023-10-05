@@ -12,8 +12,8 @@ import { SmallScreenNavMenuComponent } from './small-screen-nav-menu/small-scree
 import { ReactiveFormsModule } from '@angular/forms';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { QuizOptionsDialogComponent } from './quiz-options-dialog/quiz-options-dialog.component';
-import { ViewEditUserInfoDialogComponent } from './view-edit-user-info-dialog/view-edit-user-info-dialog.component';
-import { CharacterWritingDialogComponent } from './character-writing-dialog/character-writing-dialog.component';
+import { ViewUserInfoDialogComponent } from './view-user-info-dialog/view-user-info-dialog.component';
+import { CharacterStrokesPreviewComponent } from './character-strokes-preview-dialog/character-strokes-preview-dialog.component';
 
 @NgModule({
   declarations: [
@@ -24,8 +24,8 @@ import { CharacterWritingDialogComponent } from './character-writing-dialog/char
     SmallScreenNavMenuComponent,
     ConfirmDialogComponent,
     QuizOptionsDialogComponent,
-    ViewEditUserInfoDialogComponent,
-    CharacterWritingDialogComponent,
+    ViewUserInfoDialogComponent,
+    CharacterStrokesPreviewComponent,
   ],
   imports: [
     CommonModule,

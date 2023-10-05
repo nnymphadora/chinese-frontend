@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewEditUserInfoDialogComponent } from './view-edit-user-info-dialog.component';
+import { ViewUserInfoDialogComponent } from './view-user-info-dialog.component';
 
 describe('ViewEditUserInfoDialogComponent', () => {
-  let component: ViewEditUserInfoDialogComponent;
-  let fixture: ComponentFixture<ViewEditUserInfoDialogComponent>;
+  let component: ViewUserInfoDialogComponent;
+  let fixture: ComponentFixture<ViewUserInfoDialogComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ViewEditUserInfoDialogComponent]
+      declarations: [ViewUserInfoDialogComponent],
     });
-    fixture = TestBed.createComponent(ViewEditUserInfoDialogComponent);
+    fixture = TestBed.createComponent(ViewUserInfoDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

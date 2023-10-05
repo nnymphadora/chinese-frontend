@@ -9,11 +9,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-view-edit-user-info-dialog',
-  templateUrl: './view-edit-user-info-dialog.component.html',
-  styleUrls: ['./view-edit-user-info-dialog.component.scss'],
+  selector: 'app-view-user-info-dialog',
+  templateUrl: './view-user-info-dialog.component.html',
+  styleUrls: ['./view-user-info-dialog.component.scss'],
 })
-export class ViewEditUserInfoDialogComponent implements OnInit {
+export class ViewUserInfoDialogComponent implements OnInit {
   user: User;
   userAvatarPath: string;
   apiUrl = environment.API_URL;
@@ -35,7 +35,7 @@ export class ViewEditUserInfoDialogComponent implements OnInit {
     this.dialogRef.close(true);
   }
   constructor(
-    private dialogRef: MatDialogRef<ViewEditUserInfoDialogComponent>,
+    private dialogRef: MatDialogRef<ViewUserInfoDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public dialogData: any
   ) {}
 }
