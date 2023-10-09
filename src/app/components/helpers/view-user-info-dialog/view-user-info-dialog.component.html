@@ -7,7 +7,7 @@
   ></fa-icon>
   <div class="user-info">
     <div class="line">
-      <img [src]="userAvatarPath" alt="User avatar" />
+      <img class="avatar" [src]="userAvatarPath" alt="User avatar" />
     </div>
     <div class="line">
       <p>{{ this.user?.username }}</p>
@@ -16,12 +16,11 @@
       <p>{{ this.user?.email }}</p>
     </div>
   </div>
-  <div class="line">
-    <fa-icon
-      size="lg"
-      class="icon grow close-icon"
-      [icon]="editIcon"
-      (click)="onEdit()"
-    ></fa-icon>
-  </div>
+
+  <fa-icon
+    size="lg"
+    class="icon grow edit-icon"
+    [icon]="editIcon"
+    (click)="onEdit()"
+  ></fa-icon>
 </div>

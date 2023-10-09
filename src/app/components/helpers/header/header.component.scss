@@ -50,6 +50,11 @@ header {
   align-items: center;
 }
 
+.nav-horizontal {
+  justify-content: center;
+  gap: 2rem;
+}
+
 .nav-link-head {
   color: $white;
   :hover {

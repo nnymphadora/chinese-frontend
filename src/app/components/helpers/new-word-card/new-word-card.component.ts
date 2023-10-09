@@ -44,7 +44,7 @@ export class NewWordCardComponent implements OnInit {
     this.flipped = !this.flipped;
   }
 
-  playPronunciation() {
+  playPronunciation(event: Event) {
     this.pronunciationService
       .getPronunciation(this.newWordData.content)
       .subscribe((data) => {
@@ -52,15 +52,14 @@ export class NewWordCardComponent implements OnInit {
         const audio = new Audio(audioUrl);
         audio.play();
       });
+    event.stopPropagation();
   }
 
-  showWritingDialog() {
-    console.log('puklooo');
-
-    const dialogRef = this.dialog.open(CharacterStrokesPreviewComponent, {
-      panelClass: 'custom-dialog-width',
+  showWritingDialog(event: Event) {
+    this.dialog.open(CharacterStrokesPreviewComponent, {
       data: this.newWordData,
     });
+    event.stopPropagation();
   }
 
   editClick(): void {

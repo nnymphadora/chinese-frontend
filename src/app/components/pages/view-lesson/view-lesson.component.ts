@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LessonsService } from 'src/app/services/lessons.service';
 import { Lesson } from 'src/app/models/Lesson';
 import { NewWordsService } from 'src/app/services/new-words.service';
@@ -58,7 +58,7 @@ export class ViewLessonComponent implements OnInit {
     this.lessonsService.getLessonById(lessonId).subscribe((data) => {
       this.lesson = data;
       this.isActiveLesson = !!this.lesson.isActive;
-      let levelId = this.lesson.levelId;
+      const levelId = this.lesson.levelId;
       this.getLevelData(levelId);
     });
   }
@@ -71,7 +71,6 @@ export class ViewLessonComponent implements OnInit {
 
   onSoftDeleteLesson() {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      panelClass: 'custom-confirm-dialog-width',
       data: {
         message: 'Obriši lekciju?',
       },
@@ -103,8 +102,8 @@ export class ViewLessonComponent implements OnInit {
   toggleActiveLesson(toggleActive: number) {
     this.lessonsService
       .toggleActiveLesson(this.lesson.id, toggleActive)
-      .subscribe((data) => {
-        this.ngOnInit();
+      .subscribe(() => {
+        this.getLessonData(this.lesson.id);
       });
   }
 
@@ -116,7 +115,6 @@ export class ViewLessonComponent implements OnInit {
 
   onDeleteWord(id: number) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      panelClass: 'custom-confirm-dialog-width',
       data: {
         message: 'Obriši riječ?',
       },
@@ -124,8 +122,6 @@ export class ViewLessonComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.newWordsService.deleteNewWord(id).subscribe((data: any) => {
-          console.log(data.success);
-
           const message = data.success
             ? SnackbarMessage.Success
             : SnackbarMessage.Error;
@@ -136,7 +132,7 @@ export class ViewLessonComponent implements OnInit {
             this.snackbarClasses,
             3000
           );
-          if (data.success) {
+          if (data.result.affectedRows > 0) {
             this.getNewWordsData(this.lesson.id);
           }
         });
@@ -146,7 +142,6 @@ export class ViewLessonComponent implements OnInit {
 
   onEditLesson() {
     const dialogRef = this.dialog.open(AddEditLessonComponent, {
-      panelClass: 'custom-dialog-width',
       data: { lesson: this.lesson, newWords: this.newWords },
     });
 
@@ -173,7 +168,6 @@ export class ViewLessonComponent implements OnInit {
 
   onEditWord(word: NewWord) {
     const dialogRef = this.dialog.open(EditNewWordComponent, {
-      panelClass: 'custom-dialog-width',
       data: word,
     });
     dialogRef.afterClosed().subscribe((result: any) => {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { NewsletterSub } from 'src/app/models/NewsletterSub';
 import { NewsletterSubService } from 'src/app/services/newsletter-sub.service';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import {

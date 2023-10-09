@@ -105,11 +105,7 @@ export class EditUserComponent implements OnInit {
 
   onSubmit() {
     if (this.hasFormChanged()) {
-      console.log('promijenilo seeee');
-
       if (this.editForm.valid) {
-        console.log('validan je form');
-
         if (this.editForm.value.username !== this.user.username) {
           if (
             !this.isUsernameUnique(
@@ -127,7 +123,7 @@ export class EditUserComponent implements OnInit {
         }
 
         if (this.uploadedAvatar) {
-          let formData: FormData = new FormData();
+          const formData: FormData = new FormData();
           formData.append('img', this.uploadedAvatar);
           this.usersService
             .saveAvatarImg(formData)

@@ -45,10 +45,6 @@ export class AddEditLevelComponent implements OnInit {
     }
   }
 
-  getLevelData(levelId: number) {
-    this.levelsService.getLevelById(levelId).subscribe((data) => {});
-  }
-
   getLevelDifficulutiesData() {
     this.levelDifficultyService.getAllLevelDifficulty().subscribe((data) => {
       this.difficulties = data;

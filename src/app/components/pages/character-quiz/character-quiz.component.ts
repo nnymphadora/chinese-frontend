@@ -37,7 +37,7 @@ export class CharacterQuizComponent implements OnInit {
 
   handleUserChoice() {
     const dialogRef = this.dialog.open(QuizOptionsDialogComponent, {
-      panelClass: 'custom-quiz-dialog-width',
+      panelClass: 'width-20rem',
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
@@ -53,13 +53,15 @@ export class CharacterQuizComponent implements OnInit {
               this.startQuiz(this.charactersInWords);
             }, 0);
           });
+      } else {
+        this.router.navigateByUrl('/exercises');
       }
     });
   }
 
   getRandomWords(words: NewWord[], count: number) {
     const shuffled = words.slice().sort(() => 0.5 - Math.random());
-    let sliceAtIndex = count <= words.length ? count : words.length;
+    const sliceAtIndex = count <= words.length ? count : words.length;
 
     return shuffled.slice(0, sliceAtIndex);
   }
@@ -73,8 +75,8 @@ export class CharacterQuizComponent implements OnInit {
   }
 
   getCharArray(array: NewWord[]): Character[] {
-    let characterArray: Character[] = [];
-    array.forEach((word: NewWord, wordIndex: number) => {
+    const characterArray: Character[] = [];
+    array.forEach((word: NewWord) => {
       if (!this.wordIsMultiChar(word.content)) {
         characterArray.push(
           new Character(word.content, word.content, word.meaning, 0)

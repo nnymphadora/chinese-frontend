@@ -136,7 +136,15 @@ export class AddEditLessonComponent implements OnInit {
       return this.newWordsService
         .insertNewWords(newWords)
         .subscribe((data: any) => {
-          if (data.success) this.dialogRef.close(DialogResult.Added);
+          if (data && Array.isArray(data)) {
+            const allSuccess = data.every((result) => result.success === true);
+
+            if (allSuccess) {
+              this.dialogRef.close(DialogResult.Added);
+            }
+          } else {
+            this.dialogRef.close(false);
+          }
         });
     }
   }

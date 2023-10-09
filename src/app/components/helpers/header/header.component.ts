@@ -1,6 +1,5 @@
 import {
   AfterContentChecked,
-  AfterViewInit,
   ChangeDetectorRef,
   Component,
   OnInit,
@@ -15,9 +14,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatDialog } from '@angular/material/dialog';
 import { ViewUserInfoDialogComponent } from '../view-user-info-dialog/view-user-info-dialog.component';
-import { DialogResult } from 'src/app/enums/dialog-result';
-import { SnackbarMessage } from 'src/app/enums/snackbar-message';
-import { MatSnackbarService } from 'src/app/services/mat-snackbar.service';
+
 import { Router } from '@angular/router';
 
 @Component({
@@ -63,7 +60,7 @@ export class HeaderComponent implements OnInit, AfterContentChecked {
 
   openUserInfo() {
     const dialogRef = this.dialog.open(ViewUserInfoDialogComponent, {
-      panelClass: 'custom-dialog-width',
+      panelClass: ['border-radius-20-px'],
       data: this.user,
     });
     dialogRef.afterClosed().subscribe((result: any) => {

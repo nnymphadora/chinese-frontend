@@ -40,7 +40,6 @@ export class QuizOptionsDialogComponent implements OnInit {
         selectedLessonId: selectedLessonId,
         noOfWords: noOfWords,
       });
-    } else {
     }
   }
 

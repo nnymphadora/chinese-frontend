@@ -1,14 +1,15 @@
+@import "../../../../assets/scss/variables.scss";
+
 img {
   max-height: 10rem;
 }
 
 .dialog-container {
-  width: 25rem;
-  height: 19rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  background-color: $robin-egg-blue-rgba;
+  border: 4px solid $robin-egg-blue;
   gap: 1rem;
   padding: 1rem;
 }
@@ -17,8 +18,24 @@ img {
   align-self: flex-end;
 }
 
+.avatar {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border: 2px solid $naples-yellow;
+}
+
+.close-icon,
+.edit-icon {
+  color: $white;
+  align-self: flex-end;
+}
+
 .user-info {
   display: flex;
   flex-direction: column;
   align-items: center;
+  p {
+    font-weight: 600;
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddEditLevelComponent } from './add-edit-level/add-edit-level.component';
 import { AddEditLessonComponent } from './add-edit-lesson/add-edit-lesson.component';

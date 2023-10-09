@@ -1,4 +1,4 @@
-import { HttpBackend, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LevelDifficulty } from '../models/LevelDifficulty';
 import { environment } from 'src/environments/environment.development';

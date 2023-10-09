@@ -32,7 +32,7 @@ export class LessonsService {
     });
   }
 
-  softDeleteLesson(lesson: any) {
+  softDeleteLesson(lesson: Lesson) {
     return this.http.put(`${this.apiUrl}/lessons/${lesson.id}/delete`, lesson);
   }
 }

@@ -5,7 +5,7 @@
     (click)="closeDialog()"
     size="lg"
   ></fa-icon>
-  <div *ngIf="noOfChars" class="cards-container">
+  <div *ngIf="noOfChars" class="card-container">
     <div
       class="character-card"
       *ngFor="let char of [].constructor(noOfChars); let i = index"

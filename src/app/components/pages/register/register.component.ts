@@ -57,7 +57,7 @@ export default class RegisterComponent {
   onSubmit() {
     if (this.registerForm.valid) {
       if (this.uploadedAvatar) {
-        let formData: FormData = new FormData();
+        const formData: FormData = new FormData();
         formData.append('img', this.uploadedAvatar);
         this.usersService
           .saveAvatarImg(formData)

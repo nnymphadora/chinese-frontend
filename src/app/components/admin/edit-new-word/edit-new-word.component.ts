@@ -5,6 +5,7 @@ import { NewWordsService } from 'src/app/services/new-words.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { DialogResult } from 'src/app/enums/dialog-result';
 
 @Component({
   selector: 'app-edit-new-word',
@@ -34,14 +35,17 @@ export class EditNewWordComponent implements OnInit {
   saveNewWord() {
     if (this.editNewWordForm.valid) {
       const newWord = this.editNewWordForm.value;
-      this.newwordsService.updateNewWord(newWord).subscribe((data) => {
-        this.dialogRef.close(true);
+      this.newwordsService.updateNewWord(newWord).subscribe((data: any) => {
+        console.log('pozvali serviss');
+
+        if (data && data.result.affectedRows > 0) this.dialogRef.close(true);
+        else this.dialogRef.close(false);
       });
     }
   }
 
   closeDialog() {
-    this.dialogRef.close(false);
+    this.dialogRef.close(DialogResult.Cancelled);
   }
 
   constructor(

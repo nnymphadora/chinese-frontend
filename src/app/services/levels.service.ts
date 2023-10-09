@@ -32,7 +32,7 @@ export class LevelsService {
     });
   }
 
-  softDeleteLevel(level: any) {
+  softDeleteLevel(level: Level) {
     return this.http.put(`${this.apiUrl}/levels/${level.id}/delete`, level);
   }
 }

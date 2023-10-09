@@ -54,7 +54,7 @@ export class ViewLevelComponent implements OnInit {
 
   getData() {
     this.activatedRoute.params.subscribe((paramsData) => {
-      let levelId: number = paramsData['id'];
+      const levelId: number = paramsData['id'];
       this.getLevelData(levelId);
       this.getLessonsData(levelId);
     });
@@ -91,7 +91,6 @@ export class ViewLevelComponent implements OnInit {
 
   onSoftDeleteLevel() {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      panelClass: 'custom-confirm-dialog-width',
       data: {
         message: 'Obriši modul?',
       },
@@ -123,7 +122,7 @@ export class ViewLevelComponent implements OnInit {
   toggleActiveLevel(toggleActive: number) {
     this.levelsService
       .toggleActiveLevel(this.level.id, toggleActive)
-      .subscribe((data) => {
+      .subscribe(() => {
         this.getLevelData(this.level.id);
       });
   }
@@ -136,7 +135,6 @@ export class ViewLevelComponent implements OnInit {
 
   onEditLevel() {
     const dialogRef = this.dialog.open(AddEditLevelComponent, {
-      panelClass: 'custom-dialog-width',
       data: this.level,
     });
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -162,16 +160,11 @@ export class ViewLevelComponent implements OnInit {
     const lesson = new Lesson();
     lesson.levelId = this.level.id;
     const dialogRef = this.dialog.open(AddEditLessonComponent, {
-      panelClass: 'custom-dialog-width',
       data: this.level.id,
     });
     dialogRef.afterClosed().subscribe((result: any) => {
-      console.log(result);
-
       if (result && result !== DialogResult.Cancelled) {
-        console.log(result);
-
-        let message: string =
+        const message: string =
           result === DialogResult.Added
             ? SnackbarMessage.Success
             : SnackbarMessage.Error;
