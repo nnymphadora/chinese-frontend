@@ -313,6 +313,24 @@ label {
   }
 }
 
+.width-40rem {
+  .mat-mdc-dialog-surface {
+    width: 40rem !important;
+  }
+}
+
+.width-35rem {
+  .mat-mdc-dialog-surface {
+    width: 35rem !important;
+  }
+}
+
+.width-30rem {
+  .mat-mdc-dialog-surface {
+    width: 30rem !important;
+  }
+}
+
 .border-radius-20-px {
   .dialog-container {
     border-radius: 20px;

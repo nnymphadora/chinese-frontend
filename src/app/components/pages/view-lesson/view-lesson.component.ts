@@ -146,6 +146,7 @@ export class ViewLessonComponent implements OnInit {
 
   onEditLesson() {
     const dialogRef = this.dialog.open(AddEditLessonComponent, {
+      panelClass: 'width-40rem',
       data: { lesson: this.lesson, newWords: this.newWords },
     });
 
@@ -173,6 +174,7 @@ export class ViewLessonComponent implements OnInit {
   onEditWord(word: NewWord) {
     const dialogRef = this.dialog.open(EditNewWordComponent, {
       data: word,
+      panelClass: 'width-30rem',
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result && result !== DialogResult.Cancelled) {
