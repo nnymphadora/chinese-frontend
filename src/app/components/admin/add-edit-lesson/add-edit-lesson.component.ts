@@ -9,6 +9,8 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DialogResult } from 'src/app/enums/dialog-result';
 import { faPlusCircle, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { MatSnackbarService } from 'src/app/services/mat-snackbar.service';
+import { SnackbarMessage } from 'src/app/enums/snackbar-message';
 
 @Component({
   selector: 'app-add-edit-lesson',
@@ -24,6 +26,7 @@ export class AddEditLessonComponent implements OnInit {
   newWords: NewWord[];
   addEditForm: FormGroup;
   newWordsForm: FormGroup;
+  snackbarClasses: string[] = ['snackbar', 'snackbar-blue', 'no-action'];
 
   edit: boolean = false;
   activeGroupIndex: number = 0;
@@ -41,7 +44,6 @@ export class AddEditLessonComponent implements OnInit {
       isRemoved: [null],
     });
 
-    //the new words form array
     this.newWordsForm = this.formBuilder.group({
       allNewWordForms: this.formBuilder.array([]),
     });
@@ -90,7 +92,7 @@ export class AddEditLessonComponent implements OnInit {
   }
 
   saveLesson() {
-    if (this.addEditForm.valid) {
+    if (this.addEditForm.valid && this.allNewWordFormsArray.valid) {
       this.currentLesson = this.addEditForm.value;
       if (this.edit) {
         this.lessonsService
@@ -122,6 +124,13 @@ export class AddEditLessonComponent implements OnInit {
             }
           });
       }
+    } else {
+      this.snackbarService.openSnackBar(
+        SnackbarMessage.WrongInput,
+        undefined,
+        this.snackbarClasses,
+        3000
+      );
     }
   }
 
@@ -136,8 +145,13 @@ export class AddEditLessonComponent implements OnInit {
       return this.newWordsService
         .insertNewWords(newWords)
         .subscribe((data: any) => {
+          console.log(data);
+
           if (data && Array.isArray(data)) {
+            console.log('jeste array of data');
+
             const allSuccess = data.every((result) => result.success === true);
+            console.log(allSuccess);
 
             if (allSuccess) {
               this.dialogRef.close(DialogResult.Added);
@@ -185,6 +199,7 @@ export class AddEditLessonComponent implements OnInit {
     private levelsService: LevelsService,
     private newWordsService: NewWordsService,
     private formBuilder: FormBuilder,
+    private snackbarService: MatSnackbarService,
     private dialogRef: MatDialogRef<AddEditLessonComponent>,
     @Inject(MAT_DIALOG_DATA) public dialogData: any
   ) {}

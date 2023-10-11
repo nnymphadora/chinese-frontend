@@ -45,6 +45,7 @@ input {
   position: relative;
   border: 1px solid $mimi-pink;
   padding: 1rem;
+  width: 80%;
   border-radius: 10px;
   margin: 1rem;
 }
@@ -56,7 +57,7 @@ input {
 }
 
 .line:not(.active-group) {
-  max-height: 3rem;
+  max-height: 3.3rem;
   padding-top: 0.3rem;
 
   overflow: hidden;
@@ -66,4 +67,13 @@ input {
 .line.active-group {
   max-height: 1000px;
   box-shadow: $mimi-pink 0px 0px 10px;
+}
+
+@media (max-width: 767px) {
+  .ex-sent {
+    grid-template-columns: 1fr;
+  }
+  .main-info {
+    flex-wrap: wrap;
+  }
 }

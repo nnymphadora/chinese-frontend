@@ -51,6 +51,16 @@
     >
       ></app-add-new-word
     >
+    <div
+      class="warn-msg red-txt bold"
+      *ngIf="
+        newWordForm.get('content').hasError('required') ||
+        newWordForm.get('meaning').hasError('required') ||
+        newWordForm.get('pinyin').hasError('required')
+      "
+    >
+      Riječ, značenje i pinyin su obavezna polja.
+    </div>
   </div>
   <fa-icon
     class="grow alert-icon add-btn"

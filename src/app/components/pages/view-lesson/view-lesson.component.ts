@@ -122,9 +122,13 @@ export class ViewLessonComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.newWordsService.deleteNewWord(id).subscribe((data: any) => {
+          console.log(data);
+
           const message = data.success
             ? SnackbarMessage.Success
             : SnackbarMessage.Error;
+
+          console.log(message);
 
           this.snackBarService.openSnackBar(
             message,
